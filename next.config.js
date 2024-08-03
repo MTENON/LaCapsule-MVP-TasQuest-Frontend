@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: [],
   },
+  env: {
+    backLink: process.env.BACK_LINK
+  }
 };
 
 module.exports = nextConfig;
