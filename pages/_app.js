@@ -9,6 +9,7 @@ import users from "../reducers/users";
 // --- Importation mui/material --- //
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme/index";
+import SideMenu from "../components/molecules/SideMenu";
 
 // --- Store configuration --- //
 const store = configureStore({
@@ -21,16 +22,13 @@ function App({ Component, pageProps }) {
             <ThemeProvider theme={theme}>
                 <Provider store={store}>
                     <Head>
-                        <link
-                            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-                            rel="stylesheet"
-                        />
                         <title>TasQuest</title>
                         <style>
                             @import
                             url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
                         </style>
                     </Head>
+                    <SideMenu></SideMenu>
                     <Component {...pageProps} />
                 </Provider>
             </ThemeProvider>

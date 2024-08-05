@@ -2,6 +2,7 @@
     height: 60px;
     width: 60px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .link:hover {

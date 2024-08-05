@@ -1,7 +1,7 @@
 function SigninPage() {
     return (
         <>
-            <h1>Page sign in</h1>
+            <h1>Page Inscription</h1>
         </>
     );
 }

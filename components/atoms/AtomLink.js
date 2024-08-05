@@ -1,9 +1,13 @@
 import Link from "next/link";
 import styles from "../../styles/atoms/AtomLink.module.css";
 import { useState } from "react";
+import { Icon } from "@iconify-icon/react";
+import { useRouter } from "next/router";
 
 const AtomLink = ({ href, children, nameIcon, variant }) => {
     const [isHover, setIsHover] = useState(false);
+    const router = useRouter();
+
     const handleMouseEnter = () => {
         setIsHover(true);
     };
@@ -11,17 +15,19 @@ const AtomLink = ({ href, children, nameIcon, variant }) => {
         setIsHover(false);
     };
 
+    const isActive = router.pathname === href;
     const linkStyles = {
         primary: {
             backgroundColor: isHover ? "#fcd757" : "#a50104",
             color: isHover ? "#a50104" : "#fcd757",
+            border: isHover ? "1px solid #a50104" : "none",
+            borderRadius: isActive ? 20 : 50,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            height: 50,
-            width: 50,
-            borderRadius: 50,
+            height: isActive ? 60 : 50,
+            width: isActive ? 60 : 50,
         },
         secondary: {
             backgroundColor: "#fcd757",
@@ -37,7 +43,7 @@ const AtomLink = ({ href, children, nameIcon, variant }) => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
-                    <div className="material-icons">{nameIcon}</div>
+                    <Icon icon={nameIcon} width="32" height="32" />
                     {children}
                 </div>
             </Link>
