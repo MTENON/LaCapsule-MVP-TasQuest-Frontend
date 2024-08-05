@@ -11,7 +11,7 @@ function Caracs({ icon, points }) {
       <div className={styles.textContainer}>
         <p className={styles.text}>{points}</p>
       </div>
-    </>
+    </> 
   );
 }
 
