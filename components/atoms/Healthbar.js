@@ -15,6 +15,7 @@ function Healthbar(props) {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        textShadow: '5px 5px 4px rgba(0, 0, 0, 0.25)',
     }
 
     let heathbarGaugeStyle = {
