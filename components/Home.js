@@ -1,15 +1,12 @@
-import styles from "../styles/Home.module.css";
-import { useState } from "react";
-
-import Money from "./atoms/Money";
-import XPContainer from "./atoms/XPContainer";
-import Difficulty from "./atoms/Difficulty";
+import styles from '../styles/Home.module.css';
 
 function Home() {
   return (
     <div>
       <main className={styles.main}>
-        <Difficulty points="5" />
+        <h1 className={styles.title}>
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        </h1>
       </main>
     </div>
   );

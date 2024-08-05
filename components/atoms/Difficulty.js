@@ -16,3 +16,9 @@ function Difficulty({ points }) {
 }
 
 export default Difficulty;
+
+// Elements a utiliser dans le composant parent concerné =>
+
+// import Difficulty from "./atoms/Difficulty";
+
+// <Difficulty points="5" />

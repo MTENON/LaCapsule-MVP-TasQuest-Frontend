@@ -16,3 +16,10 @@ function Money({ pieces }) {
 }
 
 export default Money;
+
+// Elements a utiliser dans le composant parent concerné =>
+
+// import Money from "./atoms/Money";
+
+// <Money pieces="5" />
+

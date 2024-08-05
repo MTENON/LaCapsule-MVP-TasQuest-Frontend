@@ -16,3 +16,9 @@ function XPContainer({ points }) {
 }
 
 export default XPContainer;
+
+// Elements a utiliser dans le composant parent concerné =>
+
+// import XPContainer from "./atoms/XPContainer";
+
+// <Difficulty points="250" />
