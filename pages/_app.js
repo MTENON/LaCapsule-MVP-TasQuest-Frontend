@@ -11,26 +11,28 @@ import { ThemeProvider } from "@mui/material";
 
 // --- Store configuration --- //
 const store = configureStore({
-    reducer: { users },
+  reducer: { users },
 });
 
 function App({ Component, pageProps }) {
-    return (
-        <>
-            <ThemeProvider theme={theme}>
-                <Provider store={store}>
-                    <Head>
-                        <title>TasQuest</title>
-                        <style>
-                            @import
-                            url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-                        </style>
-                    </Head>
-                    <Component {...pageProps} />
-                </Provider>
-            </ThemeProvider>
-        </>
-    );
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <Head>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet" />
+            <title>TasQuest</title>
+            <style>
+              @import
+              url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+            </style>
+          </Head>
+          <Component {...pageProps} />
+        </Provider>
+      </ThemeProvider>
+    </>
+  );
 }
 
 export default App;
