@@ -34,7 +34,6 @@ const SideMenu = () => {
         );
     });
 
-    console.log(items);
     return (
         <>
             <div className={styles.sidebar}>{items}</div>
