@@ -1,18 +1,19 @@
 import styles from "../styles/atoms/Button.module.css";
 
 
-const Button = ({ onClick, children, variant }) => {
+const Button = ({ onClick, variant }) => {
     const buttonStyles = {
         primary: { backgroundColor: "#a50104", color: "#fcd757" },
         secondary: { backgroundColor: "#fcd757", color: "#a50104" },
     };
     return (
+        <>
         <button
             className={styles.button}
             onClick={onClick}
             style={buttonStyles[variant]}
-        >
-            <span class="material-icons">face</span>
+        >        </button>
+            <span className="material-icons">face</span>
             <button className={styles.triangle}>P</button>
             <button className={styles.rectangleEmptyRed}>R</button>
             <button className={styles.btnLittleEmptyCircleRed}>ok</button>
@@ -29,8 +30,7 @@ const Button = ({ onClick, children, variant }) => {
             <button className={styles.btnDiamondYellow}>F</button>
             <button className={styles.btnCircleYellow}>G</button>
             <button className={styles.btnLargeYellow}>H</button>
-            {children}
-        </button>
+            </>
     );
 };
 
