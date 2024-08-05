@@ -1,0 +1,9 @@
+.sidebar {
+    background-color: #fcd757;
+    width: 100px;
+    min-height: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
