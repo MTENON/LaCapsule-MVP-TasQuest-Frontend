@@ -3,12 +3,13 @@ import { useState } from "react";
 
 import Money from "./atoms/Money";
 import XPContainer from "./atoms/XPContainer";
+import Difficulty from "./atoms/Difficulty";
 
 function Home() {
   return (
     <div>
       <main className={styles.main}>
-        <XPContainer points="250" />
+        <Difficulty points="5" />
       </main>
     </div>
   );
