@@ -1,0 +1,26 @@
+.healthbarContainer {
+    width: 269px;
+    height: 50px;
+    min-height: 44px;
+    min-width: 237px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.barOutline {
+    height: 30px;
+    width: 200px;
+    border: 2px solid #A50104;
+    border-radius: 30px;
+    background-color: #F5F5F5;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+}
+
+.bar {
+    height: 100%;
+    background-color: #A50104;
+    border: 2px solid #A50104;
+    border-radius: 30px;
+}
