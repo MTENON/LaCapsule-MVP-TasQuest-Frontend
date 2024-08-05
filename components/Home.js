@@ -1,9 +1,7 @@
 import styles from '../styles/Home.module.css';
 import { useState } from 'react';
 
-import NotificationBox from './molecules/NotificationBox';
-import Healthbar from './atoms/healthbar';
-import XPbar from './atoms/XPbar';
+import Button from './atoms/Button';
 
 function Home() {
 
@@ -26,8 +24,8 @@ function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
-          <Button/>
         </h1>
+        <Button buttonStyle={'triangle'}/>
       </main>
     </div>
   );
