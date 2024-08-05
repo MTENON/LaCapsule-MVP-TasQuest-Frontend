@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //Valeurs initiales
 const initialState = {
-    username: '',
-    token: '',
+    username: "",
+    token: "",
 };
 
 export const userSlice = createSlice({
@@ -15,9 +15,9 @@ export const userSlice = createSlice({
         },
         updateToken: (state, action) => {
             state.token = action.payload;
-        }
-    }
-})
+        },
+    },
+});
 
 export const { updateUsername, updateToken } = userSlice.actions;
 export default userSlice.reducer;
