@@ -8,6 +8,7 @@ import users from "../reducers/users";
 
 // --- Importation mui/material --- //
 import { ThemeProvider } from "@mui/material";
+import theme from '../theme/index'
 
 // --- Store configuration --- //
 const store = configureStore({
