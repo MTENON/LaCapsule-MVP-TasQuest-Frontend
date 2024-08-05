@@ -2,9 +2,17 @@ import styles from '../../styles/atoms/XPbar.module.css'
 
 function XPbar(props) {
 
-    //La valeur de XPValue en % défini la taille de la jauge rouge
-    let XPValue = 50; //valeur par défaut
-    XPValue = props.XP;
+    /*
+    props {
+    XPValue > nombre de points d'experience en valeur absolue
+    maxXPValue > points d'experience maximum en valeur absolue
+    }
+    */
+
+    let XPValue = props.XPValue;
+    let maxXPValue = props.maxXPValue
+
+    let XPPercent = (XPValue / maxXPValue) * 100
 
     let iconstyle = {
         color: '#FCD757',
@@ -19,7 +27,7 @@ function XPbar(props) {
     }
 
     let XPbarGaugeStyle = {
-        width: `${XPValue}%`,
+        width: `${XPPercent}%`,
     }
 
     return (
@@ -27,6 +35,9 @@ function XPbar(props) {
             <span className="material-icons" style={iconstyle}>star</span>
             <div className={styles.barOutline}>
                 <div className={styles.bar} style={XPbarGaugeStyle}></div>
+                <div className={styles.values}>
+                    <p >{XPValue} / {maxXPValue}</p>
+                </div>
             </div>
         </div>
     )

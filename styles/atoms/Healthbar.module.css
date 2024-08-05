@@ -16,6 +16,20 @@
     border-radius: 30px;
     background-color: #F5F5F5;
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+.values {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(0%, 0%);
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
 }
 
 .bar {
@@ -23,4 +37,8 @@
     background-color: #A50104;
     border: 2px solid #A50104;
     border-radius: 30px;
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
 }

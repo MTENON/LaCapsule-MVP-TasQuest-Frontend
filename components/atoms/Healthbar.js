@@ -2,9 +2,18 @@ import styles from '../../styles/atoms/healthbar.module.css'
 
 function Healthbar(props) {
 
+    /*
+    props {
+    health > nombre de points de vie en valeur absolue
+    maxHealth > points de vie maximum en valeur absolue
+    }
+    */
+
     //La valeur de healthValue en % défini la taille de la jauge rouge
-    let healthValue = 50; //valeur par défaut
-    healthValue = props.health;
+    let health = props?.health || 0;
+    let maxHealth = props?.maxHealth || 100
+
+    let healthPercent = (health / maxHealth) * 100
 
     let iconstyle = {
         color: '#A50104',
@@ -19,7 +28,7 @@ function Healthbar(props) {
     }
 
     let heathbarGaugeStyle = {
-        width: `${healthValue}%`,
+        width: `${healthPercent}%`,
     }
 
     return (
@@ -27,6 +36,10 @@ function Healthbar(props) {
             <span className="material-icons" style={iconstyle}>favorite</span>
             <div className={styles.barOutline}>
                 <div className={styles.bar} style={heathbarGaugeStyle}></div>
+                <div className={styles.values}>
+                    <p >{health} / {maxHealth}</p>
+                </div>
+
             </div>
         </div>
     )

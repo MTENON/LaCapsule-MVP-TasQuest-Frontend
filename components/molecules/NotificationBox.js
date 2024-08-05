@@ -9,6 +9,21 @@ function NotificationBox(props) {
     showNotifications > fonction qui permet de modifier la valeur de isShown en inverse data flow et de l'afficher à l'écran
     content > tableau contenant les titres et les content des Notifications
     }
+
+    Pour faire fonctionner les notifications il faut ajouter dans le composant supérieur:
+
+      //Fake data for exemple
+    let notifications = [
+    { title: "Notification 1", content: "Coucou je suis un children prop." },
+    { title: "Notification 2 qui déborde", content: "Coucou je suis une notification énorme qui va déborder de ouf." },
+    ]
+
+    const [showNotifications, setShowNotifications] = useState(false)
+
+    //functions
+    function handleShowNotifications() {
+        setShowNotifications(!showNotifications)
+    }
     */
 
     let isShown = props.isShown

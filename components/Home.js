@@ -1,6 +1,9 @@
 import styles from '../styles/Home.module.css';
-import NotificationBox from './molecules/NotificationBox';
 import { useState } from 'react';
+
+import NotificationBox from './molecules/NotificationBox';
+import Healthbar from './atoms/healthbar';
+import XPbar from './atoms/XPbar';
 
 function Home() {
 
@@ -20,12 +23,7 @@ function Home() {
 
   return (
     <div>
-      <div className={styles.navBarUpTest}>
-        <button onClick={() => handleShowNotifications()}>Show notifications</button>
-        <NotificationBox content={notifications} isShown={showNotifications} />
-      </div>
       <main className={styles.main}>
-
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
