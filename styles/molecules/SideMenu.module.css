@@ -1,9 +1,11 @@
 .sidebar {
+    padding-top: 150px;
     background-color: #fcd757;
     width: 100px;
-    min-height: 900px;
+    min-height: 800px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
 }
