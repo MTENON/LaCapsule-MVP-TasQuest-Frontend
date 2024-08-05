@@ -1,18 +1,18 @@
 import React from "react";
-import styles from "../../styles/atoms/Money.module.css";
+import styles from "../../styles/atoms/XPContainer.module.css";
 import { Icon } from "@iconify-icon/react";
 
-function Money({ pieces }) {
+function XPContainer({ points }) {
   return (
     <div className={styles.container}>
       <div className={styles.Back}>
-        <Icon icon="ph:coins-fill" />
+        <Icon icon="solar:star-bold-duotone" />
       </div>
       <div className={styles.textBack}>
-        <p className={styles.text}>{pieces}</p>
+        <p className={styles.text}>{points}</p>
       </div>
     </div>
   );
 }
 
-export default Money;
+export default XPContainer;

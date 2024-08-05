@@ -1,14 +1,14 @@
-import styles from '../styles/Home.module.css';
-import { useState } from 'react';
+import styles from "../styles/Home.module.css";
+import { useState } from "react";
 
-import Money from './atoms/Money';
+import Money from "./atoms/Money";
+import XPContainer from "./atoms/XPContainer";
 
 function Home() {
-
   return (
     <div>
       <main className={styles.main}>
-  <Money pieces="250"/>
+        <XPContainer points="250" />
       </main>
     </div>
   );
