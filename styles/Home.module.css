@@ -17,6 +17,15 @@
   text-decoration: none;
 }
 
-.title a:hover, .title a:focus, .title a:active {
+.title a:hover,
+.title a:focus,
+.title a:active {
   text-decoration: underline;
+}
+
+.navBarUpTest {
+  height: 44px;
+  max-height: 44px;
+  width: 100%;
+  background-color: red;
 }
