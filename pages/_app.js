@@ -16,6 +16,9 @@ function App({ Component, pageProps }) {
     <>
       <Provider store={store}>
         <Head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"/>
+
           <title>Next.js App</title>
         </Head>
         <Component {...pageProps} />
