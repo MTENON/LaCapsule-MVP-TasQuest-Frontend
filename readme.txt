@@ -42,3 +42,12 @@ git branch -d 'nomDeBranche'
 Les variables d'environnement React se trouvent dans le .env
 
 La paramétrage est dans le next.config.
+
+
+// --------------------------------- //
+// ------- EXTERNAL DEPENDENCY ------//
+// --------------------------------- //
+
+Added MUI depencies
+
+https://mui.com/material-ui/getting-started/installation/
