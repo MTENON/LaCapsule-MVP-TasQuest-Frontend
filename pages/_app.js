@@ -8,6 +8,7 @@ import users from "../reducers/users";
 
 // --- Importation mui/material --- //
 import { ThemeProvider } from "@mui/material";
+import theme from "../theme/index";
 
 // --- Store configuration --- //
 const store = configureStore({
@@ -21,6 +22,10 @@ function App({ Component, pageProps }) {
                 <Provider store={store}>
                     <Head>
                         <title>TasQuest</title>
+                        <link
+                            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                            rel="stylesheet"
+                        />
                         <style>
                             @import
                             url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
