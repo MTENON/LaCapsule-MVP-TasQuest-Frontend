@@ -10,11 +10,13 @@ function Checkboxes({ name, variant, handleCheck }) {
     primary: { border: "3px solid #A50104" },
     secondary: { border: "3px solid #FCD757" },
     primaryChecked: {
+      border: "3px solid #A50104",
       backgroundColor: "#a50104",
       position: "relative",
       color: "#fcd757",
     },
     secondaryChecked: {
+      border: "3px solid #A50104",
       backgroundColor: "#FCD757",
       position: "relative",
       color: "#a50104",
