@@ -5,9 +5,11 @@ import { Icon } from "@iconify-icon/react";
 import { useRouter } from "next/router";
 
 const AtomLink = ({ href, children, nameIcon, variant, popoverMessage }) => {
+    // État pour gérer le survol de la souris
     const [isHover, setIsHover] = useState(false);
     const router = useRouter();
 
+    //Fonction pour la gestion du hover
     const handleMouseEnter = () => {
         setIsHover(true);
     };
@@ -16,7 +18,11 @@ const AtomLink = ({ href, children, nameIcon, variant, popoverMessage }) => {
     };
 
     popoverMessage = { popoverMessage };
+
+    // Variable pour déterminer si le lien est actif
     const isActive = router.pathname === href;
+
+    //Styles défini selon la condition de la navBar ou de la sideBar
     const linkStyles = {
         sidebar: {
             backgroundColor: isHover ? "#fcd757" : "#a50104",
@@ -58,3 +64,21 @@ const AtomLink = ({ href, children, nameIcon, variant, popoverMessage }) => {
 };
 
 export default AtomLink;
+/* 
+    Utilisation du composant AtomLink :
+        href : string -> le lien du composant
+        nameIcon : string -> le nom de l'icône
+        variant : string -> le type de style à appliquer
+        popoverMessage: string -> le message à afficher dans le popover au hover
+
+            Exemple d'utilisation:
+    
+        <AtomLink
+            href="/settings"
+            nameIcon="lets-icons:setting-fill"
+            variant="navbar"
+            popoverMessage="Paramètres"
+        >
+            Paramètres
+        </AtomLink>
+    */

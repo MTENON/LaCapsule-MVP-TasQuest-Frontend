@@ -3,6 +3,7 @@ import AtomLink from "../atoms/AtomLink";
 import PopoverCustom from "./PopoverCustom";
 
 const SideMenu = () => {
+    // Tableau contenant les informations de navigation
     const tableContentRoute = [
         {
             href: "/habits",
@@ -41,16 +42,18 @@ const SideMenu = () => {
             popoverMessage: "Boutique",
         },
     ];
+
+    // Génération des éléments de navigation avec PopoverCustom et AtomLink
     const items = tableContentRoute.map((element, i) => {
         return (
             <PopoverCustom
                 key={i}
                 element={
                     <AtomLink
-                        key={i}
                         href={element.href}
                         nameIcon={element.nameIcon}
                         variant={element.variant}
+                        popoverMessage={element.popoverMessage}
                     />
                 }
                 message={element.popoverMessage}

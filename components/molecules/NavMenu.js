@@ -3,19 +3,18 @@ import styles from "../../styles/molecules/NavMenu.module.css";
 import AtomLink from "../atoms/AtomLink";
 import Link from "next/link";
 import NotificationBox from "./NotificationBox";
+import { Icon } from "@iconify-icon/react";
+import Notification from "../atoms/Notification";
+import Image from "next/image";
 
 function NavMenu() {
+    // États pour gérer la connexion, le survol et l'affichage des notifications
     const [isConnected, setIsConnected] = useState(false);
+    const [isHover, setIsHover] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
 
-    console.log(showNotifications);
+    // Tableau contenant les informations de navigation
     const tableContentRoute = [
-        {
-            href: "#",
-            nameIcon: "mdi:bell",
-            variant: "navbar",
-            children: "Notifications",
-        },
         {
             href: "/settings",
             nameIcon: "lets-icons:setting-fill",
@@ -30,6 +29,7 @@ function NavMenu() {
         },
     ];
 
+    // Génération des éléments de navigation
     const items = tableContentRoute.map((element, i) => {
         return (
             <AtomLink
@@ -42,6 +42,24 @@ function NavMenu() {
         );
     });
 
+    //Style pour le hover des notification
+    let style = { color: isHover ? "#F0EFEF" : "#fcd757" };
+
+    //Functions d'événement pour le hover
+    const handleMouseEnter = () => {
+        setIsHover(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHover(false);
+    };
+
+    // Fonction pour afficher ou masquer les notifications
+    function handleShowNotifications() {
+        setShowNotifications(!showNotifications);
+    }
+
+    // Données fictives pour les notifications
     let notifications = [
         {
             title: "Notification 1",
@@ -57,18 +75,36 @@ function NavMenu() {
     return (
         <>
             <nav className={styles.navbar}>
+                {/*------ Lien vers le profil ou la page d'accueil basé sur l'état de connexion -----*/}
                 <Link href={isConnected ? "/profile" : "/home"}>
-                    <div className={styles.logo}></div>
+                    <Image
+                        src="/logoYellow.png"
+                        alt="logo jaune"
+                        width={95}
+                        height={95}
+                    />
                 </Link>
 
-                <div className={styles.listItems}>{items}</div>
-                <NotificationBox
-                    isShown={showNotifications}
-                    content={notifications}
-                    showNotifications={() =>
-                        setShowNotifications(!showNotifications)
-                    }
-                />
+                <div className={styles.listItems}>
+                    <button
+                        className={styles.btn}
+                        style={style}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onClick={() => handleShowNotifications()}
+                    >
+                        <Icon icon="mdi:bell" width="32" height="32" />
+                        Notifications
+                    </button>
+
+                    {/*------- Affichage des éléments de navigation -----*/}
+                    {items}
+                    {/*-------- Boîte de notifications ---------*/}
+                    <NotificationBox
+                        isShown={showNotifications}
+                        content={notifications}
+                    />
+                </div>
             </nav>
         </>
     );
