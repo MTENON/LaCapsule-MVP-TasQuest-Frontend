@@ -1,8 +1,6 @@
 .sidebar {
-    padding-top: 150px;
-    background-color: #fcd757;
+    padding-top: 50px;
     width: 100px;
-    min-height: 800px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

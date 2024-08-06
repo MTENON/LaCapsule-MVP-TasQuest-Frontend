@@ -28,7 +28,6 @@ function App({ Component, pageProps }) {
                             url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
                         </style>
                     </Head>
-                    <SideMenu></SideMenu>
                     <Component {...pageProps} />
                 </Provider>
             </ThemeProvider>

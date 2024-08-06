@@ -6,22 +6,22 @@ const SideMenu = () => {
         {
             href: "/habits",
             nameIcon: "fluent:calendar-todo-32-light",
-            variant: "primary",
+            variant: "sidebar",
         },
-        { href: "/tasks", nameIcon: "octicon:tasklist", variant: "primary" },
-        { href: "/character", nameIcon: "bi:person-vcard", variant: "primary" },
+        { href: "/tasks", nameIcon: "octicon:tasklist", variant: "sidebar" },
+        { href: "/character", nameIcon: "bi:person-vcard", variant: "sidebar" },
         {
             href: "/inventory",
             nameIcon: "icon-park-outline:retro-bag",
-            variant: "primary",
+            variant: "sidebar",
         },
         {
             href: "/quests",
             nameIcon: "game-icons:shoulder-armor",
-            variant: "primary",
+            variant: "sidebar",
         },
-        { href: "/shop", nameIcon: "carbon:shopping-bag", variant: "primary" },
-        { href: "#", nameIcon: "uil:file-medical-alt", variant: "primary" },
+        { href: "/shop", nameIcon: "carbon:shopping-bag", variant: "sidebar" },
+        { href: "#", nameIcon: "uil:file-medical-alt", variant: "sidebar" },
     ];
     const items = tableContentRoute.map((element, i) => {
         return (

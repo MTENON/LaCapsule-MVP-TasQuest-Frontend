@@ -17,7 +17,7 @@ const AtomLink = ({ href, children, nameIcon, variant }) => {
 
     const isActive = router.pathname === href;
     const linkStyles = {
-        primary: {
+        sidebar: {
             backgroundColor: isHover ? "#fcd757" : "#a50104",
             color: isHover ? "#a50104" : "#fcd757",
             border: isHover ? "1px solid #a50104" : "none",
@@ -29,9 +29,14 @@ const AtomLink = ({ href, children, nameIcon, variant }) => {
             height: isActive ? 60 : 50,
             width: isActive ? 60 : 50,
         },
-        secondary: {
-            backgroundColor: "#fcd757",
-            color: "#a50104",
+        navbar: {
+            textDecoration: isActive ? "underline" : "none",
+            color: isHover ? "#F0EFEF" : "#fcd757",
+            padding: "10px 20px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
         },
     };
     return (

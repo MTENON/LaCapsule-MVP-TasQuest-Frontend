@@ -1,0 +1,20 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #a50104;
+    max-width: 100vw;
+    height: 100px;
+}
+
+.logo {
+    width: 95px;
+    height: 95px;
+    background-color: blue;
+}
+
+.listItems {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
