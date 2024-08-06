@@ -25,7 +25,9 @@ function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-        <Button buttonStyle={'triangle'}/>
+        <Button 
+        icon={"game-icons:school-bag"} variant={"secondary"}
+        />
       </main>
     </div>
   );
