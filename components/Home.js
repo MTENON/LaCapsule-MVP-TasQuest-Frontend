@@ -2,6 +2,8 @@ import styles from "../styles/Home.module.css";
 import TextInputs from "./atoms/TextInputs";
 import { useState } from "react";
 
+import NewAccountModal from "./organisms/NewAccountModal";
+
 const link = process.env.backLink
 
 function Home() {
@@ -10,6 +12,8 @@ function Home() {
     const [error, setError] = useState(false)
 
     // --- functions --- //
+
+    // CONNECTION A UN COMPTE DEJA EXISTANT
     async function handleConnection() {
         console.log('Handle data', username, password)
         const fetchData = await fetch(`${link}/users/signin`, {
@@ -26,7 +30,10 @@ function Home() {
         console.log(userData);
     }
 
-    function handleJoinUs() { }
+    // CREATION D'UN NOUVEAU COMPTE
+    function handleJoinUs(username, email, password, confirmPassword) {
+        console.log(username, email, password, confirmPassword)
+    }
 
     return (
         <main className={styles.main}>
@@ -56,6 +63,9 @@ function Home() {
                 <button onClick={() => handleConnection()}>Connexion</button>
                 <p style={{ color: '#F5F5F5' }}>Nouvel utilisateur?</p>
                 <button onClick={() => handleJoinUs()}>Rejoins nous!</button>
+                <NewAccountModal title="New account" func={handleJoinUs}>
+
+                </NewAccountModal>
             </div>
 
 
