@@ -8,20 +8,13 @@ function NavMenu() {
     const [isConnected, setIsConnected] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
 
+    console.log(showNotifications);
     const tableContentRoute = [
         {
-            href: "/habits",
-            nameIcon: "material-symbols:tag",
-            variant: "navbar",
-            children: "tags",
-        },
-        {
-            href: "/notifications",
+            href: "#",
             nameIcon: "mdi:bell",
             variant: "navbar",
             children: "Notifications",
-            onMouseEnter: () => setShowNotifications(true),
-            onMouseLeave: () => setShowNotifications(false),
         },
         {
             href: "/settings",
@@ -45,8 +38,6 @@ function NavMenu() {
                 nameIcon={element.nameIcon}
                 variant={element.variant}
                 children={element.children}
-                onMouseEnter={element.onMouseEnter}
-                onMouseLeave={element.onMouseLeave}
             />
         );
     });

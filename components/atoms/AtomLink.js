@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Icon } from "@iconify-icon/react";
 import { useRouter } from "next/router";
 
-const AtomLink = ({ href, children, nameIcon, variant }) => {
+const AtomLink = ({ href, children, nameIcon, variant, popoverMessage }) => {
     const [isHover, setIsHover] = useState(false);
     const router = useRouter();
 
@@ -15,6 +15,7 @@ const AtomLink = ({ href, children, nameIcon, variant }) => {
         setIsHover(false);
     };
 
+    popoverMessage = { popoverMessage };
     const isActive = router.pathname === href;
     const linkStyles = {
         sidebar: {
