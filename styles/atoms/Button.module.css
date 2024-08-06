@@ -1,150 +1,51 @@
+.iconSize{
+    font-size: 30px;
+}
+
+.iconSizeM {
+    font-size: 55px;
+}
+
 .basiqueStyle {
     width: 44px;
     height: 44px;
     border-radius: 15px;
-}
-
-.iconSize{
-    font-size: 30px;
-}
-.rectangleEmptyRed{
-    width: 39.48px;
-    height: 60px;
-    border-radius: 15px;
-    border: 3px solid #A50104;
-    background-color: transparent;
-}
-
-.triangle {
-    width: 50px;
-    height: 50px;
-    /* border: 3px solid #A50104; */
-    border-left: 15px solid transparent; 
-    border-right: 15px solid transparent; 
-    border-bottom: 30px solid #A50104; 
-    transform: rotate(-179.36deg);
-    cursor: pointer; /* Change le curseur pour indiquer que c'est cliquable */
-    background-color: transparent;
-}
-
-.btnRed {
-    height: 60px;
-    width: 60px;
-    border-radius: 25px;
     cursor: pointer;
-    background-color: #A50104;
+    margin: 2px;
 }
 
-.btnLittleSquareEmptyRed {
+.basiqueStyleEmpty {
     height: 44px;
     width: 44px;
     border-radius: 15px;
     cursor: pointer;
-    border: 3px solid #A50104;
-    background-color: transparent;
+    margin: 2px;
 }
 
-.btnSquareEmptyRed {
-    height: 60px;
-    width: 60px;
-    border-radius: 25px;
-    cursor: pointer;
-    border: 5px solid #A50104;
-    background-color: transparent;
-}
-
-.btnLittleEmptyCircleRed{
-    height: 30.44px;
-    width: 29.36px;
-    border-radius: 15px;
-    cursor: pointer;
-    border: 3px solid #A50104;
-    background-color: transparent;
-
-}
-
-.btnEmptyCircleRed {
-    height: 50px;
-    width: 50px;
-    border-radius: 50px;
-    cursor: pointer;
-    border: 3px solid #A50104;
-    background-color: transparent;
-}
-
-.btnCircleRed {
+.circleMsize {
     width: 50px;
     height: 50px;
     border-radius: 50px;
-    background-color: #A50104;
+    cursor: pointer;
+    margin: 2px;
 }
 
-.btnDiamondRed{
+.diamond{
     width: 80px;
     height: 80px;
     border-radius: 20px;
-    background-color: #A50104;
-    transform: rotate(45deg)
-    /* color: "#A50104"; */
-
+    transform: rotate(45deg);
+    cursor: pointer;
+    margin : 10px;
 }
 
-.btnLargeRed{
+.large{
     width: 129px;
     height: 57px;
     padding: 14, 20;
     border-radius: 15px;
     gap: 10px;
-    background-color: #A50104;
-}
-
-.btnYellow {
-    height: 60px;
-    width: 60px;
-    border-radius: 25px;
     cursor: pointer;
-    background-color: #FCD757;
+    margin: 2px;
 }
 
-.btnSquareEmptyYellow {
-    height: 60px;
-    width: 60px;
-    border-radius: 25px;
-    cursor: pointer;
-    border: 5px solid #FCD757;
-    background-color: transparent;
-}
-
-.btnLittleSquareEmptyYellow {
-    height: 44px;
-    width: 44px;
-    border-radius: 15px;
-    cursor: pointer;
-    border: 3px solid #FCD757;
-    background-color: transparent;
-}
-
-.btnCircleYellow {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    background-color: #FCD757;
-}
-
-.btnDiamondYellow{
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background-color: #FCD757;
-    transform: rotate(45deg)
-
-}
-
-.btnLargeYellow{
-    width: 129px;
-    height: 57px;
-    padding: 14, 20;
-    border-radius: 15px;
-    gap: 10px;
-    background-color: #FCD757;
-}

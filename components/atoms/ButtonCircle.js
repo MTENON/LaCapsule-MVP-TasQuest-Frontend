@@ -5,7 +5,7 @@ import { Icon } from "@iconify-icon/react";
 //variant pour changer la couleur du boutton
 
 
-function Button({icon, variant}){
+function ButtonCircle({icon, variant}){
     const buttonStyles = {
         primary: { backgroundColor: "#a50104", color: "#fcd757" },
         secondary: { backgroundColor: "#fcd757", color: "#a50104" },
@@ -13,20 +13,8 @@ function Button({icon, variant}){
 
    
 
-    return <button className={styles.basiqueStyle} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
-
-    //---------------------------------------------------->         Circle Button      <-----------------------------------------------------//
-    //return <button className={styles.circleMsize} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
+    return <button className={styles.circleMsize} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
     
-
-
-    //--------------------------------------------------->         Diamond Button      <----------------------------------------------------//
-    // return <button className={styles.diamond} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
-
-
-
-    //---------------------------------------------------->         Large Button      <-----------------------------------------------------//
-    //return <button className={styles.large} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
 
 // //LES ICONES
 
@@ -46,4 +34,4 @@ function Button({icon, variant}){
 
 };
 
-export default Button;
+export default ButtonCircle;
