@@ -31,6 +31,16 @@ const style = {
 };
 
 export default function CharacterNameModal({ autorisation, previousData }) {
+
+    /*
+    Format de previousData dans cet élément
+    previousData :{
+    previousData.username
+    previousData.password
+    previousData.email
+    }
+    */
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => autorisation && setOpen(true);
     const handleClose = () => setOpen(false);
