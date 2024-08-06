@@ -1,7 +1,7 @@
 import styles from "../../styles/atoms/TextInputs.module.css";
 import React from "react";
 
-function TextInputs({ placeholder, variant, width, type }) {
+function TextInputs({ placeholder, variant, width, type, onChange, value }) {
   const inputStyles = {
     primaryBottom: {
       borderBottom: "3px solid #A50104",
@@ -28,10 +28,12 @@ function TextInputs({ placeholder, variant, width, type }) {
   return (
     <>
       <input
+        value={value}
         className={styles.input}
         style={inputStyles[variant]}
         placeholder={placeholder}
         type={type}
+        onChange={onChange}
       />
     </>
   );
