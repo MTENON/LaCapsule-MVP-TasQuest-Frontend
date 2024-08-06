@@ -10,6 +10,7 @@ import Modal from '@mui/material/Modal';
 
 //Import des composants
 import TextInputs from "../atoms/TextInputs";
+import CharacterNameModal from "./CharacterNameModal";
 
 const style = {
     position: 'absolute',
@@ -29,7 +30,7 @@ const style = {
     borderRadius: '15px'
 };
 
-export default function UserFormModal({ children, func }) {
+export default function UserFormModal({ func }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -40,6 +41,8 @@ export default function UserFormModal({ children, func }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState(false)
+    const [isFormValid, setIsFormValid] = useState(false)
+    const [data, setData] = useState({})
 
     //vider le formulaire
     function emptyForm() {
@@ -49,25 +52,39 @@ export default function UserFormModal({ children, func }) {
         setConfirmPassword('')
     }
 
-    //Fonction de soumission du formulaire
-    function handleSubmit() {
+    React.useEffect(() => {
         const pattern = /^\s*$/;
 
         const patternEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-        if (pattern.test(username) || pattern.test(email) || pattern.test(password) || pattern.test(confirmPassword) || !patternEmail.test(email)) {
-            setPasswordError(true)
-            emptyForm()
-        }
-
-        if (password === confirmPassword) {
-            func(username, email, password);
+        if (!(pattern.test(username) || pattern.test(email) || pattern.test(password) || pattern.test(confirmPassword) || !patternEmail.test(email))) {
+            if (password === confirmPassword) {
+                setPasswordError(false)
+                setIsFormValid(true)
+                func(username, email, password);
+                setData({ username, email, password })
+            } else {
+                setPasswordError(true)
+                setIsFormValid(false)
+                // emptyForm()
+            }
         } else {
-            setPasswordError(true)
-            emptyForm()
+            setIsFormValid(false)
         }
-    }
 
+
+    }, [username, password, confirmPassword, email])
+
+    //Fonction de soumission du formulaire
+    // function handleSubmit() {
+    //     if (password === confirmPassword && isFormValid) {
+    //         func(username, email, password);
+
+    //     } else {
+    //         setPasswordError(true)
+    //         emptyForm()
+    //     }
+    // }
 
     return (
         <div>
@@ -134,10 +151,9 @@ export default function UserFormModal({ children, func }) {
                                     variant="primaryBottom"
                                 />
                             </div>
-                            <button onClick={() => handleSubmit()}>HANDLE SUBMIT</button>
                         </div>
                     </Typography>
-                    <Typography>{children}</Typography>
+                    <Typography><CharacterNameModal previousData={data} autorisation={isFormValid}></CharacterNameModal></Typography>
                 </Box>
             </Modal>
         </div>

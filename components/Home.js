@@ -1,11 +1,13 @@
 import styles from "../styles/Home.module.css";
-import TextInputs from "./atoms/TextInputs";
+
 import { useState } from "react";
 
 //Import reducer user fonctions
 import { useDispatch } from "react-redux"
 import { updateUsername, updateToken } from "../reducers/users";
 
+//Components import
+import TextInputs from "./atoms/TextInputs";
 import NewAccountModal from "./organisms/NewAccountModal";
 
 const link = process.env.backLink
@@ -39,19 +41,15 @@ function Home() {
             setError(false)
             dispatch(updateUsername(userData.data.username))
             dispatch(updateToken(userData.data.token))
-
             window.location.href = 'tasks'
         }
     }
 
     // CREATION D'UN NOUVEAU COMPTE
     function handleJoinUs(username, email, password) {
-
         //On accumule les données de l'utilisateur avant de tout envoyer dans le backend
         setNewUserForm({ username, email, password })
         console.log(newUserForm)
-
-
     }
 
     return (
@@ -81,8 +79,7 @@ function Home() {
 
                 <button onClick={() => handleConnection()}>Connexion</button>
                 <p style={{ color: '#F5F5F5' }}>Nouvel utilisateur?</p>
-                <NewAccountModal title="New account" func={handleJoinUs}>
-
+                <NewAccountModal func={handleJoinUs}>
                 </NewAccountModal>
             </div>
 
