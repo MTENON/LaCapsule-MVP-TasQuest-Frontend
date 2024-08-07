@@ -54,10 +54,10 @@ export default function UserFormModal() {
 
     React.useEffect(() => {
         const pattern = /^\s*$/;
-
+        const patternPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
         const patternEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-        if (!(pattern.test(username) || pattern.test(email) || pattern.test(password) || pattern.test(confirmPassword) || !patternEmail.test(email))) {
+        if (!(pattern.test(username) || pattern.test(email) || patternPassword.test(password) || patternPassword.test(confirmPassword) || !patternEmail.test(email))) {
             if (password === confirmPassword) {
                 setPasswordError(false)
                 setIsFormValid(true)
@@ -144,8 +144,9 @@ export default function UserFormModal() {
                                     width={500}
                                     variant="primaryBottom"
                                 />
-                                {passwordError && <h4 style={{ color: "black" }}>Les mots de passes renseignés ne correspondent pas!</h4>}
                             </div>
+                            {passwordError && <h4 style={{ color: "black", marginBottom: '1px' }}>Les mots de passes renseignés ne correspondent pas!</h4>}
+                            {passwordError && <h4 style={{ color: "black", marginTop: '1px' }}>Le mot de passe doit avoir une majuscule, un symbole (@$!%*?&), un chiffre et 8 caractères.</h4>}
 
                             <div>
                                 <h4 className={styles.inputTitle}>Entrez de nouveau le mot de passe</h4>

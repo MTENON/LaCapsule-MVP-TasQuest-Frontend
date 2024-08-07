@@ -22,9 +22,6 @@ function Home() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false)
 
-  //form handle states
-  const [newUserForm, setNewUserForm] = useState([])
-
   // --- functions --- //
 
   // CONNECTION A UN COMPTE DEJA EXISTANT
