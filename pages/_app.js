@@ -4,7 +4,7 @@ import Head from "next/head";
 // --- Importation redux --- //
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import users from "../reducers/users";
+import user from "../reducers/users";
 
 // --- Importation mui/material --- //
 import { ThemeProvider } from "@mui/material";
@@ -13,7 +13,7 @@ import SideMenu from "../components/molecules/SideMenu";
 
 // --- Store configuration --- //
 const store = configureStore({
-    reducer: { users },
+    reducer: { user },
 });
 
 function App({ Component, pageProps }) {

@@ -1,11 +1,11 @@
 import Layout from "../components/layouts/Layout";
 
-function NotificationsPage() {
+function QuestDecritpionPage() {
     return (
         <Layout>
-            <h1>Page Notifications</h1>
+            <h1>Page Inventaire</h1>
         </Layout>
     );
 }
 
-export default NotificationsPage;
+export default QuestDecritpionPage;
