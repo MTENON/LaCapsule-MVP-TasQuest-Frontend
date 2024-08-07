@@ -8,6 +8,8 @@ import ButtonDiamond from './atoms/ButtonDiamond';
 import ButtonCircle from './atoms/ButtonCircle';
 import ButtonCircleEmpty from './atoms/ButtonCircleEmpty';
 
+import Shop from './Shop';
+
 function Home() {
 
   const [showNotifications, setShowNotifications] = useState(false)
@@ -36,7 +38,7 @@ function Home() {
         variant={"secondary"}
         />
 
-        <ButtonLarge
+        {/* <ButtonLarge
         className={styles.buttonSpacing}
         icon={"ph:pen"}
         variant={"primary"}
@@ -61,7 +63,7 @@ function Home() {
         <ButtonCircleEmpty
         icon={"fa6-regular:id-card"}
         variant={"primary"}
-        />
+        /> */}
 
       </main>
     </div>

@@ -1,9 +1,11 @@
 import Layout from "../components/layouts/Layout";
+import Shop from "../components/Shop";
+
 function ShopPage() {
     return (
-        <Layout>
-            <h1>Page Boutique</h1>
-        </Layout>
+            <Layout>
+                <Shop/>
+            </Layout>
     );
 }
 
