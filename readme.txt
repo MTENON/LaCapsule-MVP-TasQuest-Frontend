@@ -43,6 +43,8 @@ Les variables d'environnement React se trouvent dans le .env
 
 La paramétrage est dans le next.config.
 
+Pour appeler le BACK_LINK utiliser la constante suivant: const link = process.env.backLink
+
 
 // --------------------------------- //
 // ------- EXTERNAL DEPENDENCY ------//

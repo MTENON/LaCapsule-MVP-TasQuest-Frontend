@@ -1,0 +1,36 @@
+.modal {
+    background-color: #A50104;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.text {
+    margin: 0;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonText {
+    color: black;
+    border: 2px solid black;
+    margin: 10px;
+    background-color: #F5F5F5;
+}
+
+.inputTitle {
+    color: #A50104;
+    font-size: 32px;
+    font-weight: 400;
+    margin: 0;
+}

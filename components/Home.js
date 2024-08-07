@@ -1,70 +1,91 @@
-import styles from '../styles/Home.module.css';
-import { useState } from 'react';
+import styles from "../styles/Home.module.css";
 
-import Button from './atoms/Button';
-import ButtonLarge from './atoms/ButtonLarge';
-import ButtonEmpty from './atoms/ButtonEmpty';
-import ButtonDiamond from './atoms/ButtonDiamond';
-import ButtonCircle from './atoms/ButtonCircle';
-import ButtonCircleEmpty from './atoms/ButtonCircleEmpty';
+import { useState } from "react";
+
+//Import reducer user fonctions
+import { useDispatch } from "react-redux"
+import { updateUsername, updateToken } from "../reducers/users";
+
+//Components import
+import TextInputs from "./atoms/TextInputs";
+import NewAccountModal from "./organisms/NewAccountModal";
+
+const link = process.env.backLink
 
 function Home() {
 
-  const [showNotifications, setShowNotifications] = useState(false)
+  //Declaration du dispatch
+  const dispatch = useDispatch();
 
-  //Fake data for exemple
-  let notifications = [
-    { title: "Notification 1", content: "Coucou je suis un children prop." },
-    { title: "Notification 2 qui déborde", content: "Coucou je suis une notification énorme qui va déborder de ouf." },
-  ]
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false)
 
-  //functions
-  function handleShowNotifications() {
-    setShowNotifications(!showNotifications)
+  //form handle states
+  const [newUserForm, setNewUserForm] = useState([])
+
+  // --- functions --- //
+
+  // CONNECTION A UN COMPTE DEJA EXISTANT
+  async function handleConnection() {
+    const fetchData = await fetch(`${link}/users/signin`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const userData = await fetchData.json();
+    if (userData.result === false) {
+      setError(true);
+    } else {
+      setError(false)
+      dispatch(updateUsername(userData.data.username))
+      dispatch(updateToken(userData.data.token))
+      window.location.href = 'tasks'
+    }
   }
 
-
   return (
-    <div>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <Button 
-        className={styles.buttonSpacing}
-        icon={"game-icons:school-bag"} 
-        variant={"secondary"}
-        />
+    <main className={styles.main}>
 
-        <ButtonLarge
-        className={styles.buttonSpacing}
-        icon={"ph:pen"}
-        variant={"primary"}
-        />
+      <div className={styles.leftDiv}></div>
 
-        <ButtonEmpty
-        className={styles.buttonSpacing}
-        icon={"iconamoon:player-end-fill"}
-        variant={"secondary"}
-        />
+      <div className={styles.rightDiv}>
 
-        <ButtonDiamond
-        icon={"ci:shopping-bag-02"}
-        variant={"primary"}
-        />
+        <h1 style={{ color: '#F5F5F5' }}>TAS'QUEST</h1>
 
-        <ButtonCircle
-        icon={"game-icons:skills"}
-        variant={"secondary"}
-        />
+        <h2 style={{ color: '#FCD757' }}>Nom d'utilisateur</h2>
 
-        <ButtonCircleEmpty
-        icon={"fa6-regular:id-card"}
-        variant={"primary"}
-        />
+        <TextInputs
+          value={username}
+          type="text"
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          width={300}
+          variant="secondaryBottom"
+        ></TextInputs>
 
-      </main>
-    </div>
+        <h2 style={{ color: '#FCD757' }}>Mot de passe</h2>
+
+        <TextInputs
+          value={password}
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          width={300}
+          variant="secondaryBottom"
+        ></TextInputs>
+
+        {error && <h4 style={{ color: '#FCD757' }}>Wrong username, email or password</h4>}
+
+        <button onClick={() => handleConnection()}>Connexion</button>
+
+        <p style={{ color: '#F5F5F5' }}>Nouvel utilisateur?</p>
+
+        <NewAccountModal></NewAccountModal>
+      </div>
+
+
+    </main>
   );
 }
 
