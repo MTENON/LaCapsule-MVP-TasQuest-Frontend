@@ -12,6 +12,9 @@ import Modal from '@mui/material/Modal';
 import { useDispatch } from "react-redux"
 import { updateAllReducer } from "../../reducers/users";
 
+//import de composants
+import DiamondButton from "../atoms/ButtonDiamond";
+
 import { useRouter } from "next/router"
 
 const style = {
@@ -96,32 +99,39 @@ export default function ClassModal({ autorisation, previousData }) {
 
     async function handleNewUser() {
 
-        const fetchData = await fetch(`${link}/users/signup`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+        if (choosedPic !== '') {
 
-        const newUserData = await fetchData.json()
+            const fetchData = await fetch(`${link}/users/signup`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-        if (!newUserData.result) {
-            window.alert('Un problème est survenu')
-        } else {
-            dispatch(updateAllReducer(newUserData.data));
-            router.push('/tasks')
+            const newUserData = await fetchData.json()
+
+            if (!newUserData.result) {
+                window.alert('Un problème est survenu')
+            } else {
+                dispatch(updateAllReducer(newUserData.data));
+                router.push('/tasks')
+            }
+
         }
     }
 
     return (
         <div>
-            <Button className={styles.buttonText} onClick={handleOpen} disabled={!autorisation}>Next</Button>
+            <Button className={styles.buttonText} style={{ fontSize: '20px' }} onClick={handleOpen} disabled={!autorisation}>Next</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box sx={{
+                    ...style,
+                    bgcolor: 'secondary.main'
+                }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2" className={styles.description}>
                         <p className={styles.text}>A présent le choix le plus important...</p>
                         <p className={styles.text}>Choisissez votre classe!</p>
@@ -130,7 +140,7 @@ export default function ClassModal({ autorisation, previousData }) {
                         </Typography>
                     </Typography>
                     <Typography id="modal-content" >
-                        <button onClick={() => { handleNewUser() }}>HANDLE SUBMIT</button>
+                        <DiamondButton icon="iconamoon:player-end-fill" variant={'primary'} func={handleNewUser}></DiamondButton>
                     </Typography>
                 </Box>
             </Modal>

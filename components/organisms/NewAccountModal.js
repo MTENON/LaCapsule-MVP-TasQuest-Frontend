@@ -76,14 +76,33 @@ export default function UserFormModal() {
 
     return (
         <div>
-            <Button className={styles.buttonText} onClick={handleOpen}>Rejoins nous!</Button>
+            <Button
+                style={{
+                    color: '#a50104',
+                    width: '129px',
+                    height: '57px',
+                    padding: '14,20',
+                    borderRadius: '15px',
+                    gap: '10px',
+                    margin: '2px',
+                    backgroundColor: "#fcd757",
+                    boxShadow: '5px',
+                    fontSize: '14px'
+                }}
+                onClick={handleOpen}
+            >Rejoins nous!</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box sx={
+                    {
+                        ...style,
+                        bgcolor: 'secondary.main'
+                    }
+                }>
                     <Typography id="modal-modal-title" variant="h6" component="h2" className={styles.description}>
                         <p className={styles.text}>Bonjour.</p>
                         <p className={styles.text}>Veuillez vous créer un compte pour commencer votre aventure!</p>
@@ -141,7 +160,7 @@ export default function UserFormModal() {
                             </div>
                         </div>
                     </Typography>
-                    <Typography>
+                    <Typography style={{ margin: '20px' }}>
                         <CharacterNameModal previousData={data} autorisation={isFormValid}></CharacterNameModal>
                     </Typography>
                 </Box>

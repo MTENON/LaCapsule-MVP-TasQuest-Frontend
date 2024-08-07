@@ -5,30 +5,33 @@ import { Icon } from "@iconify-icon/react";
 //variant pour changer la couleur du boutton
 
 
-function ButtonDiamond({icon, variant}){
+function ButtonDiamond({ icon, variant, func }) {
     const buttonStyles = {
         primary: { backgroundColor: "#a50104", color: "#fcd757" },
         secondary: { backgroundColor: "#fcd757", color: "#a50104" },
     };
 
-   
-    return <button className={styles.diamond} style={buttonStyles[variant]}><Icon style={{transform: "rotate(-45deg)"}}className={styles.iconSizeM} icon={icon}/> </button>
+    function handleClick() {
+        func();
+    }
+
+    return <button className={styles.diamond} style={buttonStyles[variant]} onClick={() => { handleClick() }}><Icon style={{ transform: "rotate(-45deg)" }} className={styles.iconSizeM} icon={icon} /> </button>
 
 
-// //LES ICONES
+    // //LES ICONES
 
-// //<Icon icon="tabler:calendar-check" />                = TODO 
-// //<Icon icon="game-icons:shoulder-armor" />            = Icone de QUÊTE 
-// //<Icon icon="ri:list-check-3" />                      = checking 
-// //<Icon icon="game-icons:school-bag" />                = Equipement 
-// //<Icon icon="ci:shopping-bag-02" />                   = SHOP
-// //<Icon icon="fa6-regular:id-card" />                  = ID Card 
-// //<Icon icon="game-icons:skills" />                    = Skills
-// //<Icon icon="iconamoon:player-end-fill" />            = Boutton Play
-// //<Icon icon="mingcute:cross-fill" />                  = Boutton Plus
-// //<Icon icon="ph:pen" />                               = Boutton Stylo
-// //<Icon icon="gravity-ui:plug-connection" />           = Boutton connexion
-// //<Icon icon="icomoon-free:cross" />                   = Boutton croix pour annuler
+    // //<Icon icon="tabler:calendar-check" />                = TODO 
+    // //<Icon icon="game-icons:shoulder-armor" />            = Icone de QUÊTE 
+    // //<Icon icon="ri:list-check-3" />                      = checking 
+    // //<Icon icon="game-icons:school-bag" />                = Equipement 
+    // //<Icon icon="ci:shopping-bag-02" />                   = SHOP
+    // //<Icon icon="fa6-regular:id-card" />                  = ID Card 
+    // //<Icon icon="game-icons:skills" />                    = Skills
+    // //<Icon icon="iconamoon:player-end-fill" />            = Boutton Play
+    // //<Icon icon="mingcute:cross-fill" />                  = Boutton Plus
+    // //<Icon icon="ph:pen" />                               = Boutton Stylo
+    // //<Icon icon="gravity-ui:plug-connection" />           = Boutton connexion
+    // //<Icon icon="icomoon-free:cross" />                   = Boutton croix pour annuler
 
 
 };

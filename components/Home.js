@@ -9,6 +9,7 @@ import { updateUsername, updateToken } from "../reducers/users";
 //Components import
 import TextInputs from "./atoms/TextInputs";
 import NewAccountModal from "./organisms/NewAccountModal";
+import ButtonLarge from "./atoms/ButtonLarge";
 
 const link = process.env.backLink
 
@@ -45,47 +46,59 @@ function Home() {
   }
 
   return (
-    <main className={styles.main}>
+    <div className={styles.background}>
 
-      <div className={styles.leftDiv}></div>
+      <main className={styles.main}>
 
-      <div className={styles.rightDiv}>
+        <div className={styles.leftDiv}></div>
 
-        <h1 style={{ color: '#F5F5F5' }}>TAS'QUEST</h1>
+        <div className={styles.rightDiv}>
 
-        <h2 style={{ color: '#FCD757' }}>Nom d'utilisateur</h2>
+          <div className={styles.rightUpDiv}>
 
-        <TextInputs
-          value={username}
-          type="text"
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-          width={300}
-          variant="secondaryBottom"
-        ></TextInputs>
+            <h1 style={{ color: '#F5F5F5' }}>TAS'QUEST</h1>
 
-        <h2 style={{ color: '#FCD757' }}>Mot de passe</h2>
+            <h2 style={{ color: '#FCD757' }}>Nom d'utilisateur</h2>
 
-        <TextInputs
-          value={password}
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          width={300}
-          variant="secondaryBottom"
-        ></TextInputs>
+            <TextInputs
+              value={username}
+              type="text"
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+              width={300}
+              variant="secondaryBottom"
+            ></TextInputs>
 
-        {error && <h4 style={{ color: '#FCD757' }}>Wrong username, email or password</h4>}
+            <h2 style={{ color: '#FCD757' }}>Mot de passe</h2>
 
-        <button onClick={() => handleConnection()}>Connexion</button>
+            <TextInputs
+              value={password}
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              width={300}
+              variant="secondaryBottom"
+            ></TextInputs>
 
-        <p style={{ color: '#F5F5F5' }}>Nouvel utilisateur?</p>
+            {error ? <h4 className={styles.error} style={{ color: '#FCD757' }}>Wrong username, email or password</h4> : <div className={styles.error}></div>}
 
-        <NewAccountModal></NewAccountModal>
-      </div>
+            <ButtonLarge onClick={() => handleConnection()} variant="secondary"><span style={{ fontFamily: "Fondamento", fontSize: '14px' }}>Connexion</span></ButtonLarge>
+
+          </div>
+
+          <div className={styles.rightDownDiv}>
+
+            <p style={{ color: '#F5F5F5' }}>Nouvel utilisateur?</p>
+
+            <NewAccountModal></NewAccountModal>
+
+          </div>
+        </div>
 
 
-    </main>
+
+      </main>
+    </div>
   );
 }
 

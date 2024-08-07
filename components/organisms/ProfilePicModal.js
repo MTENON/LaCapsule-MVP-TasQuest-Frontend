@@ -51,7 +51,7 @@ export default function ProfilePicModal({ autorisation, previousData }) {
     const [choosedPic, setChoosedPic] = useState('');
 
     React.useEffect(() => {
-        choosedPic !== null && setIsFormValid(true)
+        choosedPic !== '' && setIsFormValid(true)
         setData({ ...previousData, choosedPic })
     }, [choosedPic])
 
@@ -88,14 +88,17 @@ export default function ProfilePicModal({ autorisation, previousData }) {
 
     return (
         <div>
-            <Button className={styles.buttonText} onClick={handleOpen} disabled={!autorisation}>Next</Button>
+            <Button className={styles.buttonText} style={{ fontSize: '20px' }} onClick={handleOpen} disabled={!autorisation}>Next</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box sx={{
+                    ...style,
+                    bgcolor: 'secondary.main'
+                }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2" className={styles.description}>
                         <p className={styles.text}>Il est temps de choisir votre apparence...</p>
                         <Typography id="modal-modal-image" variant="h6" component="h2" className={styles.imageContainer}>
