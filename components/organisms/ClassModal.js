@@ -61,41 +61,31 @@ export default function ClassModal({ autorisation, previousData }) {
     //Déclaration des états du formulaire
     const [data, setData] = useState(previousData);
     const [choosedPic, setChoosedPic] = useState('');
+    const [images, setImages] = useState([])
 
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        setData({ ...previousData, class: choosedPic })
-    }, [choosedPic])
 
-    //fakeImageData pour le développement de la modale
-    const images = [
-        {
-            id: 1,
-            name: 'warrior',
-            description: 'Les guerriers sont les plus résistants des combattants. Ils peuvent résister à plus de tâches non résolues.',
-            url: 'https://via.placeholder.com/150/0000FF/FFFFFF?text=warrior'
-        },
-        {
-            id: 2,
-            name: 'mage',
-            description: 'Les mages sont fragiles mais infligent plus de dégats grâces à leurs puissants sorts.',
-            url: 'https://via.placeholder.com/150/FF0000/FFFFFF?text=mage'
-        },
-        {
-            id: 3,
-            name: 'rogue',
-            description: "Les voleurs sont les moins doués des combattants, mais grâce à leur agilité ils gagnent plus d'",
-            url: 'https://via.placeholder.com/150/00FF00/FFFFFF?text=rogue'
-        }
-    ];
+        (async () => {
+            const classesFetch = await fetch(`${link}/classes/`);
+            const classesData = await classesFetch.json();
+
+            setImages(classesData.data);
+        })();
+
+    }, [])
+
+    React.useEffect(() => {
+        setData({ ...previousData, class: choosedPic });
+    }, [choosedPic])
 
     const image = images.map((data, i) => {
         return (
             <PopoverCustom message={data.description}>
                 < img
                     key={i}
-                    src={data.url}
+                    src={data.icon}
                     placeholder={data.name}
                     className={styles.image}
                     style={choosedPic.i === i ? { border: '3px solid #A50104', borderRadius: '10px' } : {}}
