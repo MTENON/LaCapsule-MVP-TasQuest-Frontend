@@ -57,7 +57,7 @@ export default function UserFormModal() {
         const patternPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
         const patternEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-        if (!(pattern.test(username) || pattern.test(email) || patternPassword.test(password) || patternPassword.test(confirmPassword) || !patternEmail.test(email))) {
+        if (!(pattern.test(username) || pattern.test(email) || !(patternPassword.test(password)) || !(patternPassword.test(confirmPassword)) || !patternEmail.test(email))) {
             if (password === confirmPassword) {
                 setPasswordError(false)
                 setIsFormValid(true)

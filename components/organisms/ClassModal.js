@@ -14,6 +14,7 @@ import { updateAllReducer } from "../../reducers/users";
 
 //import de composants
 import DiamondButton from "../atoms/ButtonDiamond";
+import PopoverCustom from "../molecules/PopoverCustom"
 
 import { useRouter } from "next/router"
 
@@ -72,29 +73,37 @@ export default function ClassModal({ autorisation, previousData }) {
         {
             id: 1,
             name: 'warrior',
+            description: 'Les guerriers sont les plus résistants des combattants. Ils peuvent résister à plus de tâches non résolues.',
             url: 'https://via.placeholder.com/150/0000FF/FFFFFF?text=warrior'
         },
         {
             id: 2,
             name: 'mage',
+            description: 'Les mages sont fragiles mais infligent plus de dégats grâces à leurs puissants sorts.',
             url: 'https://via.placeholder.com/150/FF0000/FFFFFF?text=mage'
         },
         {
             id: 3,
             name: 'rogue',
+            description: "Les voleurs sont les moins doués des combattants, mais grâce à leur agilité ils gagnent plus d'",
             url: 'https://via.placeholder.com/150/00FF00/FFFFFF?text=rogue'
         }
     ];
 
     const image = images.map((data, i) => {
-        return <img
-            key={i}
-            src={data.url}
-            placeholder={data.name}
-            className={styles.image}
-            style={choosedPic.i === i ? { border: '3px solid #A50104', borderRadius: '10px' } : {}}
-            onClick={() => { setChoosedPic({ i: i, name: data.name, url: data.url }) }}
-        ></img>
+        return (
+            <PopoverCustom message={data.description}>
+                < img
+                    key={i}
+                    src={data.url}
+                    placeholder={data.name}
+                    className={styles.image}
+                    style={choosedPic.i === i ? { border: '3px solid #A50104', borderRadius: '10px' } : {}}
+                    onClick={() => { setChoosedPic({ i: i, name: data.name, url: data.url }) }
+                    }
+                ></img >
+            </PopoverCustom>
+        )
     })
 
     async function handleNewUser() {
