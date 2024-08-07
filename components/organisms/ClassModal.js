@@ -8,7 +8,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-//Import des composants
+//Import du reducer
+import { useDispatch } from "react-redux"
+import { updateAllReducer } from "../../reducers/users";
+
+import { useRouter } from "next/router"
 
 const style = {
     position: 'absolute',
@@ -28,7 +32,11 @@ const style = {
     borderRadius: '15px'
 };
 
+const link = process.env.backLink
+
 export default function ClassModal({ autorisation, previousData }) {
+
+    const router = useRouter();
 
     /*
     Format de previousData dans cet élément
@@ -41,6 +49,7 @@ export default function ClassModal({ autorisation, previousData }) {
     }
     */
 
+    //Data présentes dans la modale
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => autorisation && setOpen(true);
     const handleClose = () => setOpen(false);
@@ -48,6 +57,8 @@ export default function ClassModal({ autorisation, previousData }) {
     //Déclaration des états du formulaire
     const [data, setData] = useState(previousData);
     const [choosedPic, setChoosedPic] = useState('');
+
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         setData({ ...previousData, class: choosedPic })
@@ -83,6 +94,24 @@ export default function ClassModal({ autorisation, previousData }) {
         ></img>
     })
 
+    async function handleNewUser() {
+
+        const fetchData = await fetch(`${link}/users/signup`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const newUserData = await fetchData.json()
+
+        if (!newUserData.result) {
+            window.alert('Un problème est survenu')
+        } else {
+            dispatch(updateAllReducer(newUserData.data));
+            router.push('/tasks')
+        }
+    }
+
     return (
         <div>
             <Button className={styles.buttonText} onClick={handleOpen} disabled={!autorisation}>Next</Button>
@@ -101,7 +130,7 @@ export default function ClassModal({ autorisation, previousData }) {
                         </Typography>
                     </Typography>
                     <Typography id="modal-content" >
-                        <button onClick={() => { console.log(data) }}>HANDLE SUBMIT</button>
+                        <button onClick={() => { handleNewUser() }}>HANDLE SUBMIT</button>
                     </Typography>
                 </Box>
             </Modal>

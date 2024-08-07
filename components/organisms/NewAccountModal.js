@@ -30,7 +30,7 @@ const style = {
     borderRadius: '15px'
 };
 
-export default function UserFormModal({ func }) {
+export default function UserFormModal() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -61,7 +61,6 @@ export default function UserFormModal({ func }) {
             if (password === confirmPassword) {
                 setPasswordError(false)
                 setIsFormValid(true)
-                func(username, email, password);
                 setData({ username, email, password })
             } else {
                 setPasswordError(true)
@@ -74,17 +73,6 @@ export default function UserFormModal({ func }) {
 
 
     }, [username, password, confirmPassword, email])
-
-    //Fonction de soumission du formulaire
-    // function handleSubmit() {
-    //     if (password === confirmPassword && isFormValid) {
-    //         func(username, email, password);
-
-    //     } else {
-    //         setPasswordError(true)
-    //         emptyForm()
-    //     }
-    // }
 
     return (
         <div>
@@ -153,7 +141,9 @@ export default function UserFormModal({ func }) {
                             </div>
                         </div>
                     </Typography>
-                    <Typography><CharacterNameModal previousData={data} autorisation={isFormValid}></CharacterNameModal></Typography>
+                    <Typography>
+                        <CharacterNameModal previousData={data} autorisation={isFormValid}></CharacterNameModal>
+                    </Typography>
                 </Box>
             </Modal>
         </div>

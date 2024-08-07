@@ -28,7 +28,6 @@ function Home() {
 
     // CONNECTION A UN COMPTE DEJA EXISTANT
     async function handleConnection() {
-        console.log('Handle data', username, password)
         const fetchData = await fetch(`${link}/users/signin`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -45,19 +44,17 @@ function Home() {
         }
     }
 
-    // CREATION D'UN NOUVEAU COMPTE
-    function handleJoinUs(username, email, password) {
-        //On accumule les données de l'utilisateur avant de tout envoyer dans le backend
-        setNewUserForm({ username, email, password })
-        console.log(newUserForm)
-    }
-
     return (
         <main className={styles.main}>
+
             <div className={styles.leftDiv}></div>
+
             <div className={styles.rightDiv}>
+
                 <h1 style={{ color: '#F5F5F5' }}>TAS'QUEST</h1>
+
                 <h2 style={{ color: '#FCD757' }}>Nom d'utilisateur</h2>
+
                 <TextInputs
                     value={username}
                     type="text"
@@ -66,7 +63,9 @@ function Home() {
                     width={300}
                     variant="secondaryBottom"
                 ></TextInputs>
+
                 <h2 style={{ color: '#FCD757' }}>Mot de passe</h2>
+
                 <TextInputs
                     value={password}
                     type="password"
@@ -75,12 +74,14 @@ function Home() {
                     width={300}
                     variant="secondaryBottom"
                 ></TextInputs>
+
                 {error && <h4 style={{ color: '#FCD757' }}>Wrong username, email or password</h4>}
 
                 <button onClick={() => handleConnection()}>Connexion</button>
+
                 <p style={{ color: '#F5F5F5' }}>Nouvel utilisateur?</p>
-                <NewAccountModal func={handleJoinUs}>
-                </NewAccountModal>
+
+                <NewAccountModal></NewAccountModal>
             </div>
 
 
