@@ -6,6 +6,7 @@ function Shop(){
     return (
         <div className={styles.container}>
             <div className={styles.divShopButton}>
+            <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
                 <button className={styles.shopButton}>Boutique</button>
             </div>
 
@@ -14,68 +15,101 @@ function Shop(){
                     <Money />
                     <button className={styles.stuffButton}>Inventaire</button>
                     <div className={styles.stuff}>
-                        <button className={styles.stuffScreen}>
+                        <div className={styles.stuffScreen}>
                             Faut 
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Pas 
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Être
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Trop
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Curieux
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Et
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Lire
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Ce
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Que
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             J'ai
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Marqué
-                        </button>
-                        <button className={styles.stuffScreen}>
+                        </div>
+                        <div className={styles.stuffScreen}>
                             Ok ?
-                        </button>
+                        </div>
                     </div>    
                 </div>
 
-                
+
                 <div className={styles.itemSelectionShop}>
-                        <button className={styles.itemInShop}>
-                            <div className={styles.buyButton}>
-                                <Money />
-                                <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
-                            </div>
-                        </button>
-                        <button className={styles.itemInShop}>
-                            Excalibur
-                        </button>
-                        <button className={styles.itemInShop}>
-                            Excalibur
-                        </button>
-                        <button className={styles.itemInShop}>
-                            Excalibur
-                        </button>
-                        <button className={styles.itemInShop}>
-                            Excalibur
-                        </button>
-                        <button className={styles.itemInShop}>
-                            Excalibur
-                        </button>
+                        <div className={styles.itemInShop}>
+                                    <div>  {/* IMAGE of ITEM */}
+                                        Excalibur
+                                    </div>
+                                    <div className={styles.buyingButtons}>
+                                        <Money />
+                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
+                                    </div>
+                        </div>
+                        <div className={styles.itemInShop}>
+                                    <div>  {/* IMAGE of ITEM */}
+                                        Excalibur
+                                    </div>
+                                    <div className={styles.buyingButtons}>
+                                        <Money />
+                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
+                                    </div>
+                        </div>
+                        <div className={styles.itemInShop}>
+                                    <div>  {/* IMAGE of ITEM */}
+                                        Excalibur
+                                    </div>
+                                    <div className={styles.buyingButtons}>
+                                        <Money />
+                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
+                                    </div>
+                        </div>
+                        <div className={styles.itemInShop}>
+                                    <div>  {/* IMAGE of ITEM */}
+                                        Excalibur
+                                    </div>
+                                    <div className={styles.buyingButtons}>
+                                        <Money />
+                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
+                                    </div>
+                        </div>
+                        <div className={styles.itemInShop}>
+                                    <div>  {/* IMAGE of ITEM */}
+                                        Excalibur
+                                    </div>
+                                    <div className={styles.buyingButtons}>
+                                        <Money />
+                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
+                                    </div>
+                        </div>
+                        <div className={styles.itemInShop}>
+                                    <div>  {/* IMAGE of ITEM */}
+                                        Excalibur
+                                    </div>
+                                    <div className={styles.buyingButtons}>
+                                        <Money />
+                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
+                                    </div>
+                        </div>
                 </div>
             </div>
         </div>
