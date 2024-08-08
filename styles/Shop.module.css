@@ -34,6 +34,7 @@
     background-color: #A50104;
     border-radius: 20px;
     border: 1.5px;
+    margin-top: 5%;
 }
 
 .stuffButton {
@@ -44,10 +45,11 @@
     background-color: #A50104;
 }
 
-.buyButton {
+.buyingButtons {
     display: flex;
+    justify-content: space-evenly;
     margin-top: 200px;
-    
+    background-color: aqua;
 }
 
 .stuff{
