@@ -7,9 +7,9 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/users";
 
 // --- Importation persistance redux --- //
-import { persistStore, persistReducer } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
-import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage";
 
 // --- Importation mui/material --- //
 import { ThemeProvider } from "@mui/material";
@@ -20,35 +20,37 @@ import SideMenu from "../components/molecules/SideMenu";
 
 const reducers = combineReducers({ user });
 
-const persistConfig = { key: 'tasquest', storage };
+const persistConfig = { key: "tasquest", storage };
 
 const store = configureStore({
-    reducer: persistReducer(persistConfig, reducers),
+  reducer: persistReducer(persistConfig, reducers),
 
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 const persistor = persistStore(store);
 
 function App({ Component, pageProps }) {
-    return (
-        <>
-            <ThemeProvider theme={theme}>
-                <Provider store={store}>
-                    <PersistGate persistor={persistor}>
-                        <Head>
-                            <title>TasQuest</title>
-                            <style>
-                                @import
-                                url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-                            </style>
-                        </Head>
-                        <Component {...pageProps} />
-                    </PersistGate>
-                </Provider>
-            </ThemeProvider>
-        </>
-    );
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <Head>
+              <link rel="icon" href="/logoBlack.png"></link>
+              <title>TasQuest</title>
+              <style>
+                @import
+                url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+              </style>
+            </Head>
+            <Component {...pageProps} />
+          </PersistGate>
+        </Provider>
+      </ThemeProvider>
+    </>
+  );
 }
 
 export default App;
