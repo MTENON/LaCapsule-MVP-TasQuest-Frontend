@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 700px; /*  55%; 12%;*/
+  height: 70px;
+  /* gap: 0px; */
+  border-radius: 20px;
+  margin: 5px;
+}
+
+.leftBox {
+  height: 100%;
+  width: 35%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.rigthBox {
+  height: 100%;
+  width: 45%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
