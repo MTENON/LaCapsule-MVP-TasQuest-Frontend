@@ -11,8 +11,10 @@ function ButtonLarge({icon, variant}){
         secondary: { backgroundColor: "#fcd757", color: "#a50104" },
     };
 
-   
-    return <button className={styles.large} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
+    const handleClick = () => {
+        func()
+}
+    return <button onClick={handleClick} className={styles.large} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
 
 // //LES ICONES
 

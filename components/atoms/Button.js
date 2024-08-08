@@ -5,15 +5,17 @@ import { Icon } from "@iconify-icon/react";
 //variant pour changer la couleur du boutton
 
 
-function Button({icon, variant}){
+function Button({icon, variant, func}){
     const buttonStyles = {
         primary: { backgroundColor: "#a50104", color: "#fcd757" },
         secondary: { backgroundColor: "#fcd757", color: "#a50104" },
     };
 
-   
+    const handleClick = () => {
+        func()
+}   
 
-    return <button className={styles.basiqueStyle} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
+    return <button onClick={handleClick} className={styles.basiqueStyle} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
 
     //---------------------------------------------------->         Circle Button      <-----------------------------------------------------//
     //return <button className={styles.circleMsize} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>

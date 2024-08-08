@@ -11,9 +11,11 @@ function ButtonCircle({icon, variant, func}){
         secondary: { backgroundColor: "#fcd757", color: "#a50104" },
     };
 
-    const handleClick = () => { func()}
+    const handleClick = () => {
+                func()
+    }
 
-    return <button onClick={() => handleClick()} className={styles.circleMsize} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
+    return <button onClick={handleClick} className={styles.circleMsize} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
     
 
 // //LES ICONES

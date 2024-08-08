@@ -11,8 +11,11 @@ function ButtonDiamond({icon, variant}){
         secondary: { backgroundColor: "#fcd757", color: "#a50104" },
     };
 
-   
-    return <button className={styles.diamond} style={buttonStyles[variant]}><Icon style={{transform: "rotate(-45deg)"}}className={styles.iconSizeM} icon={icon}/> </button>
+    const handleClick = () => {
+        func()
+}
+    
+    return <button onClick={handleClick} className={styles.diamond} style={buttonStyles[variant]}><Icon style={{transform: "rotate(-45deg)"}}className={styles.iconSizeM} icon={icon}/> </button>
 
 
 // //LES ICONES
