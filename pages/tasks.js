@@ -1,8 +1,12 @@
-function TasksPage() {
+import TitleAtoms from "../components/atoms/TitleAtoms";
+import Layout from "../components/layouts/Layout";
 
+function TasksPage() {
     return (
         <>
-            <h1>Page taches</h1>
+            <Layout>
+                <TitleAtoms title="Test"></TitleAtoms>
+            </Layout>
         </>
     );
 }
