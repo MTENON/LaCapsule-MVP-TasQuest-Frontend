@@ -1,0 +1,96 @@
+.chatContainer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.userInfo {
+    height: 18%;
+    width: 95%;
+    margin-top: 1%;
+    padding: 1% 2%;
+    background-color: gainsboro;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.userInfoDisplay {
+    height: 95%;
+    width: 40%;
+    border: 3px solid whitesmoke;
+    border-radius: 15px;
+    padding: 5px;
+    overflow-y: auto;
+}
+
+.chatCard {
+    height: 69%;
+    width: 95%;
+    margin: 1% 0;
+    padding: 2%;
+    background-color: gainsboro;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    overflow-y: auto;
+}
+
+.messageCardmyMessage {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.myMessage {
+    min-height: 44px;
+    width: 60%;
+    margin: 5px;
+    padding: 0 20px;
+    border: 2px solid whitesmoke;
+    border-radius: 15px;
+    background-color: aquamarine;
+}
+
+.messageCardotherMessage {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.otherMessage {
+    min-height: 44px;
+    width: 60%;
+    margin: 5px;
+    padding: 0 20px;
+    border: 2px solid whitesmoke;
+    border-radius: 15px;
+    text-align: end;
+    background-color: coral;
+}
+
+.inputCard {
+    height: 8%;
+    width: 95%;
+    margin-bottom: 1%;
+    padding: 1% 2%;
+    background-color: gainsboro;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.wrapper {
+    text-wrap: wrap;
+}
