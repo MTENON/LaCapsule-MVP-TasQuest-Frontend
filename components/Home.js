@@ -38,7 +38,7 @@ function Home() {
       setError(false)
       dispatch(updateUsername(userData.data.username))
       dispatch(updateToken(userData.data.token))
-      window.location.href = 'tasks'
+      window.location.href = 'ChatPage'
     }
   }
 

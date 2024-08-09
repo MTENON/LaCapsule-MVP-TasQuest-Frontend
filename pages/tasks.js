@@ -1,8 +1,21 @@
-function TasksPage() {
+import TitleAtoms from "../components/atoms/TitleAtoms";
+import Layout from "../components/layouts/Layout";
+import Tasks from "../components/organisms/Tasks";
+import Todos from "../components/organisms/Todos";
+import styles from "../styles/pages/tasks.module.css";
 
+function TasksPage() {
     return (
         <>
-            <h1>Page taches</h1>
+            <Layout>
+                <div className={styles.content}>
+                    <TitleAtoms title="Test"></TitleAtoms>
+                    <div className={styles.container}>
+                        <Tasks></Tasks>
+                        <Todos></Todos>
+                    </div>
+                </div>
+            </Layout>
         </>
     );
 }
