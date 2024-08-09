@@ -11,9 +11,11 @@ function ButtonEmpty({icon, variant}){
         secondary: { backgroundColor: "transparent", border: "5px solid #a50104" },
     };
 
-   
+    const handleClick = () => {
+        func()
+}
 
-    return <button className={styles.basiqueStyleEmpty} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
+    return <button onClick={handleClick} className={styles.basiqueStyleEmpty} style={buttonStyles[variant]}><Icon className={styles.iconSize} icon={icon}/> </button>
     
 
 // //LES ICONES
