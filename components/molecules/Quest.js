@@ -1,16 +1,22 @@
 import styles from "../../styles/molecules/Quest.module.css"
 
+import { useSelector } from 'react-redux'
+
 //Imports de composants
 import Money from "../atoms/Money"
 import XPContainer from "../atoms/XPContainer"
 import Difficulty from "../atoms/Difficulty"
 import Button from "../atoms/Button"
 
-function handleAddQuest() {
+const link = process.env.backLink
 
-}
+export default function Quest({ key, title, money, XP, difficulty }) {
 
-export default function Quest() {
+    const token = useSelector((state) => state.user.token)
+
+    function handleAddQuest() {
+
+    }
 
     return (
         <div className={styles.questContainer}>
@@ -23,17 +29,17 @@ export default function Quest() {
             </div>
             <div className={styles.titleCard}>
                 <div className={styles.title}>
-                    <h2 className={styles.titleText}>Titre de la quête</h2>
+                    <h2 className={styles.titleText}>{title}</h2>
                 </div>
                 <div className={styles.titleCardData}>
                     <Money
-                        pieces={100}
+                        pieces={money}
                     />
                     <XPContainer
-                        points={50}
+                        points={XP}
                     />
                     <Difficulty
-                        points={3}
+                        points={difficulty}
                     />
                 </div>
             </div>
