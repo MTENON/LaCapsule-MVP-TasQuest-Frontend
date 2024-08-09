@@ -18,9 +18,11 @@ export default function Quest({ id, title, money, XP, difficulty }) {
 
 
 
-    async function handleAddQuest() {
+    async function handleAddQuest() { //En appuyant sur le bouton + de la quête
 
-        dispatch(updateQuestId(id));
+        dispatch(updateQuestId(id)); //Mise à jour du reducer
+
+
         //     const fetchData = await fetch(`${link}/quests/${id}`, {
         //         method: 'GET',
         //         headers: {
