@@ -1,0 +1,33 @@
+.pageContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleCard {
+    height: 82px;
+    width: 763px;
+    border-radius: 20px;
+    background-color: #A50104;
+    box-shadow: 0 4px 4px #00000040;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 90px;
+}
+
+.questCard {
+    height: 575px;
+    width: 939px;
+    border-radius: 20px;
+    background-color: #F0EFEF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 4px #00000040;
+}

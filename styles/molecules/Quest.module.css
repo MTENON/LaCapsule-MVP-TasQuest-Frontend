@@ -1,0 +1,78 @@
+.questContainer {
+    width: 759px;
+    height: 112px;
+    border-radius: 20px;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.picCard {
+    height: 100%;
+    width: 12%;
+    height: 112px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pic {
+    border-radius: 20px;
+}
+
+.titleCard {
+    height: 100%;
+    width: 71%;
+    margin: 0;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.titleText {
+    margin: 0;
+    padding: 0;
+    color: #A50104;
+}
+
+.titleCardData {
+    height: 80%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonCard {
+    height: 100%;
+    width: 12%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
