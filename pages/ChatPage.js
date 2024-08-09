@@ -1,5 +1,7 @@
 import styles from '../styles/pages/Chat.module.css'
 
+import Layout from '../components/layouts/Layout';
+
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import TextInputs from '../components/atoms/TextInputs';
@@ -20,7 +22,10 @@ function ChatPage() {
     const [roomJoined, setRoomJoined] = useState(false);
     const [roomId, setRoomId] = useState('room')
 
+
     useEffect(() => {
+
+        //On peut voir pour placer ces commandes dans une fonction exterieure 'socket connection' pour l'utiliser à divers endroits.
         const socket = socketIOClient(`${link}`);
         setSocket(socket);
 
@@ -94,41 +99,48 @@ function ChatPage() {
             setRoomJoined(false);
             socket.emit('leave room', (roomId));
         }
-
-
     }
 
     return (
-        <div className={styles.chatContainer}>
 
-            <div className={styles.userInfo}>
-                <button onClick={() => {
-                    joinOrLeaveRoom()
-                }}
-                    style={roomJoined ? { backgroundColor: "green" } : {}}
-                >Join room A</button>
-                <div className={styles.userInfoDisplay}>
-                    <p>Your username: {username}</p>
-                    <p>My room ID: </p>
-                    <p>Other users: </p>
+        <Layout>
+            <div className={styles.chatContainer}>
+
+                <div className={styles.userInfo}>
+                    <input
+                        value={roomId}
+                        style={{ height: '50px', width: '100px' }}
+                        placeholder='Room'
+                        onChange={(e) => { setRoomId(e.target.value) }}
+                    ></input>
+                    <button onClick={() => {
+                        joinOrLeaveRoom()
+                    }}
+                        style={roomJoined ? { backgroundColor: "green" } : {}}
+                    >Join room '{roomId}'</button>
+                    <div className={styles.userInfoDisplay}>
+                        <p>Your username: {username}</p>
+                        <p>My room ID: </p>
+                        <p>Other users: </p>
+                    </div>
+                </div>
+                <div className={styles.chatCard}>
+                    {showMessage}
+                </div>
+                <div className={styles.inputCard}>
+                    <TextInputs
+                        value={message}
+                        type="text"
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="placeholder"
+                        width={1000}
+                        variant="secondaryAll"
+                    />
+                    <button onClick={() => handleSend()}>SEND</button>
+                    <button onClick={() => handleSendToRoom()}>SEND TO ROOM</button>
                 </div>
             </div>
-            <div className={styles.chatCard}>
-                {showMessage}
-            </div>
-            <div className={styles.inputCard}>
-                <TextInputs
-                    value={message}
-                    type="text"
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="placeholder"
-                    width={1000}
-                    variant="secondaryAll"
-                />
-                <button onClick={() => handleSend()}>SEND</button>
-                <button onClick={() => handleSendToRoom()}>SEND TO ROOM</button>
-            </div>
-        </div>
+        </Layout>
     )
 
 }
