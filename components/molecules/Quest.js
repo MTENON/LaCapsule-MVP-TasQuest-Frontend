@@ -1,21 +1,36 @@
 import styles from "../../styles/molecules/Quest.module.css"
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 //Imports de composants
 import Money from "../atoms/Money"
 import XPContainer from "../atoms/XPContainer"
 import Difficulty from "../atoms/Difficulty"
 import Button from "../atoms/Button"
+import { updateQuestId } from "../../reducers/users"
 
 const link = process.env.backLink
 
-export default function Quest({ key, title, money, XP, difficulty }) {
+export default function Quest({ id, title, money, XP, difficulty }) {
 
-    const token = useSelector((state) => state.user.token)
+    const dispatch = useDispatch();
+    const questId = useSelector((state) => state.user.questId);
 
-    function handleAddQuest() {
 
+
+    async function handleAddQuest() {
+
+        dispatch(updateQuestId(id));
+        //     const fetchData = await fetch(`${link}/quests/${id}`, {
+        //         method: 'GET',
+        //         headers: {
+        //             'Authorization': token,
+        //             'Content-Type': 'application/json'
+        //         },
+        //     })
+        //     const questData = await fetchData.json()
+
+        //     console.log(questData.data)
     }
 
     return (

@@ -8,13 +8,27 @@ import Quest from "../components/molecules/Quest";
 
 const link = process.env.backLink
 
+function QuestChoice({ children }) {
 
+    return (
+        <div className={styles.pageContainer}>
+            <div className={styles.titleCard}>
+                <h1 style={{ color: '#FCD757' }}>Choix d'une quête</h1>
+            </div>
+            <div className={styles.questCard}>
+                {children}
+            </div>
+        </div>
+    )
+}
 
 function QuestsPage() {
 
     const [questList, setQuestList] = useState([])
+    const [questId, setQuestId] = useState(useSelector((state) => state.user.questId))
 
     const token = useSelector((state) => state.user.token)
+
 
     useEffect(() => {
 
@@ -38,6 +52,7 @@ function QuestsPage() {
         return (
             <Quest
                 key={data._id}
+                id={data._id}
                 title={data.name}
                 money={data.money}
                 XP={data.XP}
@@ -48,14 +63,8 @@ function QuestsPage() {
 
     return (
         <Layout>
-            <div className={styles.pageContainer}>
-                <div className={styles.titleCard}>
-                    <h1 style={{ color: '#FCD757' }}>Choix d'une quête</h1>
-                </div>
-                <div className={styles.questCard}>
-                    {quest}
-                </div>
-            </div>
+            {!questId && <QuestChoice>{quest}</QuestChoice>}
+            {questId && <text>Test</text>}
         </Layout>
     );
 }
