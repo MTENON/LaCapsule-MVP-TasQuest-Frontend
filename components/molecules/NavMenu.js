@@ -36,6 +36,7 @@ function NavMenu() {
                 nameIcon={element.nameIcon}
                 variant={element.variant}
                 children={element.children}
+                onClick={element.onClick}
             />
         );
     });
