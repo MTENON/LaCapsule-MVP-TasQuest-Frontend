@@ -1,8 +1,12 @@
+import Layout from '../components/layouts/Layout.js'
+
 function TasksPage() {
 
     return (
         <>
-            <h1>Page taches</h1>
+            <Layout >
+                <h1>Page taches</h1>
+            </Layout>
         </>
     );
 }

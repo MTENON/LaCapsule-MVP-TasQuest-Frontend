@@ -11,7 +11,7 @@ import { updateQuestId } from "../../reducers/users"
 
 const link = process.env.backLink
 
-export default function Quest({ id, title, money, XP, difficulty }) {
+export default function Quest({ id, title, money, XP, difficulty, change }) {
 
     const dispatch = useDispatch();
     const questId = useSelector((state) => state.user.questId);
@@ -21,18 +21,8 @@ export default function Quest({ id, title, money, XP, difficulty }) {
     async function handleAddQuest() { //En appuyant sur le bouton + de la quête
 
         dispatch(updateQuestId(id)); //Mise à jour du reducer
+        change(id)
 
-
-        //     const fetchData = await fetch(`${link}/quests/${id}`, {
-        //         method: 'GET',
-        //         headers: {
-        //             'Authorization': token,
-        //             'Content-Type': 'application/json'
-        //         },
-        //     })
-        //     const questData = await fetchData.json()
-
-        //     console.log(questData.data)
     }
 
     return (

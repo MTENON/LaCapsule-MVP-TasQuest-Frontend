@@ -1,4 +1,5 @@
 import styles from '../../styles/atoms/healthbar.module.css'
+import { Icon } from "@iconify-icon/react";
 
 function Healthbar(props) {
 
@@ -33,7 +34,7 @@ function Healthbar(props) {
 
     return (
         <div className={styles.healthbarContainer}>
-            <span className="material-icons" style={iconstyle}>favorite</span>
+            <Icon icon="mdi:heart" style={iconstyle} />
             <div className={styles.barOutline}>
                 <div className={styles.bar} style={heathbarGaugeStyle}></div>
                 <div className={styles.values}>
