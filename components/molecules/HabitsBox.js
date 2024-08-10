@@ -3,24 +3,31 @@ import styles from "../../styles/molecules/HabitsBox.module.css";
 import Button from "../atoms/Button";
 import Checkboxes from "../atoms/Checkboxes";
 import { useSelector } from "react-redux";
+import TaskAtom from "../atoms/TaskAtom";
 
 const link = process.env.BACK_LINK;
 
-function HabitsBox({ name, text, variant, repeat, taskId }) {
+function HabitsBox({ name, text, repeat, taskId }) {
   const [checked, setChecked] = useState(false);
-  // const token = useSelector((state) => state.users.token);
+  const token = useSelector((state) => state.user.token);
+
 
   const handleCheck = (value) => {
-    setChecked(value);
-
     console.log("add the fetch for /isdone route", taskId);
-    // fetch(`${link}/isdone`, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({}),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {});
+
+    fetch(`${link}/habits/isdone`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ taskId, token }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setChecked(data.isDone);
+        } else {
+          console.log(data.message);
+        }
+      });
   };
 
   const handleNewHabits = () => {
@@ -28,26 +35,27 @@ function HabitsBox({ name, text, variant, repeat, taskId }) {
     // inverse data flow ? modify(taskId)
   };
 
-  const containerStyles = {
-    primary: { border: "3px solid #A50104", backgroundColor: "#FCD757" },
-    secondary: { border: "3px solid #FCD757", backgroundColor: "#A50104" },
-  };
+  console.log("Check ", checked);
 
   return (
-    <div className={styles.container} style={containerStyles[variant]}>
-      <div className={styles.leftBox}>
-        <Checkboxes
-          name={name}
-          handleCheck={handleCheck}
-          variant={checked ? "primaryChecked" : "primary"}
-        />
-        <p>{text}</p>
-      </div>
-      <div className={styles.rigthBox}>
-        <p>{repeat}</p>
-        <Button icon="ph:pen" variant={"primary"} func={handleNewHabits} />
-      </div>
-    </div>
+    <>
+      {/* <div className={styles.container} style={containerStyles[variant]}> */}
+      <TaskAtom>
+        <div className={styles.leftBox}>
+          <Checkboxes
+            name={name}
+            handleCheck={handleCheck}
+            variant={checked ? "primaryChecked" : "primary"}
+          />
+          <p className={styles.text}>{text}</p>
+        </div>
+        <div className={styles.rigthBox}>
+          <p className={styles.text} >{repeat}</p>
+          <Button icon="ph:pen" variant={"primary"} func={handleNewHabits} />
+        </div>
+      </TaskAtom>
+      {/* </div> */}
+    </>
   );
 }
 
@@ -61,7 +69,7 @@ export default HabitsBox;
 //   ];
 
 //   const habits = habitsData.map((data, i) => {
-//     return <HabitsBox key={data.id} variant={"primary"} {...data} />;
+//     return <HabitsBox key={data.taskId} variant={"primary"} {...data} />;
 //   });
 
 //   {habits}
