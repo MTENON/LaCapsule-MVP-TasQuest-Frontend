@@ -1,26 +1,37 @@
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 700px; /*  55%; 12%;*/
   height: 70px;
-  /* gap: 0px; */
+  gap: 4px;
   border-radius: 20px;
   margin: 5px;
 }
 
 .leftBox {
   height: 100%;
-  width: 35%;
+  width: 45%;
+  gap: 10%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .rigthBox {
   height: 100%;
-  width: 45%;
+  width: 30%;
+  gap: 15%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 30%;
 }
