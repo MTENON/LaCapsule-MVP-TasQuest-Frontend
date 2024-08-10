@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: [],
   },
   env: {
-    backLink: process.env.BACK_LINK
-  }
+    backLink: process.env.BACK_LINK,
+  },
 };
 
 module.exports = nextConfig;
