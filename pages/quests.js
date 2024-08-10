@@ -7,13 +7,24 @@ import { useSelector } from "react-redux";
 import QuestChoice from "../components/organisms/QuestChoice";
 import QuestDisplay from "../components/organisms/QuestDisplay";
 
+const link = process.env.backLink
+
 function QuestsPage() {
 
     const [questId, setQuestId] = useState(useSelector((state) => state.user.questId))
+    const token = useSelector((state) => state.user.token)
+    const characterId = useSelector((state) => state.user.characterId)
 
-
-    function handleQuestChange(value) {
+    async function handleQuestChange(value) {
         setQuestId(value)
+        await fetch(`${link}/quests/newQuest`, {
+            method: 'POST',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ characterId: characterId, questId: value })
+        })
     }
 
     function handleQuestDisplay() {

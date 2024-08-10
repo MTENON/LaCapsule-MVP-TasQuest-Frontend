@@ -5,10 +5,11 @@ const initialState = {
   username: "",
   token: "",
   characterId: "",
+  characterName: "",
   money: 0,
   HP: 0,
   XP: 0,
-  caracs: {},
+  caracs: [{}],
   questId: null
 };
 
@@ -29,7 +30,8 @@ export const userSlice = createSlice({
       state.money = action.payload.money;
       state.HP = action.payload.HP;
       state.XP = action.payload.XP;
-      state.caracs = action.payload.caracs
+      state.caracs = action.payload.caracs;
+      state.questId = action.payload.questId
     },
     updateQuestId: (state, action) => {
       state.questId = action.payload;

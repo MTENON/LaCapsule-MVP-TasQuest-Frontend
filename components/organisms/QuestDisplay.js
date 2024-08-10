@@ -7,13 +7,12 @@ import { updateQuestId } from "../../reducers/users";
 //Import de composants
 import Button from "../atoms/Button"
 import Healthbar from "../atoms/Healthbar"
+import ChatPage from "../../pages/ChatPage";
 
 const link = process.env.backLink
 
 function QuestDisplay({ handleQuestDisplay }) {
 
-    const [questTitle, setQuestTitle] = useState('Titre de la quête')
-    const [questDesc, setQuestDesc] = useState('Description de la quête')
     const [quest, setQuest] = useState({})
 
     let questId = useSelector((state) => state.user.questId)
@@ -37,8 +36,8 @@ function QuestDisplay({ handleQuestDisplay }) {
     }, [])
 
     function cancel() {
-        dispatch(updateQuestId(""))
-        handleQuestDisplay()
+        dispatch(updateQuestId(""));
+        handleQuestDisplay();
     }
 
     return (
@@ -48,7 +47,7 @@ function QuestDisplay({ handleQuestDisplay }) {
                     <div className={styles.titleCardQuest}>
                         <h1 style={{ color: '#FCD757' }}>{quest.name}</h1>
                     </div>
-                    <p>{quest.description}</p>
+                    <p className={styles.titleCardDesc}>{quest.description}</p>
                 </div>
                 <div className={styles.monsterIntel}>
                     <img src='https://placehold.co/100'></img>
@@ -59,14 +58,20 @@ function QuestDisplay({ handleQuestDisplay }) {
                 </div>
             </div>
             <div className={styles.questDisplayDown}>
-                <div className={styles.logCard}></div>
+                <div className={styles.logButton}>
+                    <div className={styles.logCard} ></div>
+                    <div className={styles.buttonContainer}>
+                        <Button
+                            variant={'primary'}
+                            icon={"icomoon-free:cross"}
+                            func={cancel}
+                        />
+                    </div>
+                </div>
+                <div className={styles.questLoot}></div>
             </div>
-            <Button
-                variant={'primary'}
-                icon={"icomoon-free:cross"}
-                func={cancel}
-            />
-        </div>
+
+        </div >
     )
 }
 
