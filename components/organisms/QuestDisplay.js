@@ -8,18 +8,37 @@ import { updateQuestId } from "../../reducers/users";
 import Button from "../atoms/Button"
 import Healthbar from "../atoms/Healthbar"
 
+const link = process.env.backLink
+
 function QuestDisplay({ handleQuestDisplay }) {
-
-    const dispatch = useDispatch();
-
 
     const [questTitle, setQuestTitle] = useState('Titre de la quête')
     const [questDesc, setQuestDesc] = useState('Description de la quête')
+    const [quest, setQuest] = useState({})
+
+    let questId = useSelector((state) => state.user.questId)
+    const token = useSelector((state) => state.user.token)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        (async () => {
+            const fetchData = await fetch(`${link}/quests/${questId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            const questData = await fetchData.json()
+
+            setQuest(questData.data)
+        })()
+    }, [])
 
     function cancel() {
         dispatch(updateQuestId(""))
         handleQuestDisplay()
-
     }
 
     return (
@@ -27,9 +46,9 @@ function QuestDisplay({ handleQuestDisplay }) {
             <div className={styles.questDisplayUp}>
                 <div className={styles.questIntel}>
                     <div className={styles.titleCardQuest}>
-                        <h1 style={{ color: '#FCD757' }}>{questTitle}</h1>
+                        <h1 style={{ color: '#FCD757' }}>{quest.name}</h1>
                     </div>
-                    <p>{questDesc}</p>
+                    <p>{quest.description}</p>
                 </div>
                 <div className={styles.monsterIntel}>
                     <img src='https://placehold.co/100'></img>
