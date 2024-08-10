@@ -4,12 +4,10 @@ import AtomLink from "../atoms/AtomLink";
 import Link from "next/link";
 import NotificationBox from "./NotificationBox";
 import { Icon } from "@iconify-icon/react";
-import Notification from "../atoms/Notification";
 import Image from "next/image";
 
 function NavMenu() {
     // États pour gérer la connexion, le survol et l'affichage des notifications
-    const [isConnected, setIsConnected] = useState(false);
     const [isHover, setIsHover] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
 
@@ -76,13 +74,15 @@ function NavMenu() {
         <>
             <nav className={styles.navbar}>
                 {/*------ Lien vers le profil ou la page d'accueil basé sur l'état de connexion -----*/}
-                <Link href={isConnected ? "/profile" : "/home"}>
-                    <Image
-                        src="/logoYellow.png"
-                        alt="logo jaune"
-                        width={95}
-                        height={95}
-                    />
+                <Link href="/profile">
+                    <a>
+                        <Image
+                            src="/logoYellow.png"
+                            alt="logo jaune"
+                            width={95}
+                            height={95}
+                        />
+                    </a>
                 </Link>
 
                 <div className={styles.listItems}>
