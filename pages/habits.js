@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/pages/habits.module.css";
 import Layout from "../components/layouts/Layout";
-import HabitsBox from "../components/molecules/HabitsBox";
+import HabitsBox from "../components/organisms/HabitsBox";
 import { useSelector } from "react-redux";
 import TitleAtoms from "../components/atoms/TitleAtoms";
+import ButtonDiamond from "../components/atoms/ButtonDiamond";
 
 const link = process.env.backLink;
 
@@ -60,7 +61,17 @@ function HabitsPage() {
         key={data.taskId}
         taskId={data._id}
         text={data.name}
-        repeat={data.repetition.number + " " + labelTrad}
+        desc={data.description}
+        start={data.startDate}
+        end={data.endDate}
+        level={data.difficulty}
+        repNumber={data.repetition.number}
+        labelTrad={labelTrad}
+        enLabel={data.repetition.label}
+        fav={data.isFavorite}
+        pause={data.onPauseSince}
+        pauseEnd={data.PauseEndDate}
+        pauseDesc={data.pauseDesc}
       />
     );
   });
@@ -69,6 +80,12 @@ function HabitsPage() {
     <Layout>
       <div className={styles.content}>
         <TitleAtoms title={"Habitudes"} />
+        <ButtonDiamond
+          icon="mingcute:cross-fill"
+          // func={handleOpen}
+          variant="primaryS"
+          iconSize="iconSize"
+        ></ButtonDiamond>       
         <div className={styles.container}>{habits}</div>
       </div>
     </Layout>
