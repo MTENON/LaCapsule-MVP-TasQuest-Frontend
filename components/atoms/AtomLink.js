@@ -4,7 +4,14 @@ import { useState } from "react";
 import { Icon } from "@iconify-icon/react";
 import { useRouter } from "next/router";
 
-const AtomLink = ({ href, children, nameIcon, variant, popoverMessage }) => {
+const AtomLink = ({
+    href,
+    children,
+    nameIcon,
+    variant,
+    popoverMessage,
+    onClick,
+}) => {
     // État pour gérer le survol de la souris
     const [isHover, setIsHover] = useState(false);
     const router = useRouter();
@@ -15,6 +22,13 @@ const AtomLink = ({ href, children, nameIcon, variant, popoverMessage }) => {
     };
     const handleMouseLeave = () => {
         setIsHover(false);
+    };
+
+    // Gérer le clic
+    const handleClick = (e) => {
+        if (onClick) {
+            onClick(e);
+        }
     };
 
     popoverMessage = { popoverMessage };
@@ -54,6 +68,7 @@ const AtomLink = ({ href, children, nameIcon, variant, popoverMessage }) => {
                     className={styles.containerLink}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    onClick={handleClick}
                 >
                     <Icon icon={nameIcon} width="32" height="32" />
                     {children}
