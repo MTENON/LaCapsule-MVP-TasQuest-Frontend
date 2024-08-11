@@ -16,13 +16,14 @@ function QuestDisplay({ handleQuestDisplay }) {
     const [quest, setQuest] = useState({})
 
     let questId = useSelector((state) => state.user.questId)
+    const characterId = useSelector((state) => state.user.characterId)
     const token = useSelector((state) => state.user.token)
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         (async () => {
-            const fetchData = await fetch(`${link}/quests/${questId}`, {
+            const fetchData = await fetch(`${link}/quests/getById/${questId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': token,
@@ -35,9 +36,18 @@ function QuestDisplay({ handleQuestDisplay }) {
         })()
     }, [])
 
-    function cancel() {
-        dispatch(updateQuestId(""));
+    async function cancel() {
+        dispatch(updateQuestId(null));
         handleQuestDisplay();
+        await fetch(`${link}/quests/stopQuest`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+
+            },
+            body: JSON.stringify({ characterId: characterId })
+        })
     }
 
     return (

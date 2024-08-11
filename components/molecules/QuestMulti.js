@@ -9,7 +9,7 @@ import Difficulty from "../atoms/Difficulty"
 import Button from "../atoms/Button"
 import { updateQuestId } from "../../reducers/users"
 
-export default function Quest({ id, title, money, XP, difficulty, change, creator }) {
+export default function QuestMulti({ id, title, money, XP, difficulty, change }) {
 
     const dispatch = useDispatch();
 
@@ -31,10 +31,7 @@ export default function Quest({ id, title, money, XP, difficulty, change, creato
             </div>
             <div className={styles.titleCard}>
                 <div className={styles.title}>
-                    <div className={styles.titleInfo}>
-                        <h2 className={styles.titleText}>{title}</h2>
-                        {creator && <h2 className={styles.playerText}>Rejoindre {creator}</h2>}
-                    </div>
+                    <h2 className={styles.titleText}>{title}</h2>
                 </div>
                 <div className={styles.titleCardData}>
                     <Money
