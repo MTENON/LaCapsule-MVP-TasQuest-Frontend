@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { Typography } from "@mui/material";
 import AtomButton from "../atoms/AtomButton";
-import MenuItem from "@mui/material/MenuItem";
 import LabeledInput from "./LabeledInput";
 import Checkboxes from "../atoms/Checkboxes";
 import DifficultyRating from "./DifficultyRating";
 import { useSelector } from "react-redux";
+import ButtonDiamond from "../atoms/ButtonDiamond";
 
 const link = process.env.backLink;
 
@@ -33,22 +31,13 @@ const style = {
   gap: "2%",
 };
 
-function ModifHabit({
-  taskId,
-  text,
-  desc,
-  level,
-  repNumber,
-  labelTrad,
-  enLabel,
-  fav,
-}) {
+function CreateHabit() {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
-    console.log(taskId, text);
+    // console.log(taskId, text);
   };
   const handleClose = () => setOpen(false);
 
@@ -58,18 +47,8 @@ function ModifHabit({
   const [label, setLabel] = useState(null);
   const [ogLabel, setOgLabel] = useState(null);
   const [num, setNum] = useState(1);
-  const [description, setDescription] = useState("");
-  const [difficulty, setDifficulty] = useState(0);
-
-  useEffect(() => {
-    setTitle(text);
-    setLabel(labelTrad);
-    setOgLabel(enLabel);
-    setNum(repNumber);
-    setDescription(desc);
-    setDifficulty(level);
-    setFav(fav);
-  }, []);
+  const [description, setDescription] = useState(null);
+  const [difficulty, setDifficulty] = useState(1);
 
   const trad = () => {
     switch (label) {
@@ -90,22 +69,20 @@ function ModifHabit({
     }
   };
 
-  const modifyHabits = async () => {
+  const createHabits = async () => {
     try {
-      const response = await fetch(`${link}/habits/modify`, {
+      const response = await fetch(`${link}/habits/create`, {
         method: "POST",
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          taskId: taskId,
           name: title,
-          description: description,
-          // tags,
-          difficulty: difficulty,
           number: num,
           label: ogLabel,
+          description: description,
+          difficulty: difficulty,
           isFavorite: favorite,
         }),
       });
@@ -113,12 +90,11 @@ function ModifHabit({
       const data = await response.json();
 
       if (!data.result) {
+        // throw new Error("Erreur lors de la creation des tâches");
         console.log(data.message);
-        throw new Error("Erreur lors de la modification de l'habitude");
       }
 
-      setOpen(false);
-      console.log(data.message);
+      console.log("created");
     } catch (error) {
       console.log(error.message);
     }
@@ -126,7 +102,12 @@ function ModifHabit({
 
   return (
     <>
-      <MenuItem onClick={handleOpen}>Modifier</MenuItem>
+      <ButtonDiamond
+        icon="mingcute:cross-fill"
+        func={handleOpen}
+        variant="primaryS"
+        iconSize="iconSize"
+      ></ButtonDiamond>
       <Modal
         open={open}
         onClose={handleClose}
@@ -147,7 +128,7 @@ function ModifHabit({
             alignItems="center"
             color="primary.main"
           >
-            Modifier cette Habitude
+            Créer une Habitude
           </Typography>
           <Box
             id="modal-modal-description"
@@ -299,10 +280,10 @@ function ModifHabit({
                   Fermer
                 </AtomButton>
                 <AtomButton
-                  handleClick={() => modifyHabits()}
+                  handleClick={() => createHabits()}
                   variant="secondary"
                 >
-                  Modifier
+                  Créer
                 </AtomButton>
               </Box>
             </Box>
@@ -313,4 +294,4 @@ function ModifHabit({
   );
 }
 
-export default ModifHabit;
+export default CreateHabit;

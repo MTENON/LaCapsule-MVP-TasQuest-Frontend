@@ -5,6 +5,7 @@ import HabitsBox from "../components/organisms/HabitsBox";
 import { useSelector } from "react-redux";
 import TitleAtoms from "../components/atoms/TitleAtoms";
 import ButtonDiamond from "../components/atoms/ButtonDiamond";
+import CreateHabit from "../components/molecules/CreateHabit";
 
 const link = process.env.backLink;
 
@@ -25,7 +26,8 @@ function HabitsPage() {
         const data = await response.json();
 
         if (!data.result) {
-          throw new Error("Erreur lors de la recupération des tâche");
+          throw new Error("Erreur lors de la recupération des tâches");
+          console.log(data.message);
         }
 
         setHabitsData(data.habits);
@@ -33,12 +35,56 @@ function HabitsPage() {
         console.log(error.message);
       }
     };
+    const validHabits = async () => {
+      try {
+        const response = await fetch(`${link}/habits/valid`, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
+
+        if (!data.result) {
+          throw new Error("Erreur lors de l'actualisation des tâches valid");
+          console.log(data.message);
+        }
+
+        console.log("done");
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    const unvalidHabits = async () => {
+      try {
+        const response = await fetch(`${link}/habits/unvalid`, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
+
+        if (!data.result) {
+          throw new Error("Erreur lors de l'actualisation des tâches unvalid");
+          console.log(data.message);
+        }
+
+        console.log("done");
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
     fetchHabits();
+    validHabits();
+    unvalidHabits();
   }, []);
 
   console.log(habitsData);
 
-  const habits = habitsData.map((data) => {
+  const habits = habitsData.map((data, i) => {
     let labelTrad = "";
     switch (data.repetition.label) {
       case "days":
@@ -58,7 +104,7 @@ function HabitsPage() {
     }
     return (
       <HabitsBox
-        key={data.taskId}
+        key={i}
         taskId={data._id}
         text={data.name}
         desc={data.description}
@@ -80,12 +126,7 @@ function HabitsPage() {
     <Layout>
       <div className={styles.content}>
         <TitleAtoms title={"Habitudes"} />
-        <ButtonDiamond
-          icon="mingcute:cross-fill"
-          // func={handleOpen}
-          variant="primaryS"
-          iconSize="iconSize"
-        ></ButtonDiamond>       
+        <CreateHabit />       
         <div className={styles.container}>{habits}</div>
       </div>
     </Layout>
