@@ -124,4 +124,5 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 4px #00000040;
 }

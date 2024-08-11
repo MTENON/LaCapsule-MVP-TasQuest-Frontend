@@ -24,6 +24,7 @@ function QuestChoice({ handleQuestChange }) {
     }
 
     const quest = questList.map((data) => {
+        console.log(data)
         return (
             <Quest
                 key={data._id}
@@ -33,7 +34,7 @@ function QuestChoice({ handleQuestChange }) {
                 XP={data.XP}
                 difficulty={data.difficulty}
                 change={change}
-                player={data.creator}
+                creator={data.creator}
             />)
 
     })
@@ -63,10 +64,13 @@ function QuestChoice({ handleQuestChange }) {
                         'Content-Type': 'application/json'
                     },
                 })
-                setQuestList([])
                 const questQuery = await fetchData.json()
-                await questQuery.data.forEach(async (e) => {
-                    const fetchQuestData = await fetch(`${link}/quests/getById/${e.questId}`, {
+                console.log(questQuery)
+
+                const newQuest = [];
+
+                for (let i = 0; i < questQuery.data.length; i++) {
+                    const fetchQuestData = await fetch(`${link}/quests/getById/${questQuery.data[i].questId}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': token,
@@ -74,8 +78,11 @@ function QuestChoice({ handleQuestChange }) {
                         },
                     })
                     const questData = await fetchQuestData.json()
-                    setQuestList([questData.data])
-                })
+                    newQuest.push({ ...questData.data, creator: questQuery.data[i].creator })
+                    // setQuestList((oldQuests) => [oldQuests, newQuest])
+                }
+                setQuestList(newQuest)
+
             })()
         }
 
@@ -86,7 +93,7 @@ function QuestChoice({ handleQuestChange }) {
             <div className={styles.titleCard}>
                 <h1 style={{ color: '#FCD757' }}>Choix d'une quête</h1>
             </div>
-            <ButtonLarge variant={'secondary'} onClick={changeMulti}>{!questMulti ? 'Multijoueur' : 'Solo'}</ButtonLarge>
+            <ButtonLarge variant={'secondary'} onClick={changeMulti}>{!questMulti ? 'Quêtes en solo' : "Rejoindre d'autres joueurs"}</ButtonLarge>
             <div className={styles.questCard}>
                 {quest}
             </div>

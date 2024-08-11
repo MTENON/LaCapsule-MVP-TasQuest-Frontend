@@ -10,15 +10,17 @@ const link = process.env.backLink
 import socketIOClient from 'socket.io-client'
 const { io } = require('socket.io-client')
 
+//Import de composants
+import Button from '../atoms/Button';
 
-function ChatBox() {
+
+function ChatBox({ roomId }) {
 
     const [socket, setSocket] = useState('');
-    const [username, setUsername] = useState(useSelector((state) => state.user.username))
+    const [username, setUsername] = useState(useSelector((state) => state.user.username));
     const [message, setMessage] = useState('');
     const [messagerie, setMessagerie] = useState([]);
     const [roomJoined, setRoomJoined] = useState(false);
-    const [roomId, setRoomId] = useState(useSelector((state) => state.user.quest));
 
 
     useEffect(() => {
@@ -103,37 +105,25 @@ function ChatBox() {
     }
 
     return (
-        <div className={styles.chatContainer}>
-
-            <div className={styles.userInfo}>
-                <input
-                    value={roomId}
-                    style={{ height: '50px', width: '100px' }}
-                    placeholder='Room'
-                    onChange={(e) => { setRoomId(e.target.value) }}
-                ></input>
-                <button onClick={() => {
-                    joinOrLeaveRoom()
-                }}
-                    style={roomJoined ? { backgroundColor: "green" } : {}}
-                >Join room '{roomId}'</button>
-                <div className={styles.userInfoDisplay}>
-                    <p>Your username: {username}</p>
+        <div className={styles.mainContainer}>
+            <div className={styles.chatContainer}>
+                <div className={styles.chatCard}>
+                    {showMessage}
+                </div>
+                <div className={styles.inputCard}>
+                    <TextInputs
+                        value={message}
+                        type="text"
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="placeholder"
+                        width={800}
+                        variant="secondaryAll"
+                    />
+                    <Button variant={"secondary"} icon={"iconamoon:player-end-fill"} func={handleSendToRoom} />
                 </div>
             </div>
-            <div className={styles.chatCard}>
-                {showMessage}
-            </div>
-            <div className={styles.inputCard}>
-                <TextInputs
-                    value={message}
-                    type="text"
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="placeholder"
-                    width={1000}
-                    variant="secondaryAll"
-                />
-                <button onClick={() => handleSendToRoom()}>SEND TO ROOM</button>
+            <div className={styles.usersContainer}>
+                <div className={styles.userCard}><p>Bonhomme</p></div>
             </div>
         </div>
     )

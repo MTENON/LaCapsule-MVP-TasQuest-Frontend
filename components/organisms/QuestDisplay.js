@@ -70,7 +70,7 @@ function QuestDisplay({ handleQuestDisplay }) {
             <div className={styles.questDisplayDown}>
                 <div className={styles.logButton}>
                     <div className={styles.logCard} >
-                        <ChatBox></ChatBox>
+                        <ChatBox roomId={questId}></ChatBox>
                     </div>
                     <div className={styles.buttonContainer}>
                         <Button
