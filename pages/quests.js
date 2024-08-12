@@ -40,7 +40,6 @@ function QuestsPage() {
             body: JSON.stringify({ token: token, questId: value })
         });
         const newRoom = await fetchRoom.json();
-        console.log(newRoom)
         dispatch(updateRoomId(newRoom.data))
 
     }

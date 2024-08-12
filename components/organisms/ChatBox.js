@@ -17,13 +17,34 @@ import Button from '../atoms/Button';
 function ChatBox({ roomId }) {
 
     const [socket, setSocket] = useState('');
-    const [username, setUsername] = useState(useSelector((state) => state.user.username));
     const [message, setMessage] = useState('');
     const [messagerie, setMessagerie] = useState([]);
     const [roomJoined, setRoomJoined] = useState(false);
 
+    const username = useSelector((state) => state.user.username);
+    const token = useSelector((state) => state.user.token);
+
+    // console.log(roomId)
 
     useEffect(() => {
+
+        //Récupération des messages sauvegardés
+
+        (async () => {
+            const messagesFetchData = await fetch(`${link}/quests/room/${roomId}/getMessages`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json'
+                },
+            })
+            const messages = await messagesFetchData.json()
+            setMessagerie(messages.data)
+        })()
+
+        // --- ------ --- //
+        // --- SOKETS --- //
+        // --- ------ --- //
 
         //On peut voir pour placer ces commandes dans une fonction exterieure 'socket connection' pour l'utiliser à divers endroits.
         const socket = socketIOClient(`${link}`);
@@ -49,39 +70,44 @@ function ChatBox({ roomId }) {
             socket.disconnect(); // Déconnecte le socket du serveur
         };
 
+        // --- ------ --- //
+        // --- SOKETS --- //
+        // --- ------ --- //
+
     }, [])
 
+    let showMessage = [];
+    if (messagerie.length > 0) {
+        showMessage = messagerie.map((data, i) => {
 
-    const showMessage = messagerie.map((data, i) => {
+            let messageStyle = ''
+            if (data.user === username) {
+                messageStyle = 'myMessage'
+            } else {
+                messageStyle = 'otherMessage'
+            }
 
-        let messageStyle = ''
-        if (data.user === username) {
-            messageStyle = 'myMessage'
-        } else {
-            messageStyle = 'otherMessage'
-        }
-
-        if (messageStyle === 'myMessage') {
-            return (
-                <div key={i} className={styles.messageCardmyMessage}>
-                    <div className={styles.myMessage}>
-                        <h4>{data.user}</h4>
-                        <p className={styles.wrapper}>{data.content}</p>
+            if (messageStyle === 'myMessage') {
+                return (
+                    <div key={i} className={styles.messageCardmyMessage}>
+                        <div className={styles.myMessage}>
+                            <h4>{data.user}</h4>
+                            <p className={styles.wrapper}>{data.content}</p>
+                        </div>
+                    </div >
+                )
+            } else {
+                return (
+                    <div key={i} className={styles.messageCardotherMessage}>
+                        <div className={styles.otherMessage}>
+                            <h4>{data.user}</h4>
+                            <p className={styles.wrapper}>{data.content}</p>
+                        </div>
                     </div>
-                </div >
-            )
-        } else {
-            return (
-                <div key={i} className={styles.messageCardotherMessage}>
-                    <div className={styles.otherMessage}>
-                        <h4>{data.user}</h4>
-                        <p className={styles.wrapper}>{data.content}</p>
-                    </div>
-                </div>
-            )
-        }
-
-    })
+                )
+            }
+        })
+    }
 
     // function handleSend() {
     //     // setMessagerie([...messagerie, { user: username, content: message }]);
@@ -89,9 +115,19 @@ function ChatBox({ roomId }) {
     //     setMessage('')
     // }
 
-    function handleSendToRoom() {
-        socket.emit('room message', { room: roomId, user: username, content: message });
-        setMessage('')
+    async function handleSendToRoom() {
+        await socket.emit('room message', { room: roomId, user: username, content: message });
+
+        await fetch(`${link}/quests/room/${roomId}/addMessage`, {
+            method: 'POST',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: token, content: message })
+        });
+
+        setMessage('');
     }
 
     // function joinOrLeaveRoom() {

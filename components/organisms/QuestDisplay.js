@@ -40,6 +40,7 @@ function QuestDisplay({ handleQuestDisplay }) {
     async function cancel() {
         dispatch(updateQuestId(null));
         handleQuestDisplay();
+
         await fetch(`${link}/quests/stopQuest`, {
             method: 'DELETE',
             headers: {
@@ -57,6 +58,7 @@ function QuestDisplay({ handleQuestDisplay }) {
                     'Authorization': token,
                     'Content-Type': 'application/json'
                 },
+                body: JSON.stringify({ token: token })
             }
         )
     }
@@ -81,7 +83,7 @@ function QuestDisplay({ handleQuestDisplay }) {
             <div className={styles.questDisplayDown}>
                 <div className={styles.logButton}>
                     <div className={styles.logCard} >
-                        <ChatBox roomId={questId}></ChatBox>
+                        <ChatBox roomId={roomId}></ChatBox>
                     </div>
                     <div className={styles.buttonContainer}>
                         <Button
