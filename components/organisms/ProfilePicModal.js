@@ -61,17 +61,17 @@ export default function ProfilePicModal({ autorisation, previousData }) {
         {
             id: 1,
             name: 'photo1',
-            url: 'https://via.placeholder.com/150/0000FF/FFFFFF?text=Photo1'
+            url: '/userpic1.png'
         },
         {
             id: 2,
             name: 'photo2',
-            url: 'https://via.placeholder.com/150/FF0000/FFFFFF?text=Photo2'
+            url: '/userpic2.png'
         },
         {
             id: 3,
             name: 'photo3',
-            url: 'https://via.placeholder.com/150/00FF00/FFFFFF?text=Photo3'
+            url: '/userpic3.png'
         }
     ];
 

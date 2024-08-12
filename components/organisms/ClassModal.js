@@ -81,11 +81,12 @@ export default function ClassModal({ autorisation, previousData }) {
     }, [choosedPic])
 
     const image = images.map((data, i) => {
+        console.log(data.icon)
         return (
             <PopoverCustom message={data.description}>
                 < img
                     key={i}
-                    src={data.icon}
+                    src={data.icon.trim()}
                     placeholder={data.name}
                     className={styles.image}
                     style={choosedPic.i === i ? { border: '3px solid #A50104', borderRadius: '10px' } : {}}
