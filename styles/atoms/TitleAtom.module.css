@@ -1,10 +1,11 @@
 .container {
   background-color: #a50104;
+  box-shadow: 0px 4px 4px 0px #00000040;
   color: #fcd757;
   height: 13%;
   width: 55%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   text-align: center;
   padding: 3%;

@@ -1,75 +1,125 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/molecules/HabitsBox.module.css";
-import Button from "../atoms/Button";
 import Checkboxes from "../atoms/Checkboxes";
 import { useSelector } from "react-redux";
 import TaskAtom from "../atoms/TaskAtom";
+// import DropdownHabits from "../organisms/DropdownHabits";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "../atoms/Button";
+import ModifHabit from "../molecules/ModifHabit";
+import DelHabits from "../molecules/delHabits";
 
-const link = process.env.BACK_LINK;
+const link = process.env.backLink;
 
-function HabitsBox({ name, text, repeat, taskId }) {
-  const [checked, setChecked] = useState(false);
+function HabitsBox({
+  taskId,
+  name,
+  text,
+  desc,
+  level,
+  repNumber,
+  labelTrad,
+  enLabel,
+  fav,
+  isDone,
+  start,
+}) {
   const token = useSelector((state) => state.user.token);
 
+  const [doneStatus, setDoneStatus] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
-  const handleCheck = (value) => {
-    console.log("add the fetch for /isdone route", taskId);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-    fetch(`${link}/habits/isdone`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ taskId, token }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          setChecked(data.isDone);
-        } else {
-          console.log(data.message);
-        }
+  useEffect(() => {
+    setDoneStatus(isDone);
+  }, []);
+
+  const handleDone = async () => {
+    try {
+      const response = await fetch(`${link}/habits/isdone`, {
+        method: "POST",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          taskId: taskId,
+        }),
       });
-  };
 
-  const handleNewHabits = () => {
-    console.log("add the fetch for /modify route", taskId);
-    // inverse data flow ? modify(taskId)
-  };
+      const data = await response.json();
 
-  console.log("Check ", checked);
+      if (!data.result) {
+        console.log(data.message);
+        throw new Error("Erreur lors de la modification de l'habitude");
+      }
+      setDoneStatus(!doneStatus);
+      console.log(data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <>
-      {/* <div className={styles.container} style={containerStyles[variant]}> */}
       <TaskAtom>
         <div className={styles.leftBox}>
           <Checkboxes
             name={name}
-            handleCheck={handleCheck}
-            variant={checked ? "primaryChecked" : "primary"}
+            handleCheck={handleDone}
+            variant={doneStatus ? "primaryChecked" : "primary"}
+            value={doneStatus}
           />
           <p className={styles.text}>{text}</p>
         </div>
         <div className={styles.rigthBox}>
-          <p className={styles.text} >{repeat}</p>
-          <Button icon="ph:pen" variant={"primary"} func={handleNewHabits} />
+          <p className={styles.text}>{repNumber + " " + labelTrad}</p>
+          <Button
+            variant="primary"
+            icon="ph:pen"
+            handleClick={handleClick}
+            // classeName={styles.iconSize}
+          />
+          <Menu
+            id="demo-positioned-menu"
+            aria-labelledby="demo-positioned-button"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+          >
+            <ModifHabit
+              taskId={taskId}
+              text={text}
+              repNumber={repNumber}
+              enLabel={enLabel}
+              fav={fav}
+              desc={desc}
+              level={level}
+              start={start}
+            />
+            <DelHabits taskId={taskId} />
+            <MenuItem onClick={handleClose}>Fermer</MenuItem>
+          </Menu>
         </div>
       </TaskAtom>
-      {/* </div> */}
     </>
   );
 }
 
 export default HabitsBox;
-
-// const habitsData = [
-//     { text: "test de fausse habitude 1", repeat: "tous les 1 jours", taskId: 1 },
-//     { text: "test de fausse habitude 2", repeat: "tous les 2 jours", taskId: 2 },
-//     { text: "test de fausse habitude 3", repeat: "tous les 3 jours", taskId: 3 },
-//     { text: "test de fausse habitude 4", repeat: "tous les 4 jours", taskId: 4 },
-//   ];
-
-//   const habits = habitsData.map((data, i) => {
-//     return <HabitsBox key={data.taskId} variant={"primary"} {...data} />;
-//   });
-
-//   {habits}
