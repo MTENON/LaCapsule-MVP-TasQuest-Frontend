@@ -16,7 +16,7 @@ export default function Quest({ id, title, money, XP, difficulty, change, creato
     async function handleAddQuest() { //En appuyant sur le bouton + de la quête
 
         dispatch(updateQuestId(id)); //Mise à jour du reducer
-        change(id)
+        change(id);
 
     }
 

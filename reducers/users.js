@@ -10,7 +10,8 @@ const initialState = {
   HP: 0,
   XP: 0,
   caracs: [{}],
-  questId: null
+  questId: null,
+  roomId: null,
 };
 
 export const userSlice = createSlice({
@@ -35,10 +36,13 @@ export const userSlice = createSlice({
     },
     updateQuestId: (state, action) => {
       state.questId = action.payload;
-    }
+    },
+    updateRoomId: (state, action) => {
+      state.roomId = action.payload;
+    },
   },
 });
 
-export const { updateUsername, updateToken, updateAllReducer, updateQuestId } = userSlice.actions;
+export const { updateUsername, updateToken, updateAllReducer, updateQuestId, updateRoomId } = userSlice.actions;
 export default userSlice.reducer;
 
