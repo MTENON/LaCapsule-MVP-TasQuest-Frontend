@@ -8,6 +8,7 @@ import Checkboxes from "../atoms/Checkboxes";
 import DifficultyRating from "./DifficultyRating";
 import { useSelector } from "react-redux";
 import ButtonDiamond from "../atoms/ButtonDiamond";
+import SelectAtom from "../atoms/SelectAtom";
 
 const link = process.env.backLink;
 
@@ -31,43 +32,40 @@ const style = {
   gap: "2%",
 };
 
-function CreateHabit() {
+const optionStyle = {
+  color: "#333333",
+};
+
+function CreateHabit({ refresh }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
-    // console.log(taskId, text);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    resetForm();
+    setOpen(false);
+  };
 
   //Etats du formulaire
   const [favorite, setFav] = useState(false);
-  const [title, setTitle] = useState(null);
-  const [label, setLabel] = useState(null);
-  const [ogLabel, setOgLabel] = useState(null);
+  const [title, setTitle] = useState("");
+  const [label, setLabel] = useState("days");
   const [num, setNum] = useState(1);
-  const [description, setDescription] = useState(null);
+  const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState(1);
 
-  const trad = () => {
-    switch (label) {
-      case "jour(s)":
-        setOgLabel("days");
-        break;
-      case "semaine(s)":
-        setOgLabel("weeks");
-        break;
-      case "mois":
-        setOgLabel("months");
-        break;
-      case "année(s)":
-        setOgLabel("years");
-        break;
-      default:
-        console.log(`problem avec l'etat label.`);
-    }
+  const resetForm = () => {
+    setTitle("");
+    setLabel("days");
+    setNum(1);
+    setDescription("");
+    setDifficulty(1);
+    setFav(false);
   };
+
+  const handleFav = () => setFav(true);
 
   const createHabits = async () => {
     try {
@@ -80,7 +78,7 @@ function CreateHabit() {
         body: JSON.stringify({
           name: title,
           number: num,
-          label: ogLabel,
+          label: label,
           description: description,
           difficulty: difficulty,
           isFavorite: favorite,
@@ -92,9 +90,15 @@ function CreateHabit() {
       if (!data.result) {
         // throw new Error("Erreur lors de la creation des tâches");
         console.log(data.message);
+        console.log("name =>", title);
+        console.log("number =>", num);
+        console.log("label =>", label);
+      } else {
+        console.log("created");
+        setOpen(false);
+        resetForm();
+        refresh;
       }
-
-      console.log("created");
     } catch (error) {
       console.log(error.message);
     }
@@ -168,9 +172,6 @@ function CreateHabit() {
               >
                 <Typography
                   variant="p"
-                  // component="h6"
-                  // bgcolor="secondary.main"
-                  // borderRadius="20px"
                   height="10%"
                   width="50%"
                   display="flex"
@@ -204,20 +205,29 @@ function CreateHabit() {
                     width="50%"
                     required={true}
                   />
-                  <LabeledInput
-                    label=""
-                    labelFor="labelInput"
+                  <SelectAtom
                     value={label}
-                    type="text"
-                    placeholder="Titre"
                     onChange={(e) => {
                       setLabel(e.target.value);
-                      trad();
                     }}
                     variant="secondaryBottom"
-                    width="100%"
-                    required={true}
-                  />
+                    width="250%"
+                    height="76%"
+                    marginBottom="15px"
+                  >
+                    <option value="days" style={optionStyle}>
+                      jour(s)
+                    </option>
+                    <option value="weeks" style={optionStyle}>
+                      semaine(s)
+                    </option>
+                    <option value="months" style={optionStyle}>
+                      mois
+                    </option>
+                    <option value="years" style={optionStyle}>
+                      année(s)
+                    </option>
+                  </SelectAtom>
                 </Box>
               </Box>
               <LabeledInput
@@ -244,7 +254,8 @@ function CreateHabit() {
                 <Typography>Favori</Typography>
                 <Checkboxes
                   name="isFavoris"
-                  //   handleCheck={handleCheck}
+                  handleCheck={handleFav}
+                  value={favorite}
                   variant={favorite ? "secondaryChecked" : "secondary"}
                 />
               </Box>
@@ -260,7 +271,8 @@ function CreateHabit() {
                 <Typography>Niveau de difficulté</Typography>
                 <DifficultyRating
                   variant="secondary"
-                  //   onClick={handleDifficultyClick}
+                  onClick={setDifficulty}
+                  note={difficulty}
                 />
               </Box>
               <Box
@@ -280,7 +292,9 @@ function CreateHabit() {
                   Fermer
                 </AtomButton>
                 <AtomButton
-                  handleClick={() => createHabits()}
+                  handleClick={() => {
+                    createHabits();
+                  }}
                   variant="secondary"
                 >
                   Créer

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { Typography } from "@mui/material";
 import AtomButton from "../atoms/AtomButton";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,6 +8,7 @@ import LabeledInput from "./LabeledInput";
 import Checkboxes from "../atoms/Checkboxes";
 import DifficultyRating from "./DifficultyRating";
 import { useSelector } from "react-redux";
+import SelectAtom from "../atoms/SelectAtom";
 
 const link = process.env.backLink;
 
@@ -33,62 +32,49 @@ const style = {
   gap: "2%",
 };
 
+const optionStyle = {
+  color: "#333333",
+};
+
 function ModifHabit({
   taskId,
   text,
   desc,
   level,
   repNumber,
-  labelTrad,
   enLabel,
   fav,
+  start,
 }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-    console.log(taskId, text);
-  };
-  const handleClose = () => setOpen(false);
 
   //Etats du formulaire
-  const [favorite, setFav] = useState(false);
+  const [favorite, setFav] = useState(fav);
   const [title, setTitle] = useState(null);
   const [label, setLabel] = useState(null);
-  const [ogLabel, setOgLabel] = useState(null);
   const [num, setNum] = useState(1);
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState(0);
+  const [startDate, setStartDate] = useState(null);
+  const [resetForm, setResetForm] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setResetForm(!resetForm);
+  };
 
   useEffect(() => {
     setTitle(text);
-    setLabel(labelTrad);
-    setOgLabel(enLabel);
+    setLabel(enLabel);
     setNum(repNumber);
     setDescription(desc);
     setDifficulty(level);
     setFav(fav);
-  }, []);
-
-  const trad = () => {
-    switch (label) {
-      case "jour(s)":
-        setOgLabel("days");
-        break;
-      case "semaine(s)":
-        setOgLabel("weeks");
-        break;
-      case "mois":
-        setOgLabel("months");
-        break;
-      case "année(s)":
-        setOgLabel("years");
-        break;
-      default:
-        console.log(`problem avec l'etat label.`);
-    }
-  };
+    setStartDate(start);
+  }, [resetForm]);
 
   const modifyHabits = async () => {
     try {
@@ -105,8 +91,9 @@ function ModifHabit({
           // tags,
           difficulty: difficulty,
           number: num,
-          label: ogLabel,
+          label: label,
           isFavorite: favorite,
+          startDate,
         }),
       });
 
@@ -118,6 +105,33 @@ function ModifHabit({
       }
 
       setOpen(false);
+      setResetForm(!resetForm);
+      console.log(data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleFav = async () => {
+    try {
+      const response = await fetch(`${link}/habits/like`, {
+        method: "POST",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          taskId: taskId,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!data.result) {
+        console.log(data.message);
+        throw new Error("Erreur lors de la modification de l'habitude");
+      }
+      setFav(!favorite);
       console.log(data.message);
     } catch (error) {
       console.log(error.message);
@@ -178,6 +192,7 @@ function ModifHabit({
               <Box
                 sx={{
                   width: "100%",
+                  height: "200px",
                   display: "flex",
                   justifyContent: "space-evenly",
                   alignItems: "center",
@@ -187,9 +202,6 @@ function ModifHabit({
               >
                 <Typography
                   variant="p"
-                  // component="h6"
-                  // bgcolor="secondary.main"
-                  // borderRadius="20px"
                   height="10%"
                   width="50%"
                   display="flex"
@@ -200,11 +212,12 @@ function ModifHabit({
                 </Typography>
                 <Box
                   sx={{
-                    width: "75%",
+                    width: "100%",
+                    height: "60px",
                     display: "flex",
                     justifyContent: "space-evenly",
                     alignItems: "center",
-                    gap: "2%",
+                    // gap: "1%",
                     margin: 0,
                     paddingRight: "15%",
                     paddingTop: "2%",
@@ -220,23 +233,33 @@ function ModifHabit({
                       setNum(e.target.value < 1 ? 1 : e.target.value)
                     }
                     variant="secondaryBottom"
-                    width="50%"
+                    width="65%"
+                    height="50%"
                     required={true}
                   />
-                  <LabeledInput
-                    label=""
-                    labelFor="labelInput"
+                  <SelectAtom
                     value={label}
-                    type="text"
-                    placeholder="Titre"
                     onChange={(e) => {
                       setLabel(e.target.value);
-                      trad();
                     }}
                     variant="secondaryBottom"
-                    width="100%"
-                    required={true}
-                  />
+                    width="250%"
+                    height="76%"
+                    marginBottom="15px"
+                  >
+                    <option value="days" style={optionStyle}>
+                      jour(s)
+                    </option>
+                    <option value="weeks" style={optionStyle}>
+                      semaine(s)
+                    </option>
+                    <option value="months" style={optionStyle}>
+                      mois
+                    </option>
+                    <option value="years" style={optionStyle}>
+                      année(s)
+                    </option>
+                  </SelectAtom>
                 </Box>
               </Box>
               <LabeledInput
@@ -263,7 +286,8 @@ function ModifHabit({
                 <Typography>Favori</Typography>
                 <Checkboxes
                   name="isFavoris"
-                  //   handleCheck={handleCheck}
+                  handleCheck={handleFav}
+                  value={favorite}
                   variant={favorite ? "secondaryChecked" : "secondary"}
                 />
               </Box>
@@ -279,7 +303,8 @@ function ModifHabit({
                 <Typography>Niveau de difficulté</Typography>
                 <DifficultyRating
                   variant="secondary"
-                  //   onClick={handleDifficultyClick}
+                  onClick={setDifficulty}
+                  note={difficulty}
                 />
               </Box>
               <Box
@@ -293,7 +318,7 @@ function ModifHabit({
                 }}
               >
                 <AtomButton
-                  handleClick={() => setOpen(false)}
+                  handleClick={() => handleClose()}
                   variant="tertiary"
                 >
                   Fermer
