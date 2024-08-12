@@ -1,0 +1,10 @@
+.stuffScreen {
+    height: 100px;
+    width: 100px;
+    border : 2px #000 solid;
+    row-gap: 25px;
+}
+
+.stuffSize {
+    font-size: 100px;
+}

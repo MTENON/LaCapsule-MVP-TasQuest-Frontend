@@ -1,115 +1,100 @@
 import styles from "../styles/Shop.module.css"
+
+//Importation d'atomes
 import Money from "../components/atoms/Money"
-import ButtonCircle from "./atoms/ButtonCircle";
+import ItemShop from "./molecules/ItemShop";
+
+//Importation de molécule
+import ItemInventory from "./atoms/ItemInventory";
+
+
+import { useState, useEffect } from "react";
+import {useSelector} from 'react-redux'
+
+
+
+//backend
+const link = process.env.backLink;
 
 function Shop(){
+
+    const [item, setItem] = useState([]);//Un map ne marche que sur un tableau 
+    const token = useSelector((state) => {state.user.token})
+
+    useEffect(() => {
+        fetch(`${link}/items`, {//On part rechercher dans la BDD ?
+            method: "GET",
+            headers:
+                    {
+                        "Authorization": token,
+                        "content-type": "application/json"
+                    }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            setItem(data.data)
+        });
+
+    // (async () => {
+    //     console.log(token)
+
+    //     const fetchData = await fetch(`${link}/items`, {
+    //         method: "GET",
+    //         headers: {
+    //             'Authorization': token,
+    //             'content-type': 'application/json'
+    //         }
+    //     });
+    //     console.log(fetchData.json())
+    //     const data = await fetchData.json()
+    // })()
+
+
+    }, [])
+
+
+    //On va maper les items
+    const itemShop = item.map((data, i) => {
+        return <ItemShop key={i} name={data.name} icon={data.icon} type={data.type} price={data.price} description={data.description}/>
+    });
+
+
     return (
-        <div className={styles.container}>
-            <div className={styles.divShopButton}>
-            <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
+        <div className={styles.container}>                    {/* La page entière */}
+            <div className={styles.divShopButton}>            {/* Haut de la page */}
                 <button className={styles.shopButton}>Boutique</button>
             </div>
 
-            <div className={styles.divBottom}>
-                <div className={styles.divLeft}>
+            <div className={styles.divBottom}>                 {/* Bas de la page */}
+                <div className={styles.divInventory}>               {/* Partie gauche du bas de la page*/}
                     <Money />
-                    <button className={styles.stuffButton}>Inventaire</button>
+                    <button className={styles.inventoryButton}>Inventaire</button>
                     <div className={styles.stuff}>
-                        <div className={styles.stuffScreen}>
-                            Faut 
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Pas 
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Être
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Trop
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Curieux
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Et
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Lire
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Ce
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Que
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            J'ai
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Marqué
-                        </div>
-                        <div className={styles.stuffScreen}>
-                            Ok ?
-                        </div>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>
+                                <ItemInventory/>    
                     </div>    
                 </div>
 
 
-                <div className={styles.itemSelectionShop}>
-                        <div className={styles.itemInShop}>
-                                    <div>  {/* IMAGE of ITEM */}
-                                        Excalibur
-                                    </div>
-                                    <div className={styles.buyingButtons}>
-                                        <Money />
-                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
-                                    </div>
-                        </div>
-                        <div className={styles.itemInShop}>
-                                    <div>  {/* IMAGE of ITEM */}
-                                        Excalibur
-                                    </div>
-                                    <div className={styles.buyingButtons}>
-                                        <Money />
-                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
-                                    </div>
-                        </div>
-                        <div className={styles.itemInShop}>
-                                    <div>  {/* IMAGE of ITEM */}
-                                        Excalibur
-                                    </div>
-                                    <div className={styles.buyingButtons}>
-                                        <Money />
-                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
-                                    </div>
-                        </div>
-                        <div className={styles.itemInShop}>
-                                    <div>  {/* IMAGE of ITEM */}
-                                        Excalibur
-                                    </div>
-                                    <div className={styles.buyingButtons}>
-                                        <Money />
-                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
-                                    </div>
-                        </div>
-                        <div className={styles.itemInShop}>
-                                    <div>  {/* IMAGE of ITEM */}
-                                        Excalibur
-                                    </div>
-                                    <div className={styles.buyingButtons}>
-                                        <Money />
-                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
-                                    </div>
-                        </div>
-                        <div className={styles.itemInShop}>
-                                    <div>  {/* IMAGE of ITEM */}
-                                        Excalibur
-                                    </div>
-                                    <div className={styles.buyingButtons}>
-                                        <Money />
-                                        <ButtonCircle className={styles.buttonSpacing} icon={"mingcute:cross-fill"} variant={"primary"}/>
-                                    </div>
-                        </div>
+                <div className={styles.itemSelectionShop}>     {/* Partie droite du bas de la page*/}
+                        {itemShop}
+                        {/* <ItemShop/>
+                        <ItemShop/>
+                        <ItemShop/>
+                        <ItemShop/>
+                        <ItemShop/>
+                        <ItemShop/> */}
                 </div>
             </div>
         </div>
