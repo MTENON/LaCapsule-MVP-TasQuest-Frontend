@@ -24,7 +24,6 @@ function QuestChoice({ handleQuestChange }) {
     }
 
     const quest = questList.map((data) => {
-        console.log(data)
         return (
             <Quest
                 key={data._id}
@@ -65,7 +64,6 @@ function QuestChoice({ handleQuestChange }) {
                     },
                 })
                 const questQuery = await fetchData.json()
-                console.log(questQuery)
 
                 const newQuest = [];
 
