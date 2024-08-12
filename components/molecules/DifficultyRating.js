@@ -1,4 +1,4 @@
-import { useEffect, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/molecules/DifficultyRating.module.css";
 import { Icon } from "@iconify-icon/react";
 

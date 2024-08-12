@@ -1,6 +1,5 @@
 import styles from '../../styles/molecules/NotificationBox.module.css'
 import Notification from '../atoms/Notification'
-import { useState } from 'react'
 
 function NotificationBox(props) {
 

@@ -61,13 +61,13 @@ function NavMenu() {
     // Données fictives pour les notifications
     let notifications = [
         {
-            title: "Notification 1",
-            content: "Coucou je suis un children prop.",
+            title: "Bienvenue sur Tas'Quest",
+            content: "Bienvenue! Découvrez nos fonctionnalités..",
         },
         {
-            title: "Notification 2 qui déborde",
+            title: "Testez les habitudes",
             content:
-                "Coucou je suis une notification énorme qui va dépasser le contenu.",
+                "Commencez par vous créer une habitude et déterminez un rythme. Commencez tout de suite à faire vos tâches!",
         },
     ];
 

@@ -4,16 +4,20 @@ import { Icon } from "@iconify-icon/react";
 //icon pour changer le type d'icone
 //variant pour changer la couleur du boutton
 
-function Button({ icon, variant, handleClick, children }) {
+function Button({ icon, variant, func, children }) {
     const buttonStyles = {
         primary: { backgroundColor: "#a50104", color: "#fcd757" },
         secondary: { backgroundColor: "#fcd757", color: "#a50104" },
         tertiary: { backgroundColor: "#F0EFEF", color: "#A50104" },
     };
 
+    function handleClick() {
+        func()
+    }
+
     return (
         <button
-            onClick={handleClick}
+            onClick={() => handleClick()}
             className={styles.basiqueStyle}
             style={buttonStyles[variant]}
         >
