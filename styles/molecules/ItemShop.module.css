@@ -1,7 +1,7 @@
 .itemImage{
     width: 225px;
     height: 300px;
-    border : 3px solid #1a99ad;
+    border : 2px solid #000000;
     margin-top : 30px;
     display: flex;
     flex-direction: column;
@@ -17,13 +17,14 @@
     flex-direction: column;
     justify-content: space-around;
     margin-top: 10%;
-    background-color: aqua;
+    background-color: rgb(0, 0, 0);
     height: 119px;
     width: 100%; /* on prend 100% de la largeur*/
 }
 
 .itemName {
     border: #01a571;
+    color: #A50104;
     text-align: center;
 }
 

@@ -1,6 +1,6 @@
 
 .container {
-    border : 5px solid #642181;
+    /* border : 5px solid #642181; */
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -58,7 +58,7 @@
     width: 742px;
     height: 625px;
     gap: 25px;
-    border : solid 3px #01a571;
+    /* border : solid 3px #01a571; */
     flex: 1; /*Prend tout l'espace dispo à droite*/
 }
 

@@ -21,37 +21,37 @@ function Shop(){
     const [item, setItem] = useState([]);//Un map ne marche que sur un tableau 
     const token = useSelector((state) => {state.user.token})
 
-    useEffect(() => {
-        fetch(`${link}/items`, {//On part rechercher dans la BDD ?
-            method: "GET",
-            headers:
-                    {
-                        "Authorization": token,
-                        "content-type": "application/json"
-                    }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-            setItem(data.data)
-        });
-
-    // (async () => {
-    //     console.log(token)
-
-    //     const fetchData = await fetch(`${link}/items`, {
+    // useEffect(() => {
+    //     fetch(`${link}/items`, {//On part rechercher dans la BDD ?
     //         method: "GET",
-    //         headers: {
-    //             'Authorization': token,
-    //             'content-type': 'application/json'
-    //         }
-    //     });
-    //     console.log(fetchData.json())
-    //     const data = await fetchData.json()
-    // })()
+    //         headers:
+    //                 {
+    //                     "Authorization": token,
+    //                     "content-type": "application/json"
+    //                 }
+    //     })
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //         console.log(data)
+    //         setItem(data.data)
+    //     });//Ma partie
+
+    // // (async () => {
+    // //     console.log(token)
+
+    // //     const fetchData = await fetch(`${link}/items`, {
+    // //         method: "GET",
+    // //         headers: {
+    // //             'Authorization': token,
+    // //             'content-type': 'application/json'
+    // //         }
+    // //     });
+    // //     console.log(fetchData.json())
+    // //     const data = await fetchData.json()
+    // // })()
 
 
-    }, [])
+    // }, [])
 
 
     //On va maper les items
