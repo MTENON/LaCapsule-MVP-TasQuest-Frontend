@@ -18,6 +18,7 @@ function QuestDisplay({ handleQuestDisplay }) {
     let questId = useSelector((state) => state.user.questId)
     const characterId = useSelector((state) => state.user.characterId)
     const token = useSelector((state) => state.user.token)
+    const roomId = useSelector((state) => state.user.roomId)
 
     const dispatch = useDispatch();
 
@@ -46,8 +47,18 @@ function QuestDisplay({ handleQuestDisplay }) {
                 'Content-Type': 'application/json'
 
             },
-            body: JSON.stringify({ characterId: characterId })
+            body: JSON.stringify({ characterId: characterId },)
         })
+
+        await fetch(`${link}/quests/room/${roomId}/leaveRoom`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json'
+                },
+            }
+        )
     }
 
     return (
