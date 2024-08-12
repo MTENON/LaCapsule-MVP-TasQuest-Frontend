@@ -4,7 +4,7 @@ import { Icon } from "@iconify-icon/react";
 //icon pour changer le type d'icone
 //variant pour changer la couleur du boutton
 
-function ButtonDiamond({ icon, variant, func, iconSize = "iconSizeM" }) {
+function ButtonDiamond({ icon, variant, func, iconSize = "iconSizeM", content }) {
   const buttonStyles = {
     primary: { backgroundColor: "#a50104", color: "#fcd757" },
     secondary: { backgroundColor: "#fcd757", color: "#a50104" },
@@ -28,6 +28,7 @@ function ButtonDiamond({ icon, variant, func, iconSize = "iconSizeM" }) {
       className={styles.diamond}
       style={buttonStyles[variant]}
     >
+      <div style={{ transform: "rotate(-45deg)", translate: '-5% 35%' }}>{content}</div>
       <Icon
         style={{ transform: "rotate(-45deg)" }}
         className={styles[iconSize]}

@@ -1,5 +1,7 @@
 import styles from '../../styles/atoms/XPbar.module.css'
 
+import { Icon } from "@iconify-icon/react";
+
 function XPbar(props) {
 
     /*
@@ -32,7 +34,7 @@ function XPbar(props) {
 
     return (
         <div className={styles.XPContainer}>
-            <span className="material-icons" style={iconstyle}>star</span>
+            <Icon style={{ fontSize: '50px', color: '#fcd757' }} icon="solar:star-bold-duotone" />
             <div className={styles.barOutline}>
                 <div className={styles.bar} style={XPbarGaugeStyle}></div>
                 <div className={styles.values}>

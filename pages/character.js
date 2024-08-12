@@ -1,8 +1,12 @@
 import Layout from "../components/layouts/Layout";
+
+//imports de composants
+import CharacterPanel from "../components/molecules/CharacterPanel";
+
 function CharacterPage() {
     return (
         <Layout>
-            <h1>Page personnage</h1>
+            <CharacterPanel />
         </Layout>
     );
 }

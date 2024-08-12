@@ -10,6 +10,7 @@ import Healthbar from "../atoms/Healthbar"
 import ChatBox from "./ChatBox";
 import Money from '../atoms/Money'
 import XPContainer from '../atoms/XPContainer'
+import PopoverCustom from "../molecules/PopoverCustom";
 
 const link = process.env.backLink
 
@@ -65,6 +66,44 @@ function QuestDisplay({ handleQuestDisplay }) {
         )
     }
 
+    // --- Items map --- //
+
+    //Fake data items
+    const items = [
+        {
+            src: '/potion_de_soin.jpg',
+            alt: 'potion_de_soin',
+            name: "Potion de soin",
+            description: "Cette potion rend 10 PV à l'utilisation. Elle à un gout de cerise."
+        },
+        {
+            src: '/epee.jpg',
+            alt: 'epee',
+            name: "Epee enchantee",
+            description: "Ca tranche et c'est magique. Globalement on apprécie cette efficacité."
+
+        },
+    ]
+
+    const item = items.map((e, i) => {
+        return (
+            <div key={i} className={styles.item}>
+                <PopoverCustom
+                    message={e.description}
+                >
+                    <img
+                        src={e.src.trim()}
+                        alt={e.alt}
+                        height={75}
+                        width={75}
+                        style={{ borderRadius: '15px' }}
+                    ></img>
+                </PopoverCustom>
+                <p>{e.name}</p>
+            </div>
+        )
+    })
+
     return (
         <div className={styles.questDisplayContainer}>
             <div className={styles.questDisplayUp}>
@@ -108,31 +147,11 @@ function QuestDisplay({ handleQuestDisplay }) {
                     </div>
                     <div className={styles.items}>
                         <h2 style={{ color: '#A50104' }}>Objets</h2>
-                        <div className={styles.item}>
-                            <img
-                                src='/potion_de_soin.jpg'
-                                alt='potion_de_soin'
-                                height={75}
-                                width={75}
-                                style={{ borderRadius: '15px' }}
-                            ></img>
-                            <p>Potion de soin</p>
-                        </div>
-                        <div className={styles.item}>
-                            <img
-                                src='/epee.jpg'
-                                alt='epee'
-                                height={75}
-                                width={75}
-                                style={{ borderRadius: '15px' }}
-                            ></img>
-                            <p>Epee enchantee</p>
-                        </div>
+                        {item}
                     </div>
                 </div>
             </div>
-
-        </div >
+        </div>
     )
 }
 
