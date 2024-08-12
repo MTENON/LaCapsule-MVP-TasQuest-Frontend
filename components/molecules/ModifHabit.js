@@ -20,7 +20,7 @@ const style = {
   width: "65%",
   height: "85%",
   //   backgroundColor: "#a50104",
-  // overflow: "scroll",
+  overflow: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
   boxShadow: 24,
@@ -57,8 +57,15 @@ function ModifHabit({
   const [num, setNum] = useState(1);
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState(0);
-  const [startDate, setStartDate] = useState(null);
+  const [date, setDate] = useState(null);
   const [resetForm, setResetForm] = useState(false);
+
+  // error du formulaire
+  const [errorTitle, setErrorTitle] = useState(false);
+  const [errorDate, setErrorDate] = useState(false);
+  const errorTitleMsg = "Votre habitude a besoin d'un nom !";
+  const errorDateMsg =
+    "Votre habitude a besoin d'une date de début pour commencer !";
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -73,10 +80,26 @@ function ModifHabit({
     setDescription(desc);
     setDifficulty(level);
     setFav(fav);
-    setStartDate(start);
-  }, []);
-  
-  // resetForm
+    setDate(start);
+    setErrorDate(false);
+    setErrorDate(false);
+  }, [resetForm]);
+
+  const handleErrTitle = () => {
+    if (title === null) {
+      setErrorTitle(true);
+    } else {
+      setErrorTitle(false);
+    }
+  };
+
+  const handleErrDate = () => {
+    if (date === null) {
+      setErrorDate(true);
+    } else {
+      setErrorDate(false);
+    }
+  };
 
   const modifyHabits = async () => {
     try {
@@ -104,7 +127,7 @@ function ModifHabit({
       if (!data.result) {
         console.log(data.message);
         throw new Error("Erreur lors de la modification de l'habitude");
-      } 
+      }
 
       setOpen(false);
       setResetForm(!resetForm);
@@ -191,6 +214,21 @@ function ModifHabit({
                 width="100%"
                 required={true}
               />
+              {errorTitle && (
+                <Typography color="secondary.main">{errorTitleMsg}</Typography>
+              )}
+              <LabeledInput
+                label="Date de début:"
+                labelFor="dateInput"
+                value={date}
+                type="date"
+                onChange={(e) => setDate(e.target.value)}
+                variant="secondaryBottom"
+                width="100%"
+              />
+              {errorDate && (
+                <Typography color="secondary.main">{errorDateMsg}</Typography>
+              )}
               <Box
                 sx={{
                   width: "100%",
@@ -210,7 +248,7 @@ function ModifHabit({
                   justifyContent="flex-start"
                   alignItems="center"
                 >
-                  Longeur de l'écheance:
+                  A répéter tout(es) les:
                 </Typography>
                 <Box
                   sx={{
@@ -219,7 +257,7 @@ function ModifHabit({
                     display: "flex",
                     justifyContent: "space-evenly",
                     alignItems: "center",
-                    // gap: "1%",
+                    gap: "2%",
                     margin: 0,
                     paddingRight: "15%",
                     paddingTop: "2%",
@@ -259,7 +297,7 @@ function ModifHabit({
                       mois
                     </option>
                     <option value="years" style={optionStyle}>
-                      année(s)
+                      an(s)
                     </option>
                   </SelectAtom>
                 </Box>
@@ -326,7 +364,11 @@ function ModifHabit({
                   Fermer
                 </AtomButton>
                 <AtomButton
-                  handleClick={() => modifyHabits()}
+                  handleClick={() => {
+                    modifyHabits();
+                    handleErrTitle();
+                    handleErrDate();
+                  }}
                   variant="secondary"
                 >
                   Modifier

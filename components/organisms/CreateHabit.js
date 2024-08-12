@@ -3,9 +3,9 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import AtomButton from "../atoms/AtomButton";
-import LabeledInput from "./LabeledInput";
+import LabeledInput from "../molecules/LabeledInput";
 import Checkboxes from "../atoms/Checkboxes";
-import DifficultyRating from "./DifficultyRating";
+import DifficultyRating from "../molecules/DifficultyRating";
 import { useSelector } from "react-redux";
 import ButtonDiamond from "../atoms/ButtonDiamond";
 import SelectAtom from "../atoms/SelectAtom";
@@ -18,9 +18,9 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "65%",
-  height: "85%",
-  //   backgroundColor: "#a50104",
-  // overflow: "scroll",
+  height: "95%",
+  // backgroundColor: "#a50104",
+  overflowY: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
   boxShadow: 24,
@@ -40,21 +40,22 @@ function CreateHabit({ refresh }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    resetForm();
-    setOpen(false);
-  };
 
   //Etats du formulaire
   const [favorite, setFav] = useState(false);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(null);
   const [label, setLabel] = useState("days");
   const [num, setNum] = useState(1);
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState(1);
+  const [date, setDate] = useState(null);
+
+  // error du formulaire
+  const [errorTitle, setErrorTitle] = useState(false);
+  const [errorDate, setErrorDate] = useState(false);
+  const errorTitleMsg = "Votre habitude a besoin d'un nom !";
+  const errorDateMsg =
+    "Votre habitude a besoin d'une date de début pour commencer !";
 
   const resetForm = () => {
     setTitle("");
@@ -63,6 +64,33 @@ function CreateHabit({ refresh }) {
     setDescription("");
     setDifficulty(1);
     setFav(false);
+    setDate(null);
+    setErrorDate(false);
+    setErrorDate(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    resetForm();
+    setOpen(false);
+  };
+
+  const handleErrTitle = () => {
+    if (title === null) {
+      setErrorTitle(true);
+    } else {
+      setErrorTitle(false);
+    }
+  };
+  
+  const handleErrDate = () => {
+    if (date === null) {
+      setErrorDate(true);
+    } else {
+      setErrorDate(false);
+    }
   };
 
   const handleFav = () => setFav(true);
@@ -82,6 +110,7 @@ function CreateHabit({ refresh }) {
           description: description,
           difficulty: difficulty,
           isFavorite: favorite,
+          startDate: date,
         }),
       });
 
@@ -90,9 +119,6 @@ function CreateHabit({ refresh }) {
       if (!data.result) {
         // throw new Error("Erreur lors de la creation des tâches");
         console.log(data.message);
-        console.log("name =>", title);
-        console.log("number =>", num);
-        console.log("label =>", label);
       } else {
         console.log("created");
         setOpen(false);
@@ -160,6 +186,21 @@ function CreateHabit({ refresh }) {
                 width="100%"
                 required={true}
               />
+              {errorTitle && (
+                <Typography color="secondary.main">{errorTitleMsg}</Typography>
+              )}
+              <LabeledInput
+                label="Date de début:"
+                labelFor="dateInput"
+                value={date}
+                type="date"
+                onChange={(e) => setDate(e.target.value)}
+                variant="secondaryBottom"
+                width="100%"
+              />
+              {errorDate && (
+                <Typography color="secondary.main">{errorDateMsg}</Typography>
+              )}
               <Box
                 sx={{
                   width: "100%",
@@ -178,7 +219,7 @@ function CreateHabit({ refresh }) {
                   justifyContent="flex-start"
                   alignItems="center"
                 >
-                  Longeur de l'écheance:
+                  A répéter tout(es) les:
                 </Typography>
                 <Box
                   sx={{
@@ -225,7 +266,7 @@ function CreateHabit({ refresh }) {
                       mois
                     </option>
                     <option value="years" style={optionStyle}>
-                      année(s)
+                      an(s)
                     </option>
                   </SelectAtom>
                 </Box>
@@ -281,12 +322,13 @@ function CreateHabit({ refresh }) {
                   width: "100%",
                   gap: "2%",
                   margin: "auto",
+                  marginBottom: "2%",
                   display: "flex",
                   justifyContent: "space-evenly",
                 }}
               >
                 <AtomButton
-                  handleClick={() => setOpen(false)}
+                  handleClick={() => handleClose()}
                   variant="tertiary"
                 >
                   Fermer
@@ -294,6 +336,8 @@ function CreateHabit({ refresh }) {
                 <AtomButton
                   handleClick={() => {
                     createHabits();
+                    handleErrTitle();
+                    handleErrDate();
                   }}
                   variant="secondary"
                 >
