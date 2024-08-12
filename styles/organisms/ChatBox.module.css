@@ -103,9 +103,23 @@
     overflow-y: auto;
 }
 
+.userCardTitle {
+    height: 10%;
+    width: 80%;
+    margin: 20px;
+    background-color: white;
+    border-radius: 15px;
+    border: 2px solid #A50104;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .userCard {
-    height: 20%;
-    width: 90%;
+    height: 10%;
+    width: 80%;
+    margin: 3px;
     background-color: white;
     border-radius: 15px;
     border: 2px solid #FCD757;

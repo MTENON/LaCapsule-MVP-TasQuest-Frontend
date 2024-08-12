@@ -8,6 +8,8 @@ import { updateQuestId } from "../../reducers/users";
 import Button from "../atoms/Button"
 import Healthbar from "../atoms/Healthbar"
 import ChatBox from "./ChatBox";
+import Money from '../atoms/Money'
+import XPContainer from '../atoms/XPContainer'
 
 const link = process.env.backLink
 
@@ -73,7 +75,12 @@ function QuestDisplay({ handleQuestDisplay }) {
                     <p className={styles.titleCardDesc}>{quest.description}</p>
                 </div>
                 <div className={styles.monsterIntel}>
-                    <img src='https://placehold.co/100'></img>
+                    <img src='/monstre.jpg'
+                        alt='monstre'
+                        height={150}
+                        width={150}
+                        style={{ borderRadius: '15px' }}
+                    ></img>
                     <Healthbar
                         health={50}
                         maxHealth={50}
@@ -95,6 +102,33 @@ function QuestDisplay({ handleQuestDisplay }) {
                 </div>
                 <div className={styles.questLoot}>
                     <h2 style={{ color: '#A50104' }}>Récompenses</h2>
+                    <div className={styles.rewards}>
+                        <Money pieces={25} />
+                        <XPContainer points={50} />
+                    </div>
+                    <div className={styles.items}>
+                        <h2 style={{ color: '#A50104' }}>Objets</h2>
+                        <div className={styles.item}>
+                            <img
+                                src='/potion_de_soin.jpg'
+                                alt='potion_de_soin'
+                                height={75}
+                                width={75}
+                                style={{ borderRadius: '15px' }}
+                            ></img>
+                            <p>Potion de soin</p>
+                        </div>
+                        <div className={styles.item}>
+                            <img
+                                src='/epee.jpg'
+                                alt='epee'
+                                height={75}
+                                width={75}
+                                style={{ borderRadius: '15px' }}
+                            ></img>
+                            <p>Epee enchantee</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 

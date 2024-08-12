@@ -14,15 +14,35 @@ const { io } = require('socket.io-client')
 import Button from '../atoms/Button';
 
 
-function ChatBox({ roomId }) {
+function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la room et l'intégrer dans le chat
 
     const [socket, setSocket] = useState('');
     const [message, setMessage] = useState('');
-    const [messagerie, setMessagerie] = useState([]);
+    const [messagerie, setMessagerie] = useState( //FAUSSE DATA POUR MESSAGERIE DEMODAY
+        [
+            {
+                user: "maxime",
+                content: "Hey salut les copain!"
+            },
+            {
+                user: "angelique",
+                content: "Coucou!"
+            },
+            {
+                user: "maryam",
+                content: "Bon je suis prête à faire mes tâches"
+            },
+            {
+                user: "alpha",
+                content: "go faire notre MVP!"
+            },
+        ]
+    );
     const [roomJoined, setRoomJoined] = useState(false);
 
     const username = useSelector((state) => state.user.username);
     const token = useSelector((state) => state.user.token);
+    const roomId = 100; //fake room Id pour demoday
 
     // console.log(roomId)
 
@@ -30,17 +50,17 @@ function ChatBox({ roomId }) {
 
         //Récupération des messages sauvegardés
 
-        (async () => {
-            const messagesFetchData = await fetch(`${link}/quests/room/${roomId}/getMessages`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': token,
-                    'Content-Type': 'application/json'
-                },
-            })
-            const messages = await messagesFetchData.json()
-            setMessagerie(messages.data)
-        })()
+        // (async () => {
+        //     const messagesFetchData = await fetch(`${link}/quests/room/${roomId}/getMessages`, {
+        //         method: 'GET',
+        //         headers: {
+        //             'Authorization': token,
+        //             'Content-Type': 'application/json'
+        //         },
+        //     })
+        //     const messages = await messagesFetchData.json()
+        //     setMessagerie(messages.data)
+        // })()
 
         // --- ------ --- //
         // --- SOKETS --- //
@@ -159,7 +179,11 @@ function ChatBox({ roomId }) {
                 </div>
             </div>
             <div className={styles.usersContainer}>
-                <div className={styles.userCard}><p>Bonhomme</p></div>
+                <div className={styles.userCardTitle}><p>Présents dans le chat</p></div>
+                <div className={styles.userCard}><p>maxime</p></div>
+                <div className={styles.userCard}><p>angelique</p></div>
+                <div className={styles.userCard}><p>maryam</p></div>
+                <div className={styles.userCard}><p>alpha</p></div>
             </div>
         </div>
     )
