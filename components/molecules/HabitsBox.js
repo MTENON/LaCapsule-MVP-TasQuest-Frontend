@@ -86,7 +86,7 @@ function HabitsBox({
             variant="primary"
             icon="ph:pen"
             func={handleClick}
-          // classeName={styles.iconSize}
+            // classeName={styles.iconSize}
           />
           <Menu
             id="demo-positioned-menu"

@@ -74,7 +74,9 @@ function ModifHabit({
     setDifficulty(level);
     setFav(fav);
     setStartDate(start);
-  }, [resetForm]);
+  }, []);
+  
+  // resetForm
 
   const modifyHabits = async () => {
     try {
@@ -102,7 +104,7 @@ function ModifHabit({
       if (!data.result) {
         console.log(data.message);
         throw new Error("Erreur lors de la modification de l'habitude");
-      }
+      } 
 
       setOpen(false);
       setResetForm(!resetForm);
