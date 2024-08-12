@@ -1,0 +1,33 @@
+.itemImage{
+    width: 225px;
+    height: 300px;
+    border : 3px solid #1a99ad;
+    margin-top : 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.itemSize {
+    font-size: 150px;
+}
+
+.itemBottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 10%;
+    background-color: aqua;
+    height: 119px;
+    width: 100%; /* on prend 100% de la largeur*/
+}
+
+.itemName {
+    border: #01a571;
+    text-align: center;
+}
+
+.itemButtons {
+    display: flex;
+    justify-content: space-evenly;
+}
