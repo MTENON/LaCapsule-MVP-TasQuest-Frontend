@@ -9,7 +9,7 @@ function TasksPage() {
         <>
             <Layout>
                 <div className={styles.content}>
-                    <TitleAtoms title="Test"></TitleAtoms>
+                    <TitleAtoms title="Les taches"></TitleAtoms>
                     <div className={styles.container}>
                         <Tasks></Tasks>
                         <Todos></Todos>
