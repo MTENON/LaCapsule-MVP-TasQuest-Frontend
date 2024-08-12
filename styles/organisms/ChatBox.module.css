@@ -40,7 +40,7 @@
 }
 
 .myMessage {
-    min-height: 44px;
+    min-height: 10%;
     width: 60%;
     margin: 5px;
     padding: 0 20px;
@@ -81,7 +81,12 @@
 }
 
 .wrapper {
+    min-height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
     text-wrap: wrap;
+    word-break: break-all;
 }
 
 .usersContainer {

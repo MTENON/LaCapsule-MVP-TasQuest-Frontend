@@ -73,9 +73,9 @@ function ChatBox({ roomId }) {
         } else {
             return (
                 <div key={i} className={styles.messageCardotherMessage}>
-                    <div key={i} className={styles.otherMessage}>
+                    <div className={styles.otherMessage}>
                         <h4>{data.user}</h4>
-                        <p>{data.content}</p>
+                        <p className={styles.wrapper}>{data.content}</p>
                     </div>
                 </div>
             )
@@ -83,26 +83,26 @@ function ChatBox({ roomId }) {
 
     })
 
-    function handleSend() {
-        // setMessagerie([...messagerie, { user: username, content: message }]);
-        socket.emit("message", { user: username, content: message })
-        setMessage('')
-    }
+    // function handleSend() {
+    //     // setMessagerie([...messagerie, { user: username, content: message }]);
+    //     socket.emit("message", { user: username, content: message })
+    //     setMessage('')
+    // }
 
     function handleSendToRoom() {
         socket.emit('room message', { room: roomId, user: username, content: message });
         setMessage('')
     }
 
-    function joinOrLeaveRoom() {
-        if (!roomJoined) {
-            setRoomJoined(true);
-            socket.emit('join room', (roomId));
-        } else {
-            setRoomJoined(false);
-            socket.emit('leave room', (roomId));
-        }
-    }
+    // function joinOrLeaveRoom() {
+    //     if (!roomJoined) {
+    //         setRoomJoined(true);
+    //         socket.emit('join room', (roomId));
+    //     } else {
+    //         setRoomJoined(false);
+    //         socket.emit('leave room', (roomId));
+    //     }
+    // }
 
     return (
         <div className={styles.mainContainer}>
