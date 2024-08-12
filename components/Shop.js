@@ -55,9 +55,9 @@ function Shop(){
 
 
     //On va maper les items
-    const itemShop = item.map((data, i) => {
-        return <ItemShop key={i} name={data.name} icon={data.icon} type={data.type} price={data.price} description={data.description}/>
-    });
+    // const itemShop = item.map((data, i) => {
+    //     return <ItemShop key={i} name={data.name} icon={data.icon} type={data.type} price={data.price} description={data.description}/>
+    // });
 
 
     return (
@@ -88,13 +88,13 @@ function Shop(){
 
 
                 <div className={styles.itemSelectionShop}>     {/* Partie droite du bas de la page*/}
-                        {itemShop}
-                        {/* <ItemShop/>
+                        {/* {itemShop} */}
                         <ItemShop/>
                         <ItemShop/>
                         <ItemShop/>
                         <ItemShop/>
-                        <ItemShop/> */}
+                        <ItemShop/>
+                        <ItemShop/>
                 </div>
             </div>
         </div>
