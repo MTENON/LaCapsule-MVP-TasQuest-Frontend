@@ -1,14 +1,11 @@
-import styles from "../../styles/organisms/Todos.module.css";
-import TaskAtom from "../atoms/TaskAtom";
+import BackgroundGrey from "../atoms/BackgroundGrey";
+import DetailTask from "../molecules/DetailTask";
 
 const Todos = () => {
     return (
-        <>
-            <div className={styles.container}>
-                <h2>Les todos</h2>
-                <TaskAtom></TaskAtom>
-            </div>
-        </>
+        <BackgroundGrey width="30%">
+            <DetailTask></DetailTask>
+        </BackgroundGrey>
     );
 };
 

@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/molecules/DifficultyRating.module.css";
 import { Icon } from "@iconify-icon/react";
 
-const DifficultyRating = ({ variant = "primary", onClick }) => {
-    const [note, setNote] = useState(0);
+const DifficultyRating = ({ variant = "primary", onClick, note = 0 }) => {
+    const [currentNote, setCurrentNote] = useState(note);
     const [hoveredNote, setHoveredNote] = useState(null);
 
     const rating = [];
+
+    useEffect(() => {
+        setCurrentNote(note);
+    }, [note]);
 
     const colors = {
         primary: "#A50104",
@@ -21,7 +25,7 @@ const DifficultyRating = ({ variant = "primary", onClick }) => {
         // Style par défaut pour les icônes (couleur tertiary)
         let style = { cursor: "pointer", color: "#F0EFEF" };
 
-        if (i <= note) {
+        if (i <= currentNote) {
             style = { ...style, color: selectedColor };
         }
 
@@ -37,7 +41,7 @@ const DifficultyRating = ({ variant = "primary", onClick }) => {
             <Icon
                 key={i}
                 onClick={() => {
-                    setNote(i);
+                    setCurrentNote(i);
                     onClick(i);
                 }}
                 onMouseEnter={() => setHoveredNote(i)}
@@ -50,7 +54,6 @@ const DifficultyRating = ({ variant = "primary", onClick }) => {
         );
     }
 
-    // Retourne le conteneur contenant toutes les icônes générées
     return <div className={styles.container}>{rating}</div>;
 };
 
@@ -62,8 +65,9 @@ export default DifficultyRating;
 
 // const [difficulty, setDifficulty] = useState(0);
 
-// <DifficultyRating
-//   variant="primary"
-//   note={difficulty}
-//   setNote={setDifficulty}
-// />;
+/*  <DifficultyRating
+        variant="primary"      
+        note={difficulty}       
+        onClick={setDifficulty}  
+        />
+        */
