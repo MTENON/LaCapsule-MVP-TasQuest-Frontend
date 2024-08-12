@@ -85,7 +85,7 @@ function HabitsBox({
           <Button
             variant="primary"
             icon="ph:pen"
-            handleClick={handleClick}
+            func={handleClick}
             // classeName={styles.iconSize}
           />
           <Menu
