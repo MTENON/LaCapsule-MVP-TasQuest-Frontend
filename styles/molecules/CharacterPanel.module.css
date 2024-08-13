@@ -1,6 +1,7 @@
 .characterContainer {
     height: 100%;
     width: 32%;
+    margin: 0 1%;
     display: flex;
     flex-direction: column;
     justify-content: center;

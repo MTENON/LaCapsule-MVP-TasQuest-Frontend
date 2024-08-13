@@ -56,7 +56,7 @@ export default function ClassModal({ autorisation, previousData }) {
     //Data présentes dans la modale
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => autorisation && setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => { setOpen(false); setChoosedPic('') };
 
     //Déclaration des états du formulaire
     const [data, setData] = useState(previousData);
