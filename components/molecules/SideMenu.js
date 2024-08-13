@@ -49,12 +49,14 @@ const SideMenu = () => {
             <PopoverCustom
                 key={i}
                 element={
-                    <AtomLink
-                        href={element.href}
-                        nameIcon={element.nameIcon}
-                        variant={element.variant}
-                        popoverMessage={element.popoverMessage}
-                    />
+                    <span style={{ cursor: 'pointer' }}>
+                        <AtomLink
+                            href={element.href}
+                            nameIcon={element.nameIcon}
+                            variant={element.variant}
+                            popoverMessage={element.popoverMessage}
+                        />
+                    </span>
                 }
                 message={element.popoverMessage}
             />

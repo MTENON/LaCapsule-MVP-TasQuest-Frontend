@@ -30,14 +30,16 @@ function NavMenu() {
     // Génération des éléments de navigation
     const items = tableContentRoute.map((element, i) => {
         return (
-            <AtomLink
-                key={i}
-                href={element.href}
-                nameIcon={element.nameIcon}
-                variant={element.variant}
-                children={element.children}
-                onClick={element.onClick}
-            />
+            <span style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <AtomLink
+                    key={i}
+                    href={element.href}
+                    nameIcon={element.nameIcon}
+                    variant={element.variant}
+                    children={element.children}
+                    onClick={element.onClick}
+                />
+            </span>
         );
     });
 
@@ -86,7 +88,9 @@ function NavMenu() {
                     </a>
                 </Link>
 
+
                 <div className={styles.listItems}>
+
                     <button
                         className={styles.btn}
                         style={style}
@@ -94,8 +98,10 @@ function NavMenu() {
                         onMouseLeave={handleMouseLeave}
                         onClick={() => handleShowNotifications()}
                     >
-                        <Icon icon="mdi:bell" width="32" height="32" />
-                        Notifications
+                        <span style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Icon icon="mdi:bell" width="32" height="32" />
+                            Notifications
+                        </span>
                     </button>
 
                     {/*------- Affichage des éléments de navigation -----*/}
@@ -106,7 +112,8 @@ function NavMenu() {
                         content={notifications}
                     />
                 </div>
-            </nav>
+
+            </nav >
         </>
     );
 }
