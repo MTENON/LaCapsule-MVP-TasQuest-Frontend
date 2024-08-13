@@ -119,6 +119,7 @@ const Tasks = () => {
                         <TaskMolecule
                             key={element._id}
                             taskId={element._id}
+                            endDate={element.endDate}
                             isDone={element.isDone}
                         >
                             <p>{element.name}</p>

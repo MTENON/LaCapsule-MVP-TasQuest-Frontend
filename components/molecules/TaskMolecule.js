@@ -7,41 +7,38 @@ import styles from "../../styles/molecules/TaskMolecule.module.css";
 
 const link = process.env.backLink;
 
-// Le composant est un enfant de Tasks,il gère l'affichage d'une tâche individuelle ainsi que la gestion de isDone.
-// Il reçoit les props taskId, isDone, et children du parent Tasks, et utilise le composant TaskAtom comme conteneur pour la tâche et Checkboxes pour gérer son état.
-
 const TaskMolecule = ({ taskId, isDone, children }) => {
-    const [checked, setChecked] = useState(false);
-    const [taskIsDone, setTaskIsDone] = useState(isDone);
+    const [checked, setChecked] = useState(isDone);
     const [todos, setTodos] = useState([]);
     const token = useSelector((state) => state.user.token);
 
     useEffect(() => {
         setChecked(isDone);
-    }, [taskIsDone]);
+    }, [isDone]);
 
-    async function handleCheck(value) {
+    const handleCheck = async () => {
         try {
             const response = await fetch(`${link}/tasks/isdone/${taskId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: token,
                 },
-                body: JSON.stringify({ token, isDone: value }),
+                body: JSON.stringify({ isDone: !checked }), // Send the toggled state
             });
 
             if (!response.ok) {
                 throw new Error("Erreur lors de la mise à jour de la tâche.");
             }
-            setTaskIsDone(value);
-            setChecked(value);
+
+            setChecked((prevChecked) => !prevChecked);
         } catch (error) {
             console.error("Erreur :", error);
         }
-    }
+    };
 
     useEffect(() => {
-        async function fetchTodos() {
+        const fetchTodos = async () => {
             try {
                 const response = await fetch(`${link}/tasks/todo/${taskId}`, {
                     headers: {
@@ -65,29 +62,31 @@ const TaskMolecule = ({ taskId, isDone, children }) => {
                     error
                 );
             }
-        }
+        };
 
         fetchTodos();
     }, [taskId, token]);
 
-    const todoElements = todos.map((todo) => {
-        return (
-            <TodoAtom
-                key={todo._id}
-                todo={todo.toDo}
-                taskId={taskId}
-                isCompleted={todo.isCompleted}
-            />
-        );
-    });
+    const todoElements = todos.map((todo) => (
+        <TodoAtom
+            key={todo._id}
+            todo={todo.toDo}
+            taskId={taskId}
+            isCompleted={todo.isCompleted}
+            endDate={todo.endDate}
+        />
+    ));
 
     console.log("TodoElements:", todoElements);
+
     return (
         <div className={styles.taskContainer}>
             <TaskAtom taskId={taskId}>
                 <Checkboxes
+                    name="isDone"
                     handleCheck={handleCheck}
                     variant={checked ? "primaryChecked" : "primary"}
+                    value={checked}
                 />
                 {children}
                 {todoElements}

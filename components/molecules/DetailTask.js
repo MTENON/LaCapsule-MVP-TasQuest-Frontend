@@ -13,7 +13,7 @@ const DetailTask = ({
     toDo,
     isCompleted,
 }) => {
-    const [done, setDone] = useState(isDone);
+    const [checked, setChecked] = useState(isDone);
 
     const handleCheck = () => {
         setDone(!done); // Mise à jour de `done` au lieu de `isDone`
@@ -25,9 +25,10 @@ const DetailTask = ({
             <p>{description}</p>
             <p>Urgent : {IsUrgent ? "Oui" : "Non"}</p>
             <Checkboxes
-                name={done}
-                variant="secondary"
+                name="isDone"
                 handleCheck={handleCheck}
+                variant={checked ? "primaryChecked" : "primary"}
+                value={checked}
             />
         </div>
     );
