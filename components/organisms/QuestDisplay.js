@@ -71,7 +71,7 @@ function QuestDisplay({ handleQuestDisplay }) {
     //Fake data items
     const items = [
         {
-            src: '/potion_de_soin.jpg',
+            src: '/potions/potion_de_soin.png',
             alt: 'potion_de_soin',
             name: "Potion de soin",
             description: "Cette potion rend 10 PV à l'utilisation. Elle à un gout de cerise."

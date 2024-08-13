@@ -18,18 +18,24 @@
 
 .divInventory {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     width: 30%;
     margin-top: 30px;
 }
 
-.inventoryButton {
-    width: 326px;
-    height: 47px;
-    border-radius: 20px;
-    border: 1.5px;
-    background-color: #A50104;
+.inventoryTitle {
+
+    width: 100%;
+    margin: 5% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+
 }
 
 .stuff {
@@ -50,4 +56,5 @@
     width: 742px;
     height: 625px;
     gap: 25px;
+    overflow-y: auto;
 }

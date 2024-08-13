@@ -4,7 +4,7 @@ import { useState } from "react";
 
 //Import reducer user fonctions
 import { useDispatch } from "react-redux"
-import { updateUsername, updateToken } from "../reducers/users";
+import { updateAllReducer } from "../reducers/users";
 
 //Components import
 import TextInputs from "./atoms/TextInputs";
@@ -36,8 +36,7 @@ function Home() {
       setError(true);
     } else {
       setError(false)
-      dispatch(updateUsername(userData.data.username))
-      dispatch(updateToken(userData.data.token))
+      dispatch(updateAllReducer(userData.data))
       window.location.href = 'ChatPage'
     }
   }

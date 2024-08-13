@@ -1,5 +1,7 @@
 import styles from "../styles/Shop.module.css"
 
+import { useSelector } from "react-redux"
+
 //Importation d'atomes
 import Money from "../components/atoms/Money"
 import ItemShop from "./molecules/ItemShop";
@@ -14,6 +16,8 @@ const inventory = require('../assets/inventory.json')
 
 function Shop() {
 
+    const money = useSelector((state) => state.user.money)
+
     const item = inventory.map((data, i) => {
         return (
             <ItemInventory
@@ -26,27 +30,34 @@ function Shop() {
 
     return (
         <div className={styles.container}>
+
             <TitleAtoms
                 title={"Boutique"}
                 width={'70%'}
             />
 
             <div className={styles.divBottom}>                 {/* Bas de la page */}
-                <div className={styles.divInventory}>               {/* Partie gauche du bas de la page*/}
-                    <Money />
-                    <TitleAtoms
-                        title={"Inventaire"}
-                        width={'70%'}
-                        className={styles.inventoryTitle}
+                <div className={styles.divInventory}>
+
+                    <Money
+                        pieces={money}
                     />
+
+                    <div className={styles.inventoryTitle}>
+                        <TitleAtoms
+                            title={"Inventaire"}
+                            width={'70%'}
+                        />
+                    </div>
+
                     <div className={styles.stuff}>
                         {item}
                     </div>
+
                 </div>
 
 
-                <div className={styles.itemSelectionShop}>     {/* Partie droite du bas de la page*/}
-                    {/* {itemShop} */}
+                <div className={styles.itemSelectionShop}>
                     <ItemShop />
                     <ItemShop />
                     <ItemShop />

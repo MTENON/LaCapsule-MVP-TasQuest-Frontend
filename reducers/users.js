@@ -6,6 +6,7 @@ const initialState = {
   token: "",
   characterId: "",
   characterName: "",
+  level: 1,
   money: 0,
   HP: 0,
   XP: 0,
@@ -29,6 +30,7 @@ export const userSlice = createSlice({
       state.token = action.payload.token;
       state.characterId = action.payload.characterId;
       state.money = action.payload.money;
+      state.level = action.payload.level;
       state.HP = action.payload.HP;
       state.XP = action.payload.XP;
       state.caracs = action.payload.caracs;
