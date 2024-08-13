@@ -2,7 +2,7 @@ import styles from '../../styles/atoms/Gear.module.css'
 
 import PopoverCustom from '../molecules/PopoverCustom'
 
-function Gear({ name, icon, message, variant }) {
+function Gear({ name, icon, message }) {
 
 
     return (

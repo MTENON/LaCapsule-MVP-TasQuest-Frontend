@@ -1,8 +1,8 @@
-.itemImage{
+.itemImage {
     width: 225px;
     height: 300px;
-    border : 3px solid #1a99ad;
-    margin-top : 30px;
+    border: 2px solid black;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,13 +17,13 @@
     flex-direction: column;
     justify-content: space-around;
     margin-top: 10%;
-    background-color: aqua;
+    border-top: 2px black solid;
     height: 119px;
-    width: 100%; /* on prend 100% de la largeur*/
+    width: 90%;
+    /* on prend 100% de la largeur*/
 }
 
 .itemName {
-    border: #01a571;
     text-align: center;
 }
 

@@ -1,31 +1,19 @@
-
 .container {
-    border : 5px solid #642181;
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.divShopButton {
-    display: flex;
     justify-content: center;
-    width: 100%;/*Pour prendre 100% de la largeur*/
+    align-items: center;
 }
 
-.shopButton {
+.divBottom {
+    height: 90%;
     width: 100%;
-    max-width: 763px;
-    height: 82px;
-    background-color: #A50104;
-    border-radius: 20px;
-    border: 1.5px;
-    margin-top: 5%;
-}
-
-.divBottom { 
-    display: flex; /*pour aligner les enfants à l'horizontal*/
-    flex-direction: row; /*pour aligner divLeft et itemSelectionShop sur la même ligne*/
-    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .divInventory {
@@ -44,7 +32,7 @@
     background-color: #A50104;
 }
 
-.stuff{
+.stuff {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -52,13 +40,14 @@
 }
 
 .itemSelectionShop {
+    height: 100%;
+    width: 60%;
+    margin-left: 5%;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     width: 742px;
     height: 625px;
     gap: 25px;
-    border : solid 3px #01a571;
-    flex: 1; /*Prend tout l'espace dispo à droite*/
 }
-

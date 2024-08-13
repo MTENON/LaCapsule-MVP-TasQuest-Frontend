@@ -1,13 +1,26 @@
 import React from 'react'
-import { Icon } from "@iconify-icon/react";
+
 import styles from "../../styles/atoms/ItemInventory.module.css"
 
-export default function ItemInventory() {
+import PopoverCustom from '../molecules/PopoverCustom'
+
+export default function ItemInventory({ icon, message }) {
   return (
 
     <div className={styles.stuffScreen}>
-            <Icon className={styles.stuffSize} icon="game-icons:ancient-sword" />
+      <PopoverCustom
+        message={message}
+        className={styles.popup}
+      >
+        <img
+          src={icon}
+          height={'100%'}
+          width={'100%'}
+          alt={icon}
+          onError={({ currentTarget }) => currentTarget.src = '/default.png'}
+        ></img>
+      </PopoverCustom>
     </div>
-    
+
   )
 }

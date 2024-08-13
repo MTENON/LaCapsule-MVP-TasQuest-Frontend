@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Épée du Guerrier",
+        "description": "Une épée robuste et fiable, parfaite pour les combattants expérimentés. Elle offre un bon équilibre entre puissance et maniabilité.",
+        "price": 50,
+        "type": "Épée",
+        "icon": "/armes/lame_d_eclat.png"
+    },
+    {
+        "name": "Grimoire",
+        "description": "Un livre spécialisé dans les sorts de conjuration, permettant de faire apparaître des créatures et des objets à partir de rien.",
+        "price": 140,
+        "type": "Grimoire",
+        "icon": "/armes/grimoire.png"
+    },
+    {
+        "name": "Potion de Santé",
+        "description": "Une potion régénérante qui restaure une partie significative de la santé du buveur. Idéale pour les aventuriers blessés.",
+        "price": 30,
+        "type": "Potion",
+        "icon": "/potions/potion_de_soin.png"
+    },
+    {
+        "name": "Potion de Force",
+        "description": "Une potion qui accroît la force physique du buveur, permettant des attaques plus puissantes et une meilleure capacité de levage.",
+        "price": 80,
+        "type": "Potion",
+        "icon": "/potions/potion_de_force.png"
+    }
+]
