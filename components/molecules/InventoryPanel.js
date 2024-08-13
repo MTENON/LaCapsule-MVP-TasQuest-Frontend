@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 //import de composants
 import Money from '../atoms/Money'
 import Gear from '../atoms/Gear'
+import InventoryModal from './InventoryModal'
 
 function InventoryPanel() {
 
@@ -60,52 +61,108 @@ function InventoryPanel() {
             <Money pieces={money} />
             <div className={styles.inventory}>
                 <div className={styles.row}>
-                    <Gear
-                        name={equipment.necklace.name}
-                        message={equipment.necklace.description}
-                        icon={equipment.necklace.icon.trim()}
-                    />
-                    <Gear
-                        name={equipment.head.name}
-                        message={equipment.head.description}
-                        icon={equipment.head.icon.trim()}
-                    />
-                </div>
 
-                <div className={styles.row}>
-                    <Gear
+                    <InventoryModal
                         name={equipment.hand1.name}
                         message={equipment.hand1.description}
                         icon={equipment.hand1.icon.trim()}
-                    />
-                    <Gear
-                        name={equipment.body.name}
-                        message={equipment.body.description}
-                        icon={equipment.body.icon.trim()}
-                    />
-                    <Gear
+                    >
+                        <Gear
+                            name={equipment.hand1.name}
+                            message={equipment.hand1.description}
+                            icon={equipment.hand1.icon.trim()}
+                        />
+                    </InventoryModal>
+
+                    <InventoryModal
                         name={equipment.hand2.name}
                         message={equipment.hand2.description}
                         icon={equipment.hand2.icon.trim()}
-                    />
+                    >
+                        <Gear
+                            name={equipment.hand2.name}
+                            message={equipment.hand2.description}
+                            icon={equipment.hand2.icon.trim()}
+                        />
+                    </InventoryModal>
+
                 </div>
 
                 <div className={styles.row}>
-                    <Gear
+
+                    <InventoryModal
+                        name={equipment.necklace.name}
+                        message={equipment.necklace.description}
+                        icon={equipment.necklace.icon.trim()}
+                    >
+                        <Gear
+                            name={equipment.necklace.name}
+                            message={equipment.necklace.description}
+                            icon={equipment.necklace.icon.trim()}
+                        />
+                    </InventoryModal>
+
+                    <InventoryModal
+                        name={equipment.body.name}
+                        message={equipment.body.description}
+                        icon={equipment.body.icon.trim()}
+                    >
+                        <Gear
+                            name={equipment.body.name}
+                            message={equipment.body.description}
+                            icon={equipment.body.icon.trim()}
+                        />
+                    </InventoryModal>
+
+                    <InventoryModal
+                        name={equipment.head.name}
+                        message={equipment.head.description}
+                        icon={equipment.head.icon.trim()}
+                    >
+                        <Gear
+                            name={equipment.head.name}
+                            message={equipment.head.description}
+                            icon={equipment.head.icon.trim()}
+                        />
+                    </InventoryModal>
+                </div>
+
+                <div className={styles.row}>
+                    <InventoryModal
                         name={equipment.bracelet.name}
                         message={equipment.bracelet.description}
                         icon={equipment.bracelet.icon.trim()}
-                    />
-                    <Gear
+                    >
+                        <Gear
+                            name={equipment.bracelet.name}
+                            message={equipment.bracelet.description}
+                            icon={equipment.bracelet.icon.trim()}
+                        />
+                    </InventoryModal>
+
+                    <InventoryModal
                         name={equipment.boots.name}
                         message={equipment.boots.description}
                         icon={equipment.boots.icon.trim()}
-                    />
-                    <Gear
+                    >
+                        <Gear
+                            name={equipment.boots.name}
+                            message={equipment.boots.description}
+                            icon={equipment.boots.icon.trim()}
+                        />
+                    </InventoryModal>
+
+                    <InventoryModal
                         name={equipment.ring.name}
                         message={equipment.ring.description}
                         icon={equipment.ring.icon.trim()}
-                    />
+                    >
+                        <Gear
+                            name={equipment.ring.name}
+                            message={equipment.ring.description}
+                            icon={equipment.ring.icon.trim()}
+                        />
+                    </InventoryModal>
                 </div>
             </div>
         </div>

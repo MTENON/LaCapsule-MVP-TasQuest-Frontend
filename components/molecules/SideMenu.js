@@ -23,12 +23,12 @@ const SideMenu = () => {
             variant: "sidebar",
             popoverMessage: "Personnage",
         },
-        {
-            href: "/inventory",
-            nameIcon: "icon-park-outline:retro-bag",
-            variant: "sidebar",
-            popoverMessage: "Inventaire",
-        },
+        // {
+        //     href: "/inventory",
+        //     nameIcon: "icon-park-outline:retro-bag",
+        //     variant: "sidebar",
+        //     popoverMessage: "Inventaire",
+        // },
         {
             href: "/quests",
             nameIcon: "game-icons:shoulder-armor",

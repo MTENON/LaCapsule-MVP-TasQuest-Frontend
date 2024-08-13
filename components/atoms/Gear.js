@@ -2,28 +2,31 @@ import styles from '../../styles/atoms/Gear.module.css'
 
 import PopoverCustom from '../molecules/PopoverCustom'
 
-function Gear({ name, icon, message }) {
+function Gear({ name, icon, message, variant }) {
+
+
     return (
-        <div className={styles.gearContainer}>
+        // <div className={styles.gearContainer}>
 
-            <PopoverCustom
-                message={message}
-                className={styles.popup}
-            >
+        <PopoverCustom
+            message={message}
+            className={styles.popup}
+        >
 
-                <h4 className={styles.text}>{name}</h4>
-                <div className={styles.background}>
-                    <img
-                        src={icon}
-                        height={80}
-                        width={80}
-                        alt={icon}
-                        onError={({ currentTarget }) => currentTarget.src = '/default.png'}
-                    ></img>
-                </div>
+            <h4 className={styles.text}>{name}</h4>
 
-            </PopoverCustom>
-        </div>
+            <div className={styles.background}>
+                <img
+                    src={icon}
+                    height={'100%'}
+                    width={'100%'}
+                    alt={icon}
+                    onError={({ currentTarget }) => currentTarget.src = '/default.png'}
+                ></img>
+            </div>
+        </PopoverCustom>
+
+        // </div>
     )
 }
 
