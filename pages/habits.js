@@ -10,7 +10,6 @@ const link = process.env.backLink;
 
 function HabitsPage() {
   const [habitsData, setHabitsData] = useState([]);
-  const [refresh, setRefresh] = useState(false);
   const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
@@ -61,7 +60,7 @@ function HabitsPage() {
   }, []);
 
   useEffect(() => {
-    const fetchHabits = async () => {
+    (async () => {
       try {
         const response = await fetch(`${link}/habits`, {
           headers: {
@@ -81,15 +80,14 @@ function HabitsPage() {
       } catch (error) {
         console.log(error.message);
       }
-    };
-    fetchHabits();
-  }, [refresh]);
+    })();
+  }, [habitsData]);
 
-  console.log(habitsData);
+  // console.log(habitsData);
 
   const handleRefresh = () => {
-    setRefresh(!refresh);
     console.log("refreshed");
+    setHabitsData([]);
   };
 
   const habits = habitsData.map((data, i) => {
@@ -127,6 +125,7 @@ function HabitsPage() {
         pause={data.onPauseSince}
         pauseEnd={data.PauseEndDate}
         pauseDesc={data.pauseDesc}
+        handleRefresh={handleRefresh} 
       />
     );
   });
@@ -135,7 +134,7 @@ function HabitsPage() {
     <Layout>
       <div className={styles.content}>
         <TitleAtoms title={"Habitudes"} />
-        <CreateHabit refresh={handleRefresh} />
+        <CreateHabit refresh={handleRefresh}/>
         <div className={styles.container}>{habits}</div>
       </div>
     </Layout>

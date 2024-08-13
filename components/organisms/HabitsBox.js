@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../../styles/molecules/HabitsBox.module.css";
 import Checkboxes from "../atoms/Checkboxes";
 import { useSelector } from "react-redux";
+import moment from "moment";
 import TaskAtom from "../atoms/TaskAtom";
 // import DropdownHabits from "../organisms/DropdownHabits";
 import Menu from "@mui/material/Menu";
@@ -9,6 +10,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "../atoms/Button";
 import ModifHabit from "../molecules/ModifHabit";
 import DelHabits from "../molecules/delHabits";
+import PauseHabits from "../molecules/PauseHabits";
+import PopoverCustom from "../molecules/PopoverCustom";
 
 const link = process.env.backLink;
 
@@ -25,12 +28,29 @@ function HabitsBox({
   isDone,
   start,
   end,
+  pause,
+  pauseDesc,
+  pauseEnd,
+  handleRefresh,
 }) {
   const token = useSelector((state) => state.user.token);
 
   const [doneStatus, setDoneStatus] = useState(false);
+  const [pauseStatus, setPauseStatus] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [refresher, setRefresher] = useState(false);
   const open = Boolean(anchorEl);
+
+  let hoverPause = null;
+  let endDate = moment(pauseEnd).format("DD/MM/YYYY");
+
+  if (pauseDesc && pauseEnd) {
+    hoverPause = `${pauseDesc} — Date de fin prevu: ${endDate}`;
+  } else if (pauseEnd === null) {
+    hoverPause = pauseDesc;
+  } else if (pauseDesc === null) {
+    hoverPause = `Date de fin prevu: ${endDate})`;
+  }
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,7 +61,8 @@ function HabitsBox({
 
   useEffect(() => {
     setDoneStatus(isDone);
-  }, []);
+    pause ? setPauseStatus(true) : setPauseStatus(false);
+  }, [refresher]);
 
   const handleDone = async () => {
     try {
@@ -69,9 +90,14 @@ function HabitsBox({
     }
   };
 
+  function refresh() {
+    setRefresher(!refresher);
+    handleRefresh();
+  }
+
   return (
     <>
-      <TaskAtom>
+      <TaskAtom width="85%" backgroundColor={pauseStatus ? "white" : ""}>
         <div className={styles.leftBox}>
           <Checkboxes
             name={name}
@@ -79,33 +105,49 @@ function HabitsBox({
             variant={doneStatus ? "primaryChecked" : "primary"}
             value={doneStatus}
           />
-          <p className={styles.text}>{text}</p>
+          <PopoverCustom message={desc}>
+            <p className={styles.text}>{text}</p>
+          </PopoverCustom>
         </div>
         <div className={styles.rigthBox}>
-          <div>
-            <p>Début:</p>
-            <p className={styles.text}>
-              {start}
+          <div className={styles.debut}>
+            <p className={styles.debutText}>Début:</p>
+            <p className={styles.debutText}>
+              {moment(start).format("DD/MM/YYYY")}
             </p>
           </div>
-          <div>
-            <p>Fin:</p>
-            <p className={styles.text}>
-              {end}
-            </p>
+          <div className={styles.fin}>
+            {pauseStatus ? (
+              <>
+                {hoverPause ? (
+                  <>
+                    <PopoverCustom
+                      message={hoverPause}
+                      backgroundColor="#FCD757"
+                    >
+                      <p className={styles.pauseText}>En Pause</p>
+                    </PopoverCustom>
+                  </>
+                ) : (
+                  <p className={styles.pauseText}>En Pause</p>
+                )}
+              </>
+            ) : (
+              <>
+                <p className={styles.finText}>Fin:</p>
+                <p className={styles.finText}>
+                  {moment(end).format("DD/MM/YYYY")}
+                </p>
+              </>
+            )}
           </div>
-          <div>
-            <p>Récurrence:</p>
-            <p className={styles.text}>
+          <div className={styles.rec}>
+            <p className={styles.recText}>Récurrence:</p>
+            <p className={styles.recText}>
               {"Tout(es) les " + repNumber + " " + labelTrad}
             </p>
           </div>
-          <Button
-            variant="primary"
-            icon="ph:pen"
-            func={handleClick}
-            // classeName={styles.iconSize}
-          />
+          <Button variant="primary" icon="ph:pen" func={handleClick} />
           <Menu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
@@ -132,7 +174,11 @@ function HabitsBox({
               start={start}
             />
             <DelHabits taskId={taskId} />
-            <MenuItem onClick={handleClose}>Fermer</MenuItem>
+            <PauseHabits
+              taskId={taskId}
+              pause={pause}
+              handleRefresh={refresh}
+            />
           </Menu>
         </div>
       </TaskAtom>

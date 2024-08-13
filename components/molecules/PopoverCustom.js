@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 // Composant PopoverCustom qui affiche un popover
-export default function PopoverCustom({ element, message, children }) {
+export default function PopoverCustom({ element, message, children, backgroundColor }) {
     // État pour gérer l'élément d'ancrage du popover
     // anchorEl est une référence à l'élément HTML sur lequel l'utilisateur a survolé sa souris
     const [anchorEl, setAnchorEl] = useState(null);
@@ -38,6 +38,7 @@ export default function PopoverCustom({ element, message, children }) {
                     pointerEvents: "none",
                     borderWidth: "2px",
                     borderColor: "secondary.main",
+                    bg: backgroundColor,
                 }}
                 open={open}
                 anchorEl={anchorEl}

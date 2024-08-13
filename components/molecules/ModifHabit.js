@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
-import AtomButton from "../atoms/AtomButton";
 import MenuItem from "@mui/material/MenuItem";
+import AtomButton from "../atoms/AtomButton";
+import moment from "moment";
 import LabeledInput from "./LabeledInput";
 import Checkboxes from "../atoms/Checkboxes";
 import DifficultyRating from "./DifficultyRating";
@@ -20,7 +21,7 @@ const style = {
   width: "65%",
   height: "85%",
   //   backgroundColor: "#a50104",
-  overflow: "scroll",
+  overflowY: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
   boxShadow: 24,
@@ -55,8 +56,8 @@ function ModifHabit({
   const [title, setTitle] = useState(null);
   const [label, setLabel] = useState(null);
   const [num, setNum] = useState(1);
-  const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState(0);
+  const [description, setDescription] = useState("");
   const [date, setDate] = useState(null);
   const [resetForm, setResetForm] = useState(false);
 
@@ -118,7 +119,7 @@ function ModifHabit({
           number: num,
           label: label,
           isFavorite: favorite,
-          startDate,
+          startDate: moment(date).utc(),
         }),
       });
 
