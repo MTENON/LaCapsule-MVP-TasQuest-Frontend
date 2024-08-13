@@ -33,7 +33,7 @@ const style = {
 export default function UserFormModal() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => { setOpen(false); emptyForm() };
 
     //Déclaration des états du formulaire
     const [username, setUsername] = useState('');
@@ -53,11 +53,11 @@ export default function UserFormModal() {
     }
 
     React.useEffect(() => {
-        const pattern = /^\s*$/;
+        const pattern = /^[a-zA-Z0-9]{4,10}$/g;
         const patternPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-        const patternEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        const patternEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
-        if (!(pattern.test(username) || pattern.test(email) || pattern.test(password) || pattern.test(confirmPassword) || !patternEmail.test(email))) {
+        if (pattern.test(username) && patternEmail.test(email)) {
             if (patternPassword.test(password) && patternPassword.test(password)) {
                 if (password === confirmPassword) {
                     setPasswordError(false)
