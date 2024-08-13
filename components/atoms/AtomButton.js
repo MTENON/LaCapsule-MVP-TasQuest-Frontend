@@ -8,18 +8,21 @@ function AtomButton({ icon, variant, handleClick, children }) {
             color: "#fcd757",
             padding: "15px 20px",
             borderRadius: "10px",
+            cursor: 'pointer',
         },
         secondary: {
             backgroundColor: "#fcd757",
             color: "#a50104",
             padding: "15px 20px",
             borderRadius: "10px",
+            cursor: 'pointer',
         },
         tertiary: {
             backgroundColor: "#F0EFEF",
             color: "#A50104",
             padding: "15px 20px",
             borderRadius: "10px",
+            cursor: 'pointer',
         },
     };
 
