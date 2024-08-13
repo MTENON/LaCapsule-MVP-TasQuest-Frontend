@@ -1,0 +1,12 @@
+.skillsContainer {
+    height: 100%;
+    width: 32%;
+    margin: 0 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #F0EFEF;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}

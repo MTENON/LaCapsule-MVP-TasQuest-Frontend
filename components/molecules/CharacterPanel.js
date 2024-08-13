@@ -11,7 +11,12 @@ import PopoverCustom from './PopoverCustom'
 
 function CharacterPanel() {
 
+    //informations du reducer
     const username = useSelector((state) => state.user.username)
+    const HP = useSelector((state) => state.user.HP)
+    const XP = useSelector((state) => state.user.XP)
+
+
     //Fake popoverdata for stats and combo
 
     return (
@@ -30,12 +35,12 @@ function CharacterPanel() {
                 <PopoverCustom
                     message="Délaissez trop de tâches et c'est la défaite assurée. La santé mesure votre endurance face à l'échec. Mais attention la voir arriver à zéro entrainera une pénalité."
                 >
-                    <Healthbar health={50} maxHealth={50} />
+                    <Healthbar health={HP} maxHealth={10} />
                 </PopoverCustom>
                 <PopoverCustom
                     message="Plus vous travaillerez plus vous accumulerez de l'expérience. Elle vous renforcera et vous fera gagner en compétences."
                 >
-                    <XPbar XPValue={2} maxXPValue={10} />
+                    <XPbar XPValue={XP} maxXPValue={10} />
                 </PopoverCustom>
                 <h3>Niveau: 2</h3>
             </div>
@@ -82,7 +87,7 @@ function CharacterPanel() {
                 <PopoverCustom
                     message="Plus votre combo est élevé plus vos récompenses seront grandes. Restez assidus et le combo augmentera."
                 >
-                    <ButtonDiamond variant={"secondary"} content={"x 2,4"}></ButtonDiamond>
+                    <ButtonDiamond variant={"secondary"} content={"x 2,4"} func={() => { }}></ButtonDiamond>
                 </PopoverCustom>
             </div>
         </div>
