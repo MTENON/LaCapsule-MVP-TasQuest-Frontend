@@ -1,3 +1,4 @@
+import TitleAtoms from "../components/atoms/TitleAtoms";
 import Layout from "../components/layouts/Layout";
 
 //imports de composants

@@ -24,6 +24,7 @@ function HabitsBox({
   fav,
   isDone,
   start,
+  end,
 }) {
   const token = useSelector((state) => state.user.token);
 
@@ -81,7 +82,24 @@ function HabitsBox({
           <p className={styles.text}>{text}</p>
         </div>
         <div className={styles.rigthBox}>
-          <p className={styles.text}>{repNumber + " " + labelTrad}</p>
+          <div>
+            <p>Début:</p>
+            <p className={styles.text}>
+              {start}
+            </p>
+          </div>
+          <div>
+            <p>Fin:</p>
+            <p className={styles.text}>
+              {end}
+            </p>
+          </div>
+          <div>
+            <p>Récurrence:</p>
+            <p className={styles.text}>
+              {"Tout(es) les " + repNumber + " " + labelTrad}
+            </p>
+          </div>
           <Button
             variant="primary"
             icon="ph:pen"

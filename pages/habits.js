@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/pages/habits.module.css";
 import Layout from "../components/layouts/Layout";
-import HabitsBox from "../components/molecules/HabitsBox";
+import HabitsBox from "../components/organisms/HabitsBox";
 import { useSelector } from "react-redux";
 import TitleAtoms from "../components/atoms/TitleAtoms";
-import CreateHabit from "../components/molecules/CreateHabit";
+import CreateHabit from "../components/organisms/CreateHabit";
 
 const link = process.env.backLink;
 
@@ -89,8 +89,7 @@ function HabitsPage() {
 
   const handleRefresh = () => {
     setRefresh(!refresh);
-    console.log('refreshed');
-    
+    console.log("refreshed");
   };
 
   const habits = habitsData.map((data, i) => {
