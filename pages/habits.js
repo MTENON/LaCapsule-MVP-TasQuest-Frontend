@@ -33,7 +33,7 @@ function HabitsPage() {
       console.log(error.message);
     }
   };
-  
+
   const unvalidHabits = async () => {
     try {
       const response = await fetch(`${link}/habits/unvalid`, {

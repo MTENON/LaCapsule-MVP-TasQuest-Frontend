@@ -1,19 +1,16 @@
-import { useEffect, useState } from "react";
 import styles from "../../styles/molecules/HabitsBox.module.css";
-import Checkboxes from "../atoms/Checkboxes";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { updateMoney, updateXP } from "../../reducers/users";
 import moment from "moment";
-import TaskAtom from "../atoms/TaskAtom";
-// import DropdownHabits from "../organisms/DropdownHabits";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import Checkboxes from "../atoms/Checkboxes";
+import TaskAtom from "../atoms/TaskAtom";
 import Button from "../atoms/Button";
 import ModifHabit from "../molecules/ModifHabit";
 import DelHabits from "../molecules/delHabits";
 import PauseHabits from "../molecules/PauseHabits";
 import PopoverCustom from "../molecules/PopoverCustom";
-import { Icon } from "@mui/material";
-import { updateMoney, updateXP } from "../../reducers/users";
 
 const link = process.env.backLink;
 
@@ -34,6 +31,7 @@ function HabitsBox({
   pauseDesc,
   pauseEnd,
   refreshHabits,
+  dropVisible,
 }) {
   const token = useSelector((state) => state.user.token);
 
@@ -44,6 +42,7 @@ function HabitsBox({
 
   const [doneStatus, setDoneStatus] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [refreshDrop, setRefreshDrop] = useState(false);
   const open = Boolean(anchorEl);
 
   let hoverPause = null;
@@ -63,6 +62,13 @@ function HabitsBox({
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleDrop = () => {
+    setRefreshDrop(!refreshDrop);
+  };
+
+  useEffect(() => {
+    setAnchorEl(null);
+  }, [refreshDrop]);
 
   useEffect(() => {
     setDoneStatus(isDone);
@@ -95,8 +101,8 @@ function HabitsBox({
     }
   };
 
-  console.log("Money ==>", money);
-  console.log("XP ==>", XP);
+  // console.log("Money ==>", money);
+  // console.log("XP ==>", XP);
 
   return (
     <>
@@ -175,12 +181,18 @@ function HabitsBox({
               level={level}
               start={start}
               refreshHabits={refreshHabits}
+              dropdown={handleClose}
             />
-            <DelHabits taskId={taskId} refreshHabits={refreshHabits} />
             <PauseHabits
               taskId={taskId}
               pause={pause}
               refreshHabits={refreshHabits}
+              dropdown={handleClose}
+            />
+            <DelHabits
+              taskId={taskId}
+              refreshHabits={refreshHabits}
+              dropdown={handleDrop}
             />
           </Menu>
         </div>

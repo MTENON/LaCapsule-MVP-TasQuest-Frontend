@@ -50,7 +50,7 @@ const stylePlay = {
   gap: "2%",
 };
 
-function PauseHabits({ taskId, pause, refreshHabits }) {
+function PauseHabits({ taskId, pause, refreshHabits, dropdown }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
@@ -68,6 +68,7 @@ function PauseHabits({ taskId, pause, refreshHabits }) {
     setOpen(false);
     setResetForm(!resetForm);
     refreshHabits();
+    dropdown();
   };
 
   const handleChecked = () => setChecked(true);

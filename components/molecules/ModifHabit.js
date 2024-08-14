@@ -46,7 +46,8 @@ function ModifHabit({
   enLabel,
   fav,
   start,
-  refreshHabits
+  refreshHabits,
+  dropdown,
 }) {
   const token = useSelector((state) => state.user.token);
 
@@ -73,6 +74,7 @@ function ModifHabit({
   const handleClose = () => {
     setOpen(false);
     setResetForm(!resetForm);
+    dropdown();
   };
 
   useEffect(() => {
@@ -133,7 +135,8 @@ function ModifHabit({
 
       setOpen(false);
       setResetForm(!resetForm);
-      refreshHabits()
+      refreshHabits();
+      dropdown();
       console.log(data.message);
     } catch (error) {
       console.log(error.message);
