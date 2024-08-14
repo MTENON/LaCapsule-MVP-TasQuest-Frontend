@@ -27,7 +27,7 @@ const style = {
 
 const link = process.env.backLink;
 
-function DelHabits({ taskId }) {
+function DelHabits({ taskId, refreshHabits }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
@@ -55,6 +55,7 @@ function DelHabits({ taskId }) {
       }
 
       setOpen(false);
+      refreshHabits();
       console.log(data.message);
     } catch (error) {
       console.log(error.message);

@@ -50,14 +50,13 @@ const stylePlay = {
   gap: "2%",
 };
 
-function PauseHabits({ taskId, pause, handleRefresh }) {
+function PauseHabits({ taskId, pause, refreshHabits }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const [pauseDescription, setPauseDescription] = useState("");
   const [endDate, setEndDate] = useState(null);
-  const [pauseStatus, setPauseStatus] = useState(false);
   const [resetForm, setResetForm] = useState(false);
   const [errDate, setErrDate] = useState(false);
 
@@ -68,7 +67,7 @@ function PauseHabits({ taskId, pause, handleRefresh }) {
   const handleClose = () => {
     setOpen(false);
     setResetForm(!resetForm);
-    handleRefresh();
+    refreshHabits();
   };
 
   const handleChecked = () => setChecked(true);
@@ -76,7 +75,6 @@ function PauseHabits({ taskId, pause, handleRefresh }) {
   useEffect(() => {
     setPauseDescription();
     setEndDate();
-    pause ? setPauseStatus(true) : setPauseStatus(false);
     setErrDate(false);
   }, [resetForm]);
 
@@ -143,7 +141,7 @@ function PauseHabits({ taskId, pause, handleRefresh }) {
 
   return (
     <>
-      {!pauseStatus ? (
+      {!pause ? (
         <>
           <MenuItem onClick={handleOpen}>Pause</MenuItem>
           <Modal

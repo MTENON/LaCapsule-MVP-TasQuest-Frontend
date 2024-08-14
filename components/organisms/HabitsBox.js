@@ -31,14 +31,12 @@ function HabitsBox({
   pause,
   pauseDesc,
   pauseEnd,
-  handleRefresh,
+  refreshHabits,
 }) {
   const token = useSelector((state) => state.user.token);
 
   const [doneStatus, setDoneStatus] = useState(false);
-  const [pauseStatus, setPauseStatus] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [refresher, setRefresher] = useState(false);
   const open = Boolean(anchorEl);
 
   let hoverPause = null;
@@ -61,8 +59,7 @@ function HabitsBox({
 
   useEffect(() => {
     setDoneStatus(isDone);
-    pause ? setPauseStatus(true) : setPauseStatus(false);
-  }, [refresher]);
+  }, []);
 
   const handleDone = async () => {
     try {
@@ -90,14 +87,14 @@ function HabitsBox({
     }
   };
 
-  function refresh() {
-    setRefresher(!refresher);
-    handleRefresh();
-  }
+  // function refresh() {
+  //   setRefresher(!refresher);
+  //   handleRefresh();
+  // }
 
   return (
     <>
-      <TaskAtom width="85%" backgroundColor={pauseStatus ? "white" : ""}>
+      <TaskAtom width="85%" backgroundColor={pause ? "white" : ""}>
         <div className={styles.leftBox}>
           <Checkboxes
             name={name}
@@ -117,7 +114,7 @@ function HabitsBox({
             </p>
           </div>
           <div className={styles.fin}>
-            {pauseStatus ? (
+            {pause ? (
               <>
                 {hoverPause ? (
                   <>
@@ -172,12 +169,13 @@ function HabitsBox({
               desc={desc}
               level={level}
               start={start}
+              refreshHabits={refreshHabits}
             />
-            <DelHabits taskId={taskId} />
+            <DelHabits taskId={taskId} refreshHabits={refreshHabits} />
             <PauseHabits
               taskId={taskId}
               pause={pause}
-              handleRefresh={refresh}
+              refreshHabits={refreshHabits}
             />
           </Menu>
         </div>
