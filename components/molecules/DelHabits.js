@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 import { useSelector } from "react-redux";
 import AtomButton from "../atoms/AtomButton";
+
+// <=======> Creation d'un objet style pour la Modal <=======> \\
 
 const style = {
   position: "absolute",
@@ -30,15 +31,19 @@ const link = process.env.backLink;
 function DelHabits({ taskId, refreshHabits, dropdown }) {
   const token = useSelector((state) => state.user.token);
 
+  // <=======> Gestion de la Modal <=======> \\
+
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => {
     setOpen(true);
-    // dropdown();
   };
   const handleClose = () => {
     setOpen(false);
     dropdown();
   };
+
+  // <=======> Fonction pour supprimer l'habitude de la DB <=======> \\
 
   const delHabits = async () => {
     try {
@@ -52,14 +57,11 @@ function DelHabits({ taskId, refreshHabits, dropdown }) {
           taskId: taskId,
         }),
       });
-
       const data = await response.json();
-
       if (!data.result) {
         console.log(data.message, data.habit);
         throw new Error("Erreur lors de la suppression de l'habitude");
       }
-
       setOpen(false);
       refreshHabits();
       console.log(data.message);
@@ -73,7 +75,6 @@ function DelHabits({ taskId, refreshHabits, dropdown }) {
       <MenuItem
         onClick={() => {
           handleOpen();
-          // drop();
         }}
       >
         Supprimer

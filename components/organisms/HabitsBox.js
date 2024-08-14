@@ -31,30 +31,23 @@ function HabitsBox({
   pauseDesc,
   pauseEnd,
   refreshHabits,
-  dropVisible,
 }) {
   const token = useSelector((state) => state.user.token);
-
-  const XP = useSelector((state) => state.user.XP);
-  const money = useSelector((state) => state.user.money);
-
   const dispatch = useDispatch();
 
-  const [doneStatus, setDoneStatus] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
   const [refreshDrop, setRefreshDrop] = useState(false);
+
+  // <=======> Gestion du statut de l'habitude <=======> \\
+
+  const [doneStatus, setDoneStatus] = useState(false);
+
+  useEffect(() => {
+    setDoneStatus(isDone);
+  }, []);
+
+  // <=======> Gestion du menu deroulant <=======> \\
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
-  let hoverPause = null;
-  let endDate = moment(pauseEnd).format("DD/MM/YYYY");
-
-  if (pauseDesc && pauseEnd) {
-    hoverPause = `${pauseDesc} — Date de fin prevu: ${endDate}`;
-  } else if (pauseEnd === null) {
-    hoverPause = pauseDesc;
-  } else if (pauseDesc === null) {
-    hoverPause = `Date de fin prevu: ${endDate})`;
-  }
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -70,9 +63,20 @@ function HabitsBox({
     setAnchorEl(null);
   }, [refreshDrop]);
 
-  useEffect(() => {
-    setDoneStatus(isDone);
-  }, []);
+  // <=======> Gestion de l'affichage du hover des information de pause <=======> \\
+
+  let hoverPause = null;
+  let endDate = moment(pauseEnd).format("DD/MM/YYYY");
+
+  if (pauseDesc && pauseEnd) {
+    hoverPause = `${pauseDesc} — Date de fin prevu: ${endDate}`;
+  } else if (pauseEnd === null) {
+    hoverPause = pauseDesc;
+  } else if (pauseDesc === null) {
+    hoverPause = `Date de fin prevu: ${endDate})`;
+  }
+
+  // <=======> Fonction pour gérer la complétion de l'habitude <=======> \\
 
   const handleDone = async () => {
     try {
@@ -86,9 +90,7 @@ function HabitsBox({
           taskId: taskId,
         }),
       });
-
       const data = await response.json();
-
       if (!data.result) {
         console.log(data.message);
         throw new Error("Erreur lors de la modification de l'habitude");
@@ -101,9 +103,6 @@ function HabitsBox({
     }
   };
 
-  // console.log("Money ==>", money);
-  // console.log("XP ==>", XP);
-
   return (
     <>
       <TaskAtom width="85%" backgroundColor={pause ? "white" : ""}>
@@ -114,7 +113,11 @@ function HabitsBox({
             variant={doneStatus ? "primaryChecked" : "primary"}
             value={doneStatus}
           />
-          <PopoverCustom message={desc + " — Difficulté : " + level}>
+          <PopoverCustom
+            message={
+              desc ? desc + " — Difficulté : " + level : "Difficulté : " + level
+            }
+          >
             <p className={styles.text}>{text}</p>
           </PopoverCustom>
         </div>
@@ -129,6 +132,7 @@ function HabitsBox({
             {pause ? (
               <>
                 {hoverPause ? (
+                  // Condition pour eviter l'affichage d'une boite vide au hover
                   <>
                     <PopoverCustom message={hoverPause}>
                       <p className={styles.pauseText}>En Pause</p>
@@ -171,6 +175,7 @@ function HabitsBox({
               horizontal: "left",
             }}
           >
+            {/* Gestion de la modification d'habitude */}
             <ModifHabit
               taskId={taskId}
               text={text}
@@ -181,14 +186,16 @@ function HabitsBox({
               level={level}
               start={start}
               refreshHabits={refreshHabits}
-              dropdown={handleClose}
+              dropdown={handleDrop}
             />
+            {/* Gestion de la pause d'habitude */}
             <PauseHabits
               taskId={taskId}
               pause={pause}
               refreshHabits={refreshHabits}
-              dropdown={handleClose}
+              dropdown={handleDrop} // handleDrop ?
             />
+            {/* Gestion de la suppresion d'habitude */}
             <DelHabits
               taskId={taskId}
               refreshHabits={refreshHabits}

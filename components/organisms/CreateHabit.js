@@ -19,7 +19,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "65%",
   height: "95%",
-  // backgroundColor: "#a50104",
   overflowY: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
@@ -32,16 +31,13 @@ const style = {
   gap: "2%",
 };
 
-const optionStyle = {
-  color: "#333333",
-};
-
 function CreateHabit({ refreshHabits }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
 
-  //Etats du formulaire
+  // <=======> Gestion des information envoyer par les inputs <=======> \\
+
   const [favorite, setFav] = useState(false);
   const [title, setTitle] = useState(null);
   const [label, setLabel] = useState("days");
@@ -50,7 +46,8 @@ function CreateHabit({ refreshHabits }) {
   const [difficulty, setDifficulty] = useState(1);
   const [date, setDate] = useState(null);
 
-  // error du formulaire
+  // <=======> Gestion des erreurs envoyer par les inputs <=======> \\
+
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDate, setErrorDate] = useState(false);
   const errorTitleMsg = "Votre habitude a besoin d'un nom !";
@@ -69,14 +66,6 @@ function CreateHabit({ refreshHabits }) {
     setErrorDate(false);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    resetForm();
-    setOpen(false);
-  };
-
   const handleErrTitle = () => {
     if (title === null) {
       setErrorTitle(true);
@@ -93,7 +82,16 @@ function CreateHabit({ refreshHabits }) {
     }
   };
 
-  const handleFav = () => setFav(true);
+  // <=======> Gestion de l'ouverture de la modal <=======> \\
+
+  const handleOpen = () => setOpen(true);
+
+  const handleClose = () => {
+    resetForm();
+    setOpen(false);
+  };
+
+  const handleFav = () => setFav(!favorite);
 
   const createHabits = async () => {
     try {
@@ -113,12 +111,10 @@ function CreateHabit({ refreshHabits }) {
           startDate: date,
         }),
       });
-
       const data = await response.json();
-
       if (!data.result) {
-        // throw new Error("Erreur lors de la creation des tâches");
         console.log(data.message);
+        throw new Error("Erreur lors de la creation des tâches");
       } else {
         console.log("created");
         setOpen(false);
@@ -256,18 +252,10 @@ function CreateHabit({ refreshHabits }) {
                     height="76%"
                     marginBottom="15px"
                   >
-                    <option value="days" style={optionStyle}>
-                      jour(s)
-                    </option>
-                    <option value="weeks" style={optionStyle}>
-                      semaine(s)
-                    </option>
-                    <option value="months" style={optionStyle}>
-                      mois
-                    </option>
-                    <option value="years" style={optionStyle}>
-                      an(s)
-                    </option>
+                    <option value="days">jour(s)</option>
+                    <option value="weeks">semaine(s)</option>
+                    <option value="months">mois</option>
+                    <option value="years">an(s)</option>
                   </SelectAtom>
                 </Box>
               </Box>
@@ -286,8 +274,6 @@ function CreateHabit({ refreshHabits }) {
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  // justifyContent: "flex-start",
-                  // gap: "50%",
                   gap: "2%",
                   alignItems: "center",
                 }}

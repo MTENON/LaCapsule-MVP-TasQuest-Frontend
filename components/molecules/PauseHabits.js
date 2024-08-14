@@ -11,6 +11,8 @@ import moment from "moment";
 
 const link = process.env.backLink;
 
+// <=======> Creation d'un objet style pour la Modal de mise en pause <=======> \\
+
 const stylePause = {
   position: "absolute",
   top: "50%",
@@ -18,7 +20,6 @@ const stylePause = {
   transform: "translate(-50%, -50%)",
   width: "55%",
   height: "60%",
-  //   backgroundColor: "#a50104",
   overflowY: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
@@ -30,6 +31,9 @@ const stylePause = {
   alignItems: "center",
   gap: "2%",
 };
+
+// <=======> Creation d'un objet style pour la Modal de mise en play <=======> \\
+
 const stylePlay = {
   position: "absolute",
   top: "50%",
@@ -37,7 +41,6 @@ const stylePlay = {
   transform: "translate(-50%, -50%)",
   width: "35%",
   height: "25%",
-  //   backgroundColor: "#a50104",
   overflowY: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
@@ -54,35 +57,37 @@ function PauseHabits({ taskId, pause, refreshHabits, dropdown }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
+
+  // <=======> Gestion du formulaire et des erreurs <=======> \\
+
   const [checked, setChecked] = useState(false);
   const [pauseDescription, setPauseDescription] = useState("");
   const [endDate, setEndDate] = useState(null);
-  const [resetForm, setResetForm] = useState(false);
   const [errDate, setErrDate] = useState(false);
 
+  const resetForm = () => {
+    setPauseDescription();
+    setEndDate();
+    setErrDate(false);
+  };
   const handleOpen = () => {
     setOpen(true);
-    setResetForm(!resetForm);
+    resetForm();
   };
   const handleClose = () => {
     setOpen(false);
-    setResetForm(!resetForm);
+    resetForm();
     refreshHabits();
     dropdown();
   };
 
   const handleChecked = () => setChecked(true);
 
-  useEffect(() => {
-    setPauseDescription();
-    setEndDate();
-    setErrDate(false);
-  }, [resetForm]);
+  // <=======> Fonction pour envoyer la mise en pause de l'habitude a la DB <=======> \\
 
   const handlePause = async () => {
     try {
       const now = moment().utc().format("YYYY-MM-DD");
-
       if (endDate < now) {
         setErrDate(true);
         return;
@@ -99,20 +104,19 @@ function PauseHabits({ taskId, pause, refreshHabits, dropdown }) {
           pauseDesc: pauseDescription,
         }),
       });
-
       const data = await response.json();
-
       if (!data.result) {
         console.log(data.message);
         throw new Error("Erreur lors de la mise en pause de l'habitude");
       }
-
       handleClose();
       console.log(data.message);
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  // <=======> Fonction pour envoyer la relance de l'habitude a la DB <=======> \\
 
   const handleUnpause = async () => {
     try {
@@ -126,9 +130,7 @@ function PauseHabits({ taskId, pause, refreshHabits, dropdown }) {
           taskId: taskId,
         }),
       });
-
       const data = await response.json();
-
       if (!data.result) {
         console.log(data.message);
         throw new Error("Erreur lors de la de-pause de l'habitude");
@@ -175,8 +177,6 @@ function PauseHabits({ taskId, pause, refreshHabits, dropdown }) {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    // justifyContent: "flex-start",
-                    // gap: "50%",
                     gap: "2%",
                     alignItems: "center",
                   }}

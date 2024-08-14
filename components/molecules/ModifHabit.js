@@ -13,6 +13,8 @@ import SelectAtom from "../atoms/SelectAtom";
 
 const link = process.env.backLink;
 
+// <=======> Creation d'un objet style pour la Modal <=======> \\
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -20,7 +22,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "65%",
   height: "85%",
-  //   backgroundColor: "#a50104",
   overflowY: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
@@ -31,10 +32,6 @@ const style = {
   justifyContent: "flex-start",
   alignItems: "center",
   gap: "2%",
-};
-
-const optionStyle = {
-  color: "#333333",
 };
 
 function ModifHabit({
@@ -53,7 +50,8 @@ function ModifHabit({
 
   const [open, setOpen] = useState(false);
 
-  //Etats du formulaire
+  // <=======> Gestion des information envoyer par les inputs <=======> \\
+
   const [favorite, setFav] = useState(fav);
   const [title, setTitle] = useState(null);
   const [label, setLabel] = useState(null);
@@ -63,31 +61,14 @@ function ModifHabit({
   const [date, setDate] = useState(null);
   const [resetForm, setResetForm] = useState(false);
 
-  // error du formulaire
+  // <=======> Gestion des erreurs envoyer par les inputs <=======> \\
+
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDate, setErrorDate] = useState(false);
   const errorTitleMsg = "Votre habitude a besoin d'un nom !";
   const errorDateMsg =
     "Votre habitude a besoin d'une date de début pour commencer !";
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    setResetForm(!resetForm);
-    dropdown();
-  };
-
-  useEffect(() => {
-    setTitle(text);
-    setLabel(enLabel);
-    setNum(repNumber);
-    setDescription(desc);
-    setDifficulty(level);
-    setFav(fav);
-    setDate(start);
-    setErrorDate(false);
-    setErrorDate(false);
-  }, [resetForm]);
+  //  ajouter la condition pour un date plus petite
 
   const handleErrTitle = () => {
     if (title === null) {
@@ -105,6 +86,31 @@ function ModifHabit({
     }
   };
 
+  // <=======> Gestion de l'ouverture de la modal <=======> \\
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setResetForm(!resetForm);
+    dropdown();
+  };
+
+  // <=======> Mise en place des information deja enregistrer <=======> \\
+
+  useEffect(() => {
+    setTitle(text);
+    setLabel(enLabel);
+    setNum(repNumber);
+    setDescription(desc);
+    setDifficulty(level);
+    setFav(fav);
+    setDate(start);
+    setErrorDate(false);
+    setErrorDate(false);
+  }, [resetForm]);
+
+  // <=======> Fonction pour envoyer les nouvelles infos de l'habitude a la DB <=======> \\
+
   const modifyHabits = async () => {
     try {
       const response = await fetch(`${link}/habits/modify`, {
@@ -117,7 +123,6 @@ function ModifHabit({
           taskId: taskId,
           name: title,
           description: description,
-          // tags,
           difficulty: difficulty,
           number: num,
           label: label,
@@ -125,14 +130,11 @@ function ModifHabit({
           startDate: moment(date).utc(),
         }),
       });
-
       const data = await response.json();
-
       if (!data.result) {
         console.log(data.message);
         throw new Error("Erreur lors de la modification de l'habitude");
       }
-
       setOpen(false);
       setResetForm(!resetForm);
       refreshHabits();
@@ -142,6 +144,8 @@ function ModifHabit({
       console.log(error.message);
     }
   };
+
+  // <=======> Fonction pour gérer la mise en favoris de l'habitude <=======> \\
 
   const handleFav = async () => {
     try {
@@ -155,9 +159,7 @@ function ModifHabit({
           taskId: taskId,
         }),
       });
-
       const data = await response.json();
-
       if (!data.result) {
         console.log(data.message);
         throw new Error("Erreur lors de la modification de l'habitude");
@@ -274,7 +276,6 @@ function ModifHabit({
                     labelFor="numberInput"
                     type="number"
                     value={num}
-                    // placeholder="1"
                     onChange={(e) =>
                       setNum(e.target.value < 1 ? 1 : e.target.value)
                     }
@@ -293,18 +294,10 @@ function ModifHabit({
                     height="76%"
                     marginBottom="15px"
                   >
-                    <option value="days" style={optionStyle}>
-                      jour(s)
-                    </option>
-                    <option value="weeks" style={optionStyle}>
-                      semaine(s)
-                    </option>
-                    <option value="months" style={optionStyle}>
-                      mois
-                    </option>
-                    <option value="years" style={optionStyle}>
-                      an(s)
-                    </option>
+                    <option value="days">jour(s)</option>
+                    <option value="weeks">semaine(s)</option>
+                    <option value="months">mois</option>
+                    <option value="years">an(s)</option>
                   </SelectAtom>
                 </Box>
               </Box>
@@ -323,8 +316,6 @@ function ModifHabit({
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  // justifyContent: "flex-start",
-                  // gap: "50%",
                   gap: "2%",
                   alignItems: "center",
                 }}
