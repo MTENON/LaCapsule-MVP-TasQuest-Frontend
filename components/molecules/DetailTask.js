@@ -35,7 +35,7 @@ const DetailTask = ({
         if (forceUpdate) forceUpdate();
     };
 
-    const taskElements = insideToDos.map((todo) => {
+    const taskElements = todos.map((todo) => {
         return (
             <TodoAtom
                 key={todo._id}

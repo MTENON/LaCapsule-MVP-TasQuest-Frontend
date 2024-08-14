@@ -17,7 +17,7 @@ const link = process.env.backLink;
 // Le composant TaskModal est un enfant, et il reçoit les props : open, handleClose,
 // task, et fetchTasks pour faire le CRUD des taches
 
-const Tasks = ({ onSelectTask, onUpdate, refresh }) => {
+const Tasks = ({ onSelectTask, onUpdate }) => {
     const token = useSelector((state) => state.user.token);
 
     // Etats du composant
@@ -51,7 +51,6 @@ const Tasks = ({ onSelectTask, onUpdate, refresh }) => {
             });
             const data = await response.json();
             if (data.result) {
-                setTask(data.data);
                 onSelectTask(data.data);
             } else {
                 console.error(
@@ -104,7 +103,7 @@ const Tasks = ({ onSelectTask, onUpdate, refresh }) => {
         setSelectedTask(task);
         handleOpenTodoModal();
     };
-    console.log(selectedTask);
+
     // Fetch des tâches
     const fetchTasks = async () => {
         try {

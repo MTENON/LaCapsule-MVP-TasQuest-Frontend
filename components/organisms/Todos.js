@@ -6,7 +6,7 @@ import DetailTask from "../molecules/DetailTask";
 const Todos = ({ task, forceUpdate }) => {
     // Logique avant le return
     const [taskDetails, setTaskDetails] = useState(null);
-    console.log("mini ", task);
+
     useEffect(() => {
         if (task) {
             setTaskDetails({
@@ -35,7 +35,7 @@ const Todos = ({ task, forceUpdate }) => {
         <BackgroundGrey width="40%">
             {hasError ? (
                 <p>Erreur lors du chargement des détails de la tâche.</p>
-            ) : task ? (
+            ) : taskDetails ? (
                 <DetailTask
                     taskId={taskDetails._id}
                     name={taskDetails.name}
