@@ -10,8 +10,9 @@ import ItemShop from "./molecules/ItemShop";
 import ItemInventory from "./atoms/ItemInventory";
 import TitleAtoms from "./atoms/TitleAtoms";
 
-
+//import fake data
 const inventory = require('../assets/inventory.json')
+const shopItems = require('../assets/shopItems.json')
 
 
 function Shop() {
@@ -24,6 +25,18 @@ function Shop() {
                 key={i}
                 icon={data.icon}
                 message={data.name}
+            />
+        )
+    })
+
+    const shop = shopItems.map((data, i) => {
+
+        return (
+            <ItemShop
+                name={data.name}
+                icon={data.icon.trim()}
+                price={data.price}
+                description={data.description}
             />
         )
     })
@@ -58,12 +71,7 @@ function Shop() {
 
 
                 <div className={styles.itemSelectionShop}>
-                    <ItemShop />
-                    <ItemShop />
-                    <ItemShop />
-                    <ItemShop />
-                    <ItemShop />
-                    <ItemShop />
+                    {shop}
                 </div>
             </div>
         </div>

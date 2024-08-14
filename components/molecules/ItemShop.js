@@ -3,25 +3,34 @@ import Money from '../atoms/Money';
 import ButtonCircle from '../atoms/ButtonCircle';
 import styles from "../../styles/molecules/ItemShop.module.css"
 
-import { Icon } from "@iconify-icon/react";
+import PopoverCustom from './PopoverCustom';
 
-export default function ItemShop() {
+export default function ItemShop({ name, icon, price, description }) {
   return (
 
+    <PopoverCustom message={description}>
+      <div className={styles.itemImage}>
 
-    <div className={styles.itemImage}>
-        <div>  {/* IMAGE of ITEM */}
-                <Icon className={styles.itemSize} icon="game-icons:ancient-sword" />
-        </div>
-        
+        <img
+          src={icon}
+          height={'85%'}
+          width={'85%'}
+          alt={icon}
+          onError={({ currentTarget }) => currentTarget.src = '/default.png'}
+        ></img>
+
+
         <div className={styles.itemBottom}>
-                <div className={styles.itemName}>Item Name</div>
-                <div className={styles.itemButtons}>
-                    <Money />
-                    <ButtonCircle icon={"mingcute:cross-fill"} variant={"primary"}/>
-                </div>
+          <div className={styles.itemName}>{name}</div>
+          <div className={styles.itemButtons}>
+            <Money
+              pieces={price}
+            />
+            <ButtonCircle icon={"mingcute:cross-fill"} variant={"primary"} />
+          </div>
         </div>
-    </div>
+      </div>
+    </PopoverCustom >
 
   )
 }
