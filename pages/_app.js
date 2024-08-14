@@ -5,6 +5,7 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/users";
+import inventory from "../reducers/inventory";
 
 // --- Importation persistance redux --- //
 import { persistStore, persistReducer } from "redux-persist";
@@ -14,13 +15,16 @@ import storage from "redux-persist/lib/storage";
 // --- Importation mui/material --- //
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme/index";
-import SideMenu from "../components/molecules/SideMenu";
 
 // --- Store configuration --- //
 
-const reducers = combineReducers({ user });
+const reducers = combineReducers({ user, inventory });
 
-const persistConfig = { key: "tasquest", storage };
+const persistConfig = {
+  key: "tasquest",
+  blacklist: ['inventory'],
+  storage
+};
 
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),

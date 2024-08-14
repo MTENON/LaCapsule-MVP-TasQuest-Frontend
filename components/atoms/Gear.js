@@ -2,8 +2,18 @@ import styles from '../../styles/atoms/Gear.module.css'
 
 import PopoverCustom from '../molecules/PopoverCustom'
 
+import { useState, useEffect } from 'react';
+
 function Gear({ name, icon, message }) {
 
+    const [imageSrc, setImageSrc] = useState('/default.png'); // Set default image
+
+    useEffect(() => {
+        const img = new Image();
+        img.src = icon;
+        img.onload = () => setImageSrc(icon);
+        img.onerror = () => setImageSrc('/default.png');
+    }, [icon]); // Re-run when `icon` changes
 
     return (
         // <div className={styles.gearContainer}>
@@ -17,11 +27,10 @@ function Gear({ name, icon, message }) {
 
             <div className={styles.background}>
                 <img
-                    src={icon}
+                    src={imageSrc}
                     height={'100%'}
                     width={'100%'}
-                    alt={icon}
-                    onError={({ currentTarget }) => currentTarget.src = '/default.png'}
+                    alt={name}
                 ></img>
             </div>
         </PopoverCustom>
