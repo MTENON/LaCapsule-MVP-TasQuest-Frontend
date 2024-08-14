@@ -10,87 +10,91 @@ const link = process.env.backLink;
 
 function HabitsPage() {
   const [habitsData, setHabitsData] = useState([]);
-  const [refresh, setRefresh] = useState(false);
   const token = useSelector((state) => state.user.token);
 
-  useEffect(() => {
-    const validHabits = async () => {
-      try {
-        const response = await fetch(`${link}/habits/valid`, {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        });
+  const validHabits = async () => {
+    try {
+      const response = await fetch(`${link}/habits/valid`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (!data.result) {
-          console.log(data.message);
-          throw new Error("Erreur lors de l'actualisation des tâches valid");
-        }
-
+      if (!data.result) {
         console.log(data.message);
-      } catch (error) {
-        console.log(error.message);
+        throw new Error("Erreur lors de l'actualisation des tâches valid");
       }
-    };
-    const unvalidHabits = async () => {
-      try {
-        const response = await fetch(`${link}/habits/unvalid`, {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        });
 
-        const data = await response.json();
+      console.log(data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-        if (!data.result) {
-          console.log(data.message);
-          throw new Error("Erreur lors de l'actualisation des tâches unvalid");
-        }
+  const unvalidHabits = async () => {
+    try {
+      const response = await fetch(`${link}/habits/unvalid`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
 
-        console.log("done");
-      } catch (error) {
-        console.log(error.message);
+      const data = await response.json();
+
+      if (!data.result) {
+        console.log(data.message);
+        throw new Error("Erreur lors de l'actualisation des tâches unvalid");
       }
-    };
+
+      console.log("done");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
     validHabits();
     unvalidHabits();
   }, []);
 
-  useEffect(() => {
-    const fetchHabits = async () => {
-      try {
-        const response = await fetch(`${link}/habits`, {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        });
+  const getHabits = async () => {
+    console.log("coucou");
 
-        const data = await response.json();
+    try {
+      const response = await fetch(`${link}/habits`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
 
-        if (!data.result) {
-          console.log(data.message);
-          throw new Error("Erreur lors de la recupération des tâches");
-        }
+      const data = await response.json();
 
-        setHabitsData(data.habits);
-      } catch (error) {
-        console.log(error.message);
+      if (!data.result) {
+        console.log(data.message);
+        throw new Error("Erreur lors de la recupération des tâches");
       }
-    };
-    fetchHabits();
-  }, [refresh]);
 
-  console.log(habitsData);
-
-  const handleRefresh = () => {
-    setRefresh(!refresh);
-    console.log("refreshed");
+      setHabitsData(data.habits);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
+
+  useEffect(() => {
+    getHabits();
+  }, []);
+
+  // console.log(habitsData);
+
+  // const handleRefresh = () => {
+  //   console.log("refreshed");
+  //   setHabitsData([]);
+  // };
 
   const habits = habitsData.map((data, i) => {
     let labelTrad = "";
@@ -127,6 +131,7 @@ function HabitsPage() {
         pause={data.onPauseSince}
         pauseEnd={data.PauseEndDate}
         pauseDesc={data.pauseDesc}
+        refreshHabits={getHabits}
       />
     );
   });
@@ -135,7 +140,7 @@ function HabitsPage() {
     <Layout>
       <div className={styles.content}>
         <TitleAtoms title={"Habitudes"} />
-        <CreateHabit refresh={handleRefresh} />
+        <CreateHabit refreshHabits={getHabits} />
         <div className={styles.container}>{habits}</div>
       </div>
     </Layout>

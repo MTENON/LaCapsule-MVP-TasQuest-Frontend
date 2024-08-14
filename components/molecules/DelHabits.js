@@ -27,12 +27,18 @@ const style = {
 
 const link = process.env.backLink;
 
-function DelHabits({ taskId }) {
+function DelHabits({ taskId, refreshHabits, dropdown }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setOpen(true);
+    // dropdown();
+  };
+  const handleClose = () => {
+    setOpen(false);
+    dropdown();
+  };
 
   const delHabits = async () => {
     try {
@@ -55,6 +61,7 @@ function DelHabits({ taskId }) {
       }
 
       setOpen(false);
+      refreshHabits();
       console.log(data.message);
     } catch (error) {
       console.log(error.message);
@@ -63,7 +70,14 @@ function DelHabits({ taskId }) {
 
   return (
     <>
-      <MenuItem onClick={handleOpen}>Supprimer</MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleOpen();
+          // drop();
+        }}
+      >
+        Supprimer
+      </MenuItem>
       <Modal
         open={open}
         onClose={handleClose}
@@ -100,7 +114,7 @@ function DelHabits({ taskId }) {
               justifyContent: "space-evenly",
             }}
           >
-            <AtomButton handleClick={() => setOpen(false)} variant="tertiary">
+            <AtomButton handleClick={() => handleClose()} variant="tertiary">
               Annuler
             </AtomButton>
             <AtomButton handleClick={() => delHabits()} variant="secondary">

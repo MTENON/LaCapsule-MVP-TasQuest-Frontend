@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
 import styles from "../../styles/molecules/HabitsBox.module.css";
-import Checkboxes from "../atoms/Checkboxes";
-import { useSelector } from "react-redux";
-import TaskAtom from "../atoms/TaskAtom";
-// import DropdownHabits from "../organisms/DropdownHabits";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateMoney, updateXP } from "../../reducers/users";
+import moment from "moment";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import Checkboxes from "../atoms/Checkboxes";
+import TaskAtom from "../atoms/TaskAtom";
 import Button from "../atoms/Button";
 import ModifHabit from "../molecules/ModifHabit";
 import DelHabits from "../molecules/delHabits";
+import PauseHabits from "../molecules/PauseHabits";
+import PopoverCustom from "../molecules/PopoverCustom";
 
 const link = process.env.backLink;
 
@@ -25,12 +27,34 @@ function HabitsBox({
   isDone,
   start,
   end,
+  pause,
+  pauseDesc,
+  pauseEnd,
+  refreshHabits,
+  dropVisible,
 }) {
   const token = useSelector((state) => state.user.token);
 
+  const XP = useSelector((state) => state.user.XP);
+  const money = useSelector((state) => state.user.money);
+
+  const dispatch = useDispatch();
+
   const [doneStatus, setDoneStatus] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [refreshDrop, setRefreshDrop] = useState(false);
   const open = Boolean(anchorEl);
+
+  let hoverPause = null;
+  let endDate = moment(pauseEnd).format("DD/MM/YYYY");
+
+  if (pauseDesc && pauseEnd) {
+    hoverPause = `${pauseDesc} — Date de fin prevu: ${endDate}`;
+  } else if (pauseEnd === null) {
+    hoverPause = pauseDesc;
+  } else if (pauseDesc === null) {
+    hoverPause = `Date de fin prevu: ${endDate})`;
+  }
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,6 +62,13 @@ function HabitsBox({
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleDrop = () => {
+    setRefreshDrop(!refreshDrop);
+  };
+
+  useEffect(() => {
+    setAnchorEl(null);
+  }, [refreshDrop]);
 
   useEffect(() => {
     setDoneStatus(isDone);
@@ -63,15 +94,19 @@ function HabitsBox({
         throw new Error("Erreur lors de la modification de l'habitude");
       }
       setDoneStatus(!doneStatus);
-      console.log(data.message);
+      dispatch(updateMoney(data.money));
+      dispatch(updateXP(data.XP));
     } catch (error) {
       console.log(error.message);
     }
   };
 
+  // console.log("Money ==>", money);
+  // console.log("XP ==>", XP);
+
   return (
     <>
-      <TaskAtom>
+      <TaskAtom width="85%" backgroundColor={pause ? "white" : ""}>
         <div className={styles.leftBox}>
           <Checkboxes
             name={name}
@@ -79,33 +114,48 @@ function HabitsBox({
             variant={doneStatus ? "primaryChecked" : "primary"}
             value={doneStatus}
           />
-          <p className={styles.text}>{text}</p>
+          <PopoverCustom message={desc + " — Difficulté : " + level}>
+            <p className={styles.text}>{text}</p>
+          </PopoverCustom>
         </div>
         <div className={styles.rigthBox}>
-          <div>
-            <p>Début:</p>
-            <p className={styles.text}>
-              {start}
+          <div className={styles.debut}>
+            <p className={styles.debutText}>Début:</p>
+            <p className={styles.debutText}>
+              {moment(start).format("DD/MM/YYYY")}
             </p>
           </div>
-          <div>
-            <p>Fin:</p>
-            <p className={styles.text}>
-              {end}
+          <div className={styles.fin}>
+            {pause ? (
+              <>
+                {hoverPause ? (
+                  <>
+                    <PopoverCustom message={hoverPause}>
+                      <p className={styles.pauseText}>En Pause</p>
+                    </PopoverCustom>
+                  </>
+                ) : (
+                  <p className={styles.pauseText}>En Pause</p>
+                )}
+              </>
+            ) : (
+              <>
+                <p className={styles.finText}>Fin:</p>
+                <p className={styles.finText}>
+                  {moment(end).format("DD/MM/YYYY")}
+                </p>
+              </>
+            )}
+          </div>
+          <div className={styles.rec}>
+            <p className={styles.recText}>Récurrence:</p>
+            <p className={styles.recText}>
+              {repNumber > 1
+                ? "Tout(es) les " + repNumber + " " + labelTrad
+                : "Tout(es) les " + labelTrad}
             </p>
           </div>
-          <div>
-            <p>Récurrence:</p>
-            <p className={styles.text}>
-              {"Tout(es) les " + repNumber + " " + labelTrad}
-            </p>
-          </div>
-          <Button
-            variant="primary"
-            icon="ph:pen"
-            func={handleClick}
-            // classeName={styles.iconSize}
-          />
+          <Button variant="primary" icon="ph:pen" func={handleClick} />
           <Menu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
@@ -130,9 +180,20 @@ function HabitsBox({
               desc={desc}
               level={level}
               start={start}
+              refreshHabits={refreshHabits}
+              dropdown={handleClose}
             />
-            <DelHabits taskId={taskId} />
-            <MenuItem onClick={handleClose}>Fermer</MenuItem>
+            <PauseHabits
+              taskId={taskId}
+              pause={pause}
+              refreshHabits={refreshHabits}
+              dropdown={handleClose}
+            />
+            <DelHabits
+              taskId={taskId}
+              refreshHabits={refreshHabits}
+              dropdown={handleDrop}
+            />
           </Menu>
         </div>
       </TaskAtom>

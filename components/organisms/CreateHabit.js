@@ -36,7 +36,7 @@ const optionStyle = {
   color: "#333333",
 };
 
-function CreateHabit({ refresh }) {
+function CreateHabit({ refreshHabits }) {
   const token = useSelector((state) => state.user.token);
 
   const [open, setOpen] = useState(false);
@@ -84,7 +84,7 @@ function CreateHabit({ refresh }) {
       setErrorTitle(false);
     }
   };
-  
+
   const handleErrDate = () => {
     if (date === null) {
       setErrorDate(true);
@@ -123,7 +123,7 @@ function CreateHabit({ refresh }) {
         console.log("created");
         setOpen(false);
         resetForm();
-        refresh;
+        refreshHabits();
       }
     } catch (error) {
       console.log(error.message);
