@@ -5,7 +5,12 @@ import styles from "../../styles/molecules/ItemShop.module.css"
 
 import PopoverCustom from './PopoverCustom';
 
-export default function ItemShop({ name, icon, price, description }) {
+export default function ItemShop({ name, icon, price, description, handleClick }) {
+
+  function handleButton() {
+    handleClick()
+  }
+
   return (
 
     <PopoverCustom message={description}>
@@ -26,7 +31,7 @@ export default function ItemShop({ name, icon, price, description }) {
             <Money
               pieces={price}
             />
-            <ButtonCircle icon={"mingcute:cross-fill"} variant={"primary"} />
+            <ButtonCircle icon={"mingcute:cross-fill"} variant={"primary"} func={handleButton} />
           </div>
         </div>
       </div>

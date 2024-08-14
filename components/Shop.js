@@ -37,6 +37,7 @@ function Shop() {
                 icon={data.icon.trim()}
                 price={data.price}
                 description={data.description}
+                handleClick={() => { }}
             />
         )
     })
