@@ -69,21 +69,7 @@ function QuestDisplay({ handleQuestDisplay }) {
     // --- Items map --- //
 
     //Fake data items
-    const items = [
-        {
-            src: '/potions/potion_de_soin.png',
-            alt: 'potion_de_soin',
-            name: "Potion de soin",
-            description: "Cette potion rend 10 PV à l'utilisation. Elle à un gout de cerise."
-        },
-        {
-            src: '/epee.jpg',
-            alt: 'epee',
-            name: "Epee enchantee",
-            description: "Ca tranche et c'est magique. Globalement on apprécie cette efficacité."
-
-        },
-    ]
+    const items = require('../../assets/questRewards.json')
 
     const item = items.map((e, i) => {
         return (

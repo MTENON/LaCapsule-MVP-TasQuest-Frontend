@@ -15,6 +15,7 @@ function CharacterPanel() {
     const username = useSelector((state) => state.user.username)
     const HP = useSelector((state) => state.user.HP)
     const XP = useSelector((state) => state.user.XP)
+    const level = useSelector((state) => state.user.level)
 
 
     //Fake popoverdata for stats and combo
@@ -35,14 +36,14 @@ function CharacterPanel() {
                 <PopoverCustom
                     message="Délaissez trop de tâches et c'est la défaite assurée. La santé mesure votre endurance face à l'échec. Mais attention la voir arriver à zéro entrainera une pénalité."
                 >
-                    <Healthbar health={HP} maxHealth={10} />
+                    <Healthbar health={HP} maxHealth={10 + (level * 5)} />
                 </PopoverCustom>
                 <PopoverCustom
                     message="Plus vous travaillerez plus vous accumulerez de l'expérience. Elle vous renforcera et vous fera gagner en compétences."
                 >
-                    <XPbar XPValue={XP} maxXPValue={10} />
+                    <XPbar XPValue={XP} maxXPValue={10 + (level * 10)} />
                 </PopoverCustom>
-                <h3>Niveau: 2</h3>
+                <h3>Niveau: {level}</h3>
             </div>
             <div className={styles.caracs}>
                 <div className={styles.rowCaracs}>

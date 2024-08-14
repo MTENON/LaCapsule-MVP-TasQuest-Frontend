@@ -1,58 +1,28 @@
 import styles from '../../styles/molecules/InventoryPanel.module.css'
 
-import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 //import de composants
 import Money from '../atoms/Money'
 import Gear from '../atoms/Gear'
 import InventoryModal from './InventoryModal'
 
+//import reducer
+import { addItem, updateEquipment } from '../../reducers/inventory'
+
 function InventoryPanel() {
 
-    const money = useSelector((state) => state.user.money)
+    const dispatch = useDispatch;
+
+    const money = useSelector((state) => state.user.money);
 
     //fake data for inventory
-    const equipment = {
-        necklace: {
-            name: 'Amulette',
-            description: 'Une amulette de puissance',
-            icon: '/amulettes/amulette1.png'
-        },
-        head: {
-            name: 'Casque',
-            description: 'Protège du minimum syndical',
-            icon: '/casques/casque_en_cuir.png'
-        },
-        hand1: {
-            name: 'Main 1',
-            description: "Cette arme légendaire brise les rocs les plus solides.",
-            icon: '/armes/lame_d_eclat.png'
-        },
-        body: {
-            name: 'Corps',
-            description: "L'armure d'Arthur. Connue pour protéger de tous les dégats.",
-            icon: '/armures/armure1.png'
-        },
-        hand2: {
-            name: 'Main 2',
-            description: "Aucun objet n'est assigné",
-            icon: ''
-        },
-        bracelet: {
-            name: 'Bracelet',
-            description: "Aucun objet n'est assigné",
-            icon: ''
-        },
-        boots: {
-            name: 'Bottes',
-            description: "Aucun objet n'est assigné",
-            icon: ''
-        },
-        ring: {
-            name: 'Bague',
-            description: 'Un anneau très unique qui brille quand il à chaud.',
-            icon: '/bagues/anneau1.png'
-        },
+    const [equipment, setEquipment] = useState(useSelector((state) => state.inventory.equipment))
+
+    function handleChangeItem(data, originalItem) {
+        console.log('Objet', data)
+        console.log('Objet', originalItem)
     }
 
     return (
@@ -64,8 +34,10 @@ function InventoryPanel() {
 
                     <InventoryModal
                         name={equipment.hand1.name}
+                        itemName={equipment.hand1.itemName}
                         message={equipment.hand1.description}
                         icon={equipment.hand1.icon.trim()}
+                        action={handleChangeItem}
                     >
                         <Gear
                             name={equipment.hand1.name}
@@ -77,6 +49,7 @@ function InventoryPanel() {
                     <InventoryModal
                         name={equipment.hand2.name}
                         message={equipment.hand2.description}
+                        itemName={equipment.hand2.itemName}
                         icon={equipment.hand2.icon.trim()}
                     >
                         <Gear
@@ -93,6 +66,7 @@ function InventoryPanel() {
                     <InventoryModal
                         name={equipment.necklace.name}
                         message={equipment.necklace.description}
+                        itemName={equipment.necklace.itemName}
                         icon={equipment.necklace.icon.trim()}
                     >
                         <Gear
@@ -105,6 +79,7 @@ function InventoryPanel() {
                     <InventoryModal
                         name={equipment.body.name}
                         message={equipment.body.description}
+                        itemName={equipment.body.itemName}
                         icon={equipment.body.icon.trim()}
                     >
                         <Gear
@@ -117,6 +92,7 @@ function InventoryPanel() {
                     <InventoryModal
                         name={equipment.head.name}
                         message={equipment.head.description}
+                        itemName={equipment.head.itemName}
                         icon={equipment.head.icon.trim()}
                     >
                         <Gear
@@ -130,6 +106,7 @@ function InventoryPanel() {
                 <div className={styles.row}>
                     <InventoryModal
                         name={equipment.bracelet.name}
+                        itemName={equipment.bracelet.itemName}
                         message={equipment.bracelet.description}
                         icon={equipment.bracelet.icon.trim()}
                     >
@@ -142,6 +119,7 @@ function InventoryPanel() {
 
                     <InventoryModal
                         name={equipment.boots.name}
+                        itemName={equipment.boots.itemName}
                         message={equipment.boots.description}
                         icon={equipment.boots.icon.trim()}
                     >
@@ -154,6 +132,7 @@ function InventoryPanel() {
 
                     <InventoryModal
                         name={equipment.ring.name}
+                        itemName={equipment.ring.itemName}
                         message={equipment.ring.description}
                         icon={equipment.ring.icon.trim()}
                     >

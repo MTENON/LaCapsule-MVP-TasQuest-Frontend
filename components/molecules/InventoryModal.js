@@ -31,18 +31,21 @@ const style = {
     overflowY: 'auto'
 };
 
-export default function InventoryModal({ children, name, message, icon }) {
+export default function InventoryModal({ children, itemName, message, action, icon }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     //fakedata Inventory
     const [inventory, setInventory] = useState(useSelector((state) => state.inventory.inventory))
-    console.log(inventory)
 
     const objet = inventory.map((data, i) => {
         return (
-            <div key={i} className={styles.equipedItem}>
+            <div
+                key={i}
+                className={styles.equipedItem}
+                onClick={() => action(data, { name: itemName, description: message, icon: icon })}
+            >
                 <Gear
                     name={data.name}
                     message={data.description}
@@ -82,7 +85,7 @@ export default function InventoryModal({ children, name, message, icon }) {
                             <h4 style={{ color: '#A50104' }}>Equipement actuel</h4>
                             <div className={styles.equipedItem}>
                                 <Gear
-                                    name={name}
+                                    name={itemName}
                                     message={message}
                                     icon={icon}
                                 />

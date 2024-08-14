@@ -36,6 +36,7 @@ function Home() {
       setError(true);
     } else {
       setError(false)
+      // console.log(userData.data)
       dispatch(updateAllReducer(userData.data))
       window.location.href = 'tasks'
     }

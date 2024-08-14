@@ -4,7 +4,7 @@ import PopoverCustom from '../molecules/PopoverCustom'
 
 import { useState, useEffect } from 'react';
 
-function Gear({ name, icon, message }) {
+function Gear({ name, icon, message },) {
 
     const [imageSrc, setImageSrc] = useState('/default.png'); // Set default image
 

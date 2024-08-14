@@ -1,0 +1,14 @@
+[
+    {
+        "src": "/potions/potion_de_soin.png",
+        "alt": "potion_de_soin",
+        "name": "Potion de soin",
+        "description": "Cette potion rend 10 PV à l'utilisation. Elle à un gout de cerise."
+    },
+    {
+        "src": "armes/epee_enchantee.png",
+        "alt": "epee",
+        "name": "Epee enchantee",
+        "description": "Ca tranche et c'est magique. Globalement on apprécie cette efficacité."
+    }
+]

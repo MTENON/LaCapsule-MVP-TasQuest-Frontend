@@ -1,41 +1,49 @@
 {
     "necklace": {
         "name": "Amulette",
+        "itemName": "Amulette de puissance",
         "description": "Une amulette de puissance",
         "icon": "/amulettes/amulette1.png"
     },
     "head": {
         "name": "Casque",
+        "itemName": "Casque en cuir",
         "description": "Protège du minimum syndical",
         "icon": "/casques/casque_en_cuir.png"
     },
     "hand1": {
         "name": "Main 1",
+        "itemName": "Épée du Guerrier",
         "description": "Cette arme légendaire brise les rocs les plus solides.",
         "icon": "/armes/lame_d_eclat.png"
     },
     "body": {
         "name": "Corps",
+        "itemName": "Armure d'Arthur",
         "description": "L'armure d'Arthur. Connue pour protéger de tous les dégats.",
         "icon": "/armures/armure1.png"
     },
     "hand2": {
         "name": "Main 2",
+        "itemName": "Aucun",
         "description": "Aucun objet n'est assigné",
         "icon": ""
     },
     "bracelet": {
         "name": "Bracelet",
+        "itemName": "Aucun",
         "description": "Aucun objet n'est assigné",
         "icon": ""
     },
     "boots": {
         "name": "Bottes",
+        "itemName": "Aucun",
         "description": "Aucun objet n'est assigné",
         "icon": ""
     },
     "ring": {
         "name": "Bague",
+        "itemName": "Anneau unique",
         "description": "Un anneau très unique qui brille quand il à chaud.",
         "icon": "/bagues/anneau1.png"
     }
