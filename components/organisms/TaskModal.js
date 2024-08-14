@@ -10,11 +10,11 @@ import DifficultyRating from "../molecules/DifficultyRating";
 
 const link = process.env.backLink;
 
-const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
+const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
     const token = useSelector((state) => state.user.token);
     const [title, setTitle] = useState("");
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const [description, setDescription] = useState("");
     const [difficulty, setDifficulty] = useState(0);
     const [checked, setChecked] = useState(false);
@@ -74,6 +74,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
             const data = await response.json();
             if (data.result) {
                 fetchTasks();
+                onUpdate();
                 resetForm();
                 handleClose();
             } else {
@@ -155,6 +156,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
                             onChange={(e) => setStartDate(e.target.value)}
                             variant="secondaryBottom"
                             width="100%"
+                            required={false}
                         />
                         <LabeledInput
                             label="Date de fin"
@@ -164,6 +166,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
                             onChange={(e) => setEndDate(e.target.value)}
                             variant="secondaryBottom"
                             width="100%"
+                            required={false}
                         />
                         <LabeledInput
                             label="Description"

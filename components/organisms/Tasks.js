@@ -8,7 +8,7 @@ import BackgroundGrey from "../atoms/BackgroundGrey";
 import Dropdown from "../molecules/Dropdown";
 import TaskModal from "./TaskModal";
 import TodoModal from "./TodoModal";
-import Difficulty from "../atoms/Difficulty";
+import { Icon } from "@iconify-icon/react";
 
 const link = process.env.backLink;
 
@@ -17,7 +17,7 @@ const link = process.env.backLink;
 // Le composant TaskModal est un enfant, et il reçoit les props : open, handleClose,
 // task, et fetchTasks pour faire le CRUD des taches
 
-const Tasks = ({ onSelectTask, onUpdate }) => {
+const Tasks = ({ onSelectTask, onUpdate, refresh }) => {
     const token = useSelector((state) => state.user.token);
 
     // Etats du composant
@@ -39,6 +39,7 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
         setSelectedTask(null);
         setOpenTodoModal(false);
     };
+
     // handleFetchDetail(element._id)
     const handleFetchDetail = async (taskId) => {
         try {
@@ -50,7 +51,7 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
             });
             const data = await response.json();
             if (data.result) {
-                console.log("Détails de la tâche récupérés :", data);
+                setTask(data.data);
                 onSelectTask(data.data);
             } else {
                 console.error(
@@ -118,9 +119,9 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
             const data = await response.json();
             if (data.result) {
                 const fetchedTasks = data.data.map((element) => {
-                    const formattedEndDate = moment(element.endDate).format(
-                        "DD/MM/YYYY"
-                    );
+                    const formattedEndDate = element.endDate
+                        ? moment(element.endDate).format("DD/MM/YYYY")
+                        : null;
                     const formattedStartDate = moment(element.startDate).format(
                         "DD/MM/YYYY"
                     );
@@ -129,24 +130,50 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
                         <div
                             key={element._id}
                             onClick={() => handleFetchDetail(element._id)}
+                            onUpdate={onUpdate}
                         >
                             <TaskMolecule
                                 taskId={element._id}
+                                startDate={formattedStartDate}
                                 endDate={formattedEndDate}
                                 isDone={element.isDone}
                                 onUpdate={onUpdate}
                             >
-                                <p>{element.name}</p>
-                                <div>
+                                <p style={{ flexGrow: "1", padding: "10px" }}>
+                                    {element.name}
+                                </p>
+                                <div style={{ width: "160px" }}>
                                     <p>Début : {formattedStartDate}</p>
-                                    <p>Fin : {formattedEndDate}</p>
+                                    {formattedEndDate && (
+                                        <p>Fin : {formattedEndDate}</p>
+                                    )}
                                 </div>
-                                <Difficulty points={element.difficulty} />
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "40px",
+                                        margin: "5px",
+                                    }}
+                                >
+                                    <Icon
+                                        icon="mdi:emoticon-devil"
+                                        width="32"
+                                        height="32"
+                                        style={{
+                                            color: "#a50104",
+                                        }}
+                                    />
+                                    {element.difficulty}
+                                </div>
                                 <Dropdown
                                     addTodo={() => handleAddTodo(element)}
                                     onEdit={() => handleEditClick(element)}
                                     onDelete={() => handleDelete(element._id)}
                                     onUpdate={onUpdate}
+                                    refresh={handleFetchDetail}
                                 />
                             </TaskMolecule>
                         </div>
