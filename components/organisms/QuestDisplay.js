@@ -114,12 +114,14 @@ function QuestDisplay({ handleQuestDisplay }) {
                     <p className={styles.titleCardDesc}>{quest.description}</p>
                 </div>
                 <div className={styles.monsterIntel}>
-                    <img src='/monstre.jpg'
-                        alt='monstre'
-                        height={150}
-                        width={150}
-                        style={{ borderRadius: '15px' }}
-                    ></img>
+                    <div className={styles.monsterPic}>
+                        <img src='/monstre.jpg'
+                            alt='monstre'
+                            height={'100%'}
+                            width={'100%'}
+                            style={{ borderRadius: '15px' }}
+                        />
+                    </div>
                     <Healthbar
                         health={50}
                         maxHealth={50}
@@ -147,7 +149,9 @@ function QuestDisplay({ handleQuestDisplay }) {
                     </div>
                     <div className={styles.items}>
                         <h2 style={{ color: '#A50104' }}>Objets</h2>
-                        {item}
+                        <div className={styles.itemsOverflow}>
+                            {item}
+                        </div>
                     </div>
                 </div>
             </div>

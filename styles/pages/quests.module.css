@@ -83,6 +83,11 @@
     align-items: center;
 }
 
+.monsterPic {
+    height: 70%;
+    width: 30%;
+}
+
 .questDisplayDown {
     height: 69%;
     width: 100%;
@@ -144,6 +149,10 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+
+.itemsOverflow {
+    overflow-y: auto;
 }
 
 .item {

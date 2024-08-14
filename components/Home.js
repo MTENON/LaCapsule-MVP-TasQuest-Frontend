@@ -37,7 +37,7 @@ function Home() {
     } else {
       setError(false)
       dispatch(updateAllReducer(userData.data))
-      window.location.href = 'ChatPage'
+      window.location.href = 'tasks'
     }
   }
 
