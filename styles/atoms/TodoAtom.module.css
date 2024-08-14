@@ -1,18 +1,6 @@
-.todoAtomContainer {
-    background-color: #fcd757;
-    border-left: 1px #a50104 solid;
-    border-right: 1px #a50104 solid;
-    z-index: 10;
-    top: 60px;
-    right: 5px;
-    padding: 10px;
-    height: 60px;
-    width: 400px;
-    margin: 0;
-    padding: 0;
+.container {
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    position: absolute;
-    cursor: pointer;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
 }

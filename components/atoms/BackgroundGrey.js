@@ -7,10 +7,10 @@ const BackgroundGrey = ({ width, height, children }) => {
         boxShadow: "4px 4px 4px 0px #00000040",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         overflowY: "auto",
-        paddingTop: "60px",
+        paddingTop: "20px",
     };
 
     return <div style={style}>{children}</div>;

@@ -8,7 +8,7 @@ import AtomButton from "../atoms/AtomButton";
 
 const link = process.env.backLink;
 
-const TodoModal = ({ open, handleClose, task, fetchTasks }) => {
+const TodoModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
     const token = useSelector((state) => state.user.token);
 
     const [toDo, setToDo] = useState("");
@@ -27,12 +27,13 @@ const TodoModal = ({ open, handleClose, task, fetchTasks }) => {
                     "Content-Type": "application/json",
                     Authorization: token,
                 },
-                body: JSON.stringify({ token, toDo }),
+                body: JSON.stringify({ token, toDo, todoIsCompleted: false }),
             });
 
             const data = await response.json();
             if (data.result) {
                 fetchTasks();
+                onUpdate();
                 handleClose();
                 resetForm();
             } else {

@@ -1,9 +1,8 @@
 import TaskAtom from "../atoms/TaskAtom";
-import Checkboxes from "../atoms/Checkboxes";
 
-const TodoMolecule = ({ todoId, todoIsCompleted, children }) => {
+const TodoMolecule = ({ children }) => {
     return (
-        <TaskAtom>
+        <TaskAtom style={{ width: "100%" }}>
             <Checkboxes
                 handleCheck={handleCheck}
                 variant={checked ? "primaryChecked" : "primary"}

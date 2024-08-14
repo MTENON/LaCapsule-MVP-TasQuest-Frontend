@@ -1,35 +1,80 @@
 import { useState } from "react";
 import styles from "../../styles/molecules/DetailTask.module.css";
-import Checkboxes from "../atoms/Checkboxes";
+import TodoAtom from "../atoms/TodoAtom";
+import Difficulty from "../atoms/Difficulty";
 
 const DetailTask = ({
+    taskId,
     name,
+    startDate,
     endDate,
     description,
     difficulty,
     isDone,
-    IsFavorite,
     IsUrgent,
-    toDo,
-    isCompleted,
+    insideToDos = [],
+    forceUpdate,
 }) => {
-    const [checked, setChecked] = useState(isDone);
+    const [todos, setTodos] = useState(insideToDos);
 
-    const handleCheck = () => {
-        setDone(!done); // Mise à jour de `done` au lieu de `isDone`
+    const handleUpdateTodo = (todoId, newCheckedState) => {
+        console.log("Updating todo:", todoId, "New state:", newCheckedState);
+        setTodos(
+            todos.map((todo) =>
+                todo._id === todoId
+                    ? { ...todo, todoIsCompleted: newCheckedState }
+                    : todo
+            )
+        );
+        if (forceUpdate) forceUpdate();
     };
+
+    const handleDeleteTodo = (todoId) => {
+        console.log("Deleting todo:", todoId);
+        setTodos(todos.filter((todo) => todo._id !== todoId));
+        if (forceUpdate) forceUpdate();
+    };
+
+    const taskElements = todos.map((todo) => {
+        return (
+            <TodoAtom
+                key={todo._id}
+                todo={todo}
+                taskId={taskId}
+                todoIsCompleted={todo.todoIsCompleted}
+                onUpdateSuccess={handleUpdateTodo}
+                onDeleteSuccess={handleDeleteTodo}
+            />
+        );
+    });
 
     return (
         <div className={styles.container}>
-            <h3>{name}</h3>
-            <p>{description}</p>
-            <p>Urgent : {IsUrgent ? "Oui" : "Non"}</p>
-            <Checkboxes
-                name="isDone"
-                handleCheck={handleCheck}
-                variant={checked ? "primaryChecked" : "primary"}
-                value={checked}
-            />
+            <h2>{name}</h2>
+            <p>
+                <b>Status :</b> {isDone ? "En cours" : "Terminée"}
+            </p>
+            <p>
+                <b>Description :</b> {description}
+            </p>
+            <p>
+                <b>Date de début :</b> {startDate}
+            </p>
+            <p>
+                <b>Date de fin :</b> {endDate}
+            </p>
+            <p>
+                <b>Urgent :</b> {IsUrgent ? "Oui" : "Non"}
+            </p>
+            <Difficulty points={difficulty} />
+            <h3>Sous-tâches :</h3>
+            <div className={styles.todosContainer}>
+                {todos.length > 0 ? (
+                    taskElements
+                ) : (
+                    <p>Aucune sous-tâche n'est disponible.</p>
+                )}
+            </div>
         </div>
     );
 };

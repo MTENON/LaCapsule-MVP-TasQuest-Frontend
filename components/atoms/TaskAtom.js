@@ -1,12 +1,10 @@
 import styles from "../../styles/atoms/TaskAtom.module.css";
 
-const TaskAtom = ({ children, width }) => {
+const TaskAtom = ({ children, style }) => {
     return (
-        <>
-            <div className={styles.taskContainer} style={{ width: "85%" }}>
-                {children}
-            </div>
-        </>
+        <div className={styles.taskContainer} styles={{ width: "85%" }}>
+            {children}
+        </div>
     );
 };
 

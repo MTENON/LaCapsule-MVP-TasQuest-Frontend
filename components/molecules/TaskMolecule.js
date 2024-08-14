@@ -67,31 +67,16 @@ const TaskMolecule = ({ taskId, isDone, children }) => {
         fetchTodos();
     }, [taskId, token]);
 
-    const todoElements = todos.map((todo) => (
-        <TodoAtom
-            key={todo._id}
-            todo={todo.toDo}
-            taskId={taskId}
-            isCompleted={todo.isCompleted}
-            endDate={todo.endDate}
-        />
-    ));
-
-    console.log("TodoElements:", todoElements);
-
     return (
-        <div className={styles.taskContainer}>
-            <TaskAtom taskId={taskId}>
-                <Checkboxes
-                    name="isDone"
-                    handleCheck={handleCheck}
-                    variant={checked ? "primaryChecked" : "primary"}
-                    value={checked}
-                />
-                {children}
-                {todoElements}
-            </TaskAtom>
-        </div>
+        <TaskAtom taskId={taskId} key={taskId} style={{ width: "100%" }}>
+            <Checkboxes
+                name="isDone"
+                handleCheck={handleCheck}
+                variant={checked ? "primaryChecked" : "primary"}
+                value={checked}
+            />
+            {children}
+        </TaskAtom>
     );
 };
 
