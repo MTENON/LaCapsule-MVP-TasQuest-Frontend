@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "../../styles/molecules/HabitsBox.module.css";
 import Checkboxes from "../atoms/Checkboxes";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import TaskAtom from "../atoms/TaskAtom";
 // import DropdownHabits from "../organisms/DropdownHabits";
@@ -12,6 +12,8 @@ import ModifHabit from "../molecules/ModifHabit";
 import DelHabits from "../molecules/delHabits";
 import PauseHabits from "../molecules/PauseHabits";
 import PopoverCustom from "../molecules/PopoverCustom";
+import { Icon } from "@mui/material";
+import { updateMoney, updateXP } from "../../reducers/users";
 
 const link = process.env.backLink;
 
@@ -34,6 +36,11 @@ function HabitsBox({
   refreshHabits,
 }) {
   const token = useSelector((state) => state.user.token);
+
+  const XP = useSelector((state) => state.user.XP);
+  const money = useSelector((state) => state.user.money);
+
+  const dispatch = useDispatch();
 
   const [doneStatus, setDoneStatus] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -81,16 +88,15 @@ function HabitsBox({
         throw new Error("Erreur lors de la modification de l'habitude");
       }
       setDoneStatus(!doneStatus);
-      console.log(data.message);
+      dispatch(updateMoney(data.money));
+      dispatch(updateXP(data.XP));
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  // function refresh() {
-  //   setRefresher(!refresher);
-  //   handleRefresh();
-  // }
+  console.log("Money ==>", money);
+  console.log("XP ==>", XP);
 
   return (
     <>
@@ -102,7 +108,7 @@ function HabitsBox({
             variant={doneStatus ? "primaryChecked" : "primary"}
             value={doneStatus}
           />
-          <PopoverCustom message={desc}>
+          <PopoverCustom message={desc + " — Difficulté : " + level}>
             <p className={styles.text}>{text}</p>
           </PopoverCustom>
         </div>
@@ -118,10 +124,7 @@ function HabitsBox({
               <>
                 {hoverPause ? (
                   <>
-                    <PopoverCustom
-                      message={hoverPause}
-                      backgroundColor="#FCD757"
-                    >
+                    <PopoverCustom message={hoverPause}>
                       <p className={styles.pauseText}>En Pause</p>
                     </PopoverCustom>
                   </>
@@ -141,7 +144,9 @@ function HabitsBox({
           <div className={styles.rec}>
             <p className={styles.recText}>Récurrence:</p>
             <p className={styles.recText}>
-              {"Tout(es) les " + repNumber + " " + labelTrad}
+              {repNumber > 1
+                ? "Tout(es) les " + repNumber + " " + labelTrad
+                : "Tout(es) les " + labelTrad}
             </p>
           </div>
           <Button variant="primary" icon="ph:pen" func={handleClick} />

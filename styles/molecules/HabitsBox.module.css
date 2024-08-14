@@ -14,10 +14,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
   /* border: 1px solid blue; */
   text-align: center;
   height: 100%;
-  width: 50%;
+  /* width: 50%; */
 }
 
 .leftBox {
@@ -54,6 +55,7 @@
 }
 
 .debutText {
+  text-align: center;
   margin: 2%;
 }
 
@@ -71,6 +73,7 @@
 }
 
 .finText {
+  text-align: center;
   margin: 2%;
 }
 
@@ -88,6 +91,7 @@
 }
 
 .recText {
+  text-align: center;
   margin: 2%;
 }
 
@@ -95,4 +99,5 @@
   margin: 2%;
   color: #a50104;
   font-weight: bolder;
+  text-align: center;
 }

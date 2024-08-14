@@ -32,7 +32,7 @@ export const userSlice = createSlice({
       state.HP = action.payload.HP;
       state.XP = action.payload.XP;
       state.caracs = action.payload.caracs;
-      state.questId = action.payload.questId
+      state.questId = action.payload.questId;
     },
     updateQuestId: (state, action) => {
       state.questId = action.payload;
@@ -40,9 +40,22 @@ export const userSlice = createSlice({
     updateRoomId: (state, action) => {
       state.roomId = action.payload;
     },
+    updateMoney: (state, action) => {
+      state.money = action.payload;
+    },
+    updateXP: (state, action) => {
+      state.XP = action.payload;
+    },
   },
 });
 
-export const { updateUsername, updateToken, updateAllReducer, updateQuestId, updateRoomId } = userSlice.actions;
+export const {
+  updateUsername,
+  updateToken,
+  updateAllReducer,
+  updateQuestId,
+  updateRoomId,
+  updateMoney,
+  updateXP,
+} = userSlice.actions;
 export default userSlice.reducer;
-
