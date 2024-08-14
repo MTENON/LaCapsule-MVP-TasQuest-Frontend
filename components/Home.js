@@ -4,8 +4,7 @@ import { useState } from "react";
 
 //Import reducer user fonctions
 import { useDispatch } from "react-redux"
-import { updateAllReducer, userSlice } from "../reducers/users";
-import { useSelector } from "react-redux";
+import { updateAllReducer } from "../reducers/users";
 
 //Components import
 import TextInputs from "./atoms/TextInputs";
@@ -23,8 +22,6 @@ function Home() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false)
 
-  const reducer = useSelector((state) => state.user)
-  console.log(reducer)
   // --- functions --- //
 
   // CONNECTION A UN COMPTE DEJA EXISTANT
@@ -39,7 +36,6 @@ function Home() {
       setError(true);
     } else {
       setError(false)
-      // console.log(userData.data)
       dispatch(updateAllReducer(userData.data))
       window.location.href = 'tasks'
     }
