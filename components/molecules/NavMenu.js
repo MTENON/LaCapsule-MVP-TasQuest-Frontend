@@ -5,11 +5,17 @@ import Link from "next/link";
 import NotificationBox from "./NotificationBox";
 import { Icon } from "@iconify-icon/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { resetUserState } from "../../reducers/users";
 
 function NavMenu() {
     // États pour gérer la connexion, le survol et l'affichage des notifications
     const [isHover, setIsHover] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
+
+    const router = useRouter();
+    const dispatch = useDispatch();
 
     // Tableau contenant les informations de navigation
     const tableContentRoute = [
@@ -24,6 +30,10 @@ function NavMenu() {
             nameIcon: "mdi:connection",
             variant: "navbar",
             children: "Déconnexion",
+            onClick: () => {
+                dispatch(resetUserState());
+                router.push('/');
+            }
         },
     ];
 
