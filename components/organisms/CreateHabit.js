@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
+import moment from "moment";
 import AtomButton from "../atoms/AtomButton";
 import LabeledInput from "../molecules/LabeledInput";
 import Checkboxes from "../atoms/Checkboxes";
@@ -50,9 +51,12 @@ function CreateHabit({ refreshHabits }) {
 
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDate, setErrorDate] = useState(false);
+  const [errorDateShort, setErrorDateShort] = useState(false);
   const errorTitleMsg = "Votre habitude a besoin d'un nom !";
   const errorDateMsg =
     "Votre habitude a besoin d'une date de début pour commencer !";
+  const errorDateShortMsg =
+    "Votre habitude ne peut pas commencer avant aujourd'hui !";
 
   const resetForm = () => {
     setTitle("");
@@ -62,8 +66,9 @@ function CreateHabit({ refreshHabits }) {
     setDifficulty(1);
     setFav(false);
     setDate(null);
+    setErrorTitle(false);
     setErrorDate(false);
-    setErrorDate(false);
+    setErrorDateShort(false);
   };
 
   const handleErrTitle = () => {
@@ -95,6 +100,11 @@ function CreateHabit({ refreshHabits }) {
 
   const createHabits = async () => {
     try {
+      const now = moment().utc().format("YYYY-MM-DD");
+      if (date < now) {
+        setErrorDateShort(true);
+        return;
+      }
       const response = await fetch(`${link}/habits/create`, {
         method: "POST",
         headers: {
@@ -196,6 +206,11 @@ function CreateHabit({ refreshHabits }) {
               />
               {errorDate && (
                 <Typography color="secondary.main">{errorDateMsg}</Typography>
+              )}
+              {errorDateShort && (
+                <Typography color="secondary.main">
+                  {errorDateShortMsg}
+                </Typography>
               )}
               <Box
                 sx={{
