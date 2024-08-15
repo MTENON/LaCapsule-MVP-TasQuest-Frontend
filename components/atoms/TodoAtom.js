@@ -84,8 +84,8 @@ const TodoAtom = ({ todo, taskId, todoIsCompleted, onDeleteSuccess }) => {
             <p>{todo.toDo}</p>
             <Icon
                 icon="mdi:garbage-can-circle"
-                width="32"
-                height="32"
+                width="40"
+                height="40"
                 style={{ color: "#a50104" }}
                 onClick={handleDelete}
             />

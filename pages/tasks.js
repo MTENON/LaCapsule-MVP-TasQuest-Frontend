@@ -45,7 +45,7 @@ function TasksPage() {
         <>
             <Layout>
                 <div className={styles.content}>
-                    <TitleAtoms title="Les taches"></TitleAtoms>
+                    <TitleAtoms title="Les tâches"></TitleAtoms>
                     <div className={styles.container}>
                         <Tasks
                             onSelectTask={handleTaskSelection}

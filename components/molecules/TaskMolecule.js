@@ -68,7 +68,7 @@ const TaskMolecule = ({ taskId, isDone, children }) => {
     }, [taskId, token]);
 
     return (
-        <TaskAtom taskId={taskId} key={taskId} style={{ width: "100%" }}>
+        <TaskAtom taskId={taskId} key={taskId}>
             <Checkboxes
                 name="isDone"
                 handleCheck={handleCheck}

@@ -15,7 +15,7 @@ const SideMenu = () => {
             href: "/tasks",
             nameIcon: "octicon:tasklist",
             variant: "sidebar",
-            popoverMessage: "Taches/Todos",
+            popoverMessage: "Tâches/Todos",
         },
         {
             href: "/character",

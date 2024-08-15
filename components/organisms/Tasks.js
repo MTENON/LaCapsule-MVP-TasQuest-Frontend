@@ -193,7 +193,7 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
         <BackgroundGrey width="50%">
             <div className={styles.header}>
                 <div className={styles.flex}></div>
-                <h2 className={styles.title}>Liste de taches</h2>
+                <h2 className={styles.title}>Liste de tâches</h2>
 
                 <ButtonDiamond
                     icon="mingcute:cross-fill"
