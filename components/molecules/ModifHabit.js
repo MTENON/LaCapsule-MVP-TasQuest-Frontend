@@ -106,10 +106,12 @@ function ModifHabit({
     setDescription(desc);
     setDifficulty(level);
     setFav(fav);
-    setDate(start);
+    setDate(moment(start).utc().format("YYYY-MM-DD"));
     setErrorDate(false);
     // setErrorDateShort(false);
   }, [resetForm]);
+
+  console.log(start);
 
   // <=======> Fonction pour envoyer les nouvelles infos de l'habitude a la DB <=======> \\
 

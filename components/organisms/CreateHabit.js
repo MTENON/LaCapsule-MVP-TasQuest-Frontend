@@ -254,7 +254,8 @@ function CreateHabit({ refreshHabits }) {
                       setNum(e.target.value < 1 ? 1 : e.target.value)
                     }
                     variant="secondaryBottom"
-                    width="50%"
+                    width="50px"
+                    height="40px"
                     required={true}
                   />
                   <SelectAtom
@@ -263,8 +264,8 @@ function CreateHabit({ refreshHabits }) {
                       setLabel(e.target.value);
                     }}
                     variant="secondaryBottom"
-                    width="250%"
-                    height="76%"
+                    width="250px"
+                    height="40px"
                     marginBottom="15px"
                   >
                     <option value="days">jour(s)</option>
