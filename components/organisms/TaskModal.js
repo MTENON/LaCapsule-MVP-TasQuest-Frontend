@@ -10,10 +10,11 @@ import DifficultyRating from "../molecules/DifficultyRating";
 
 const link = process.env.backLink;
 
-const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
+const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
     const token = useSelector((state) => state.user.token);
     const [title, setTitle] = useState("");
-    const [date, setDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const [description, setDescription] = useState("");
     const [difficulty, setDifficulty] = useState(0);
     const [checked, setChecked] = useState(false);
@@ -21,9 +22,10 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
 
     useEffect(() => {
         if (task) {
-            console.log(task);
+            // console.log(task);
             setTitle(task.name || "");
-            setDate(new Date(task.endDate || Date.now()));
+            setStartDate(new Date(task.startDate));
+            setEndDate(new Date(task.endDate));
             setDescription(task.description || "");
             setDifficulty(task.difficulty);
             setChecked(task.isUrgent || false);
@@ -34,7 +36,8 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
 
     const resetForm = () => {
         setTitle("");
-        setDate(new Date());
+        setStartDate("");
+        setEndDate("");
         setDescription("");
         setDifficulty(0);
         setChecked(false);
@@ -47,7 +50,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
             ? `${link}/tasks/update/${task._id}`
             : `${link}/tasks/new`;
 
-        console.log("Request URL:", url);
+        // console.log("Request URL:", url);
 
         try {
             const response = await fetch(url, {
@@ -59,7 +62,8 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
                 body: JSON.stringify({
                     name: title,
                     difficulty,
-                    endDate: date,
+                    startDate,
+                    endDate,
                     isUrgent: checked,
                     description,
                     tags: [],
@@ -70,6 +74,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
             const data = await response.json();
             if (data.result) {
                 fetchTasks();
+                onUpdate();
                 resetForm();
                 handleClose();
             } else {
@@ -144,13 +149,24 @@ const TaskModal = ({ open, handleClose, task, fetchTasks }) => {
                             required={true}
                         />
                         <LabeledInput
-                            label="Date de fin"
-                            labelFor="titleInput"
-                            value={date}
+                            label="Date de début"
+                            labelFor="startDateInput"
+                            value={startDate}
                             type="date"
-                            onChange={(e) => setDate(e.target.value)}
+                            onChange={(e) => setStartDate(e.target.value)}
                             variant="secondaryBottom"
                             width="100%"
+                            required={false}
+                        />
+                        <LabeledInput
+                            label="Date de fin"
+                            labelFor="endDateInput"
+                            value={endDate}
+                            type="date"
+                            onChange={(e) => setEndDate(e.target.value)}
+                            variant="secondaryBottom"
+                            width="100%"
+                            required={false}
                         />
                         <LabeledInput
                             label="Description"

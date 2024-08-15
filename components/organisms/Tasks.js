@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import styles from "../../styles/organisms/Tasks.module.css";
 import { useSelector } from "react-redux";
+import moment from "moment";
 import TaskMolecule from "../molecules/TaskMolecule";
 import ButtonDiamond from "../atoms/ButtonDiamond";
 import BackgroundGrey from "../atoms/BackgroundGrey";
 import Dropdown from "../molecules/Dropdown";
 import TaskModal from "./TaskModal";
 import TodoModal from "./TodoModal";
+import { Icon } from "@iconify-icon/react";
 
 const link = process.env.backLink;
 
@@ -15,7 +17,7 @@ const link = process.env.backLink;
 // Le composant TaskModal est un enfant, et il reçoit les props : open, handleClose,
 // task, et fetchTasks pour faire le CRUD des taches
 
-const Tasks = () => {
+const Tasks = ({ onSelectTask, onUpdate }) => {
     const token = useSelector((state) => state.user.token);
 
     // Etats du composant
@@ -37,6 +39,7 @@ const Tasks = () => {
         setSelectedTask(null);
         setOpenTodoModal(false);
     };
+
     // handleFetchDetail(element._id)
     const handleFetchDetail = async (taskId) => {
         try {
@@ -48,7 +51,7 @@ const Tasks = () => {
             });
             const data = await response.json();
             if (data.result) {
-                setTask(data.data);
+                onSelectTask(data.data);
             } else {
                 console.error(
                     "Erreur lors de la récupération des détails:",
@@ -89,7 +92,6 @@ const Tasks = () => {
         fetchTasks();
     }, [token]);
 
-    // Gestion du clic sur le bouton d'édition
     const handleEditClick = (task) => {
         setSelectedTask(task);
         handleOpen();
@@ -100,7 +102,7 @@ const Tasks = () => {
         setSelectedTask(task);
         handleOpenTodoModal();
     };
-    console.log(selectedTask);
+
     // Fetch des tâches
     const fetchTasks = async () => {
         try {
@@ -114,23 +116,66 @@ const Tasks = () => {
 
             const data = await response.json();
             if (data.result) {
-                const fetchedTasks = data.data.map((element) => (
-                    <div onClick={handleFetchDetail}>
-                        <TaskMolecule
+                const fetchedTasks = data.data.map((element) => {
+                    const formattedEndDate = element.endDate
+                        ? moment(element.endDate).format("DD/MM/YYYY")
+                        : null;
+                    const formattedStartDate = moment(element.startDate).format(
+                        "DD/MM/YYYY"
+                    );
+
+                    return (
+                        <div
                             key={element._id}
-                            taskId={element._id}
-                            endDate={element.endDate}
-                            isDone={element.isDone}
+                            onClick={() => handleFetchDetail(element._id)}
                         >
-                            <p>{element.name}</p>
-                            <Dropdown
-                                addTodo={() => handleAddTodo(element)}
-                                onEdit={() => handleEditClick(element)}
-                                onDelete={() => handleDelete(element._id)}
-                            />
-                        </TaskMolecule>
-                    </div>
-                ));
+                            <TaskMolecule
+                                taskId={element._id}
+                                startDate={formattedStartDate}
+                                endDate={formattedEndDate}
+                                isDone={element.isDone}
+                                onUpdate={onUpdate}
+                            >
+                                <p style={{ flexGrow: "1", padding: "10px" }}>
+                                    {element.name}
+                                </p>
+                                <div style={{ width: "160px" }}>
+                                    <p>Début : {formattedStartDate}</p>
+                                    {formattedEndDate && (
+                                        <p>Fin : {formattedEndDate}</p>
+                                    )}
+                                </div>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "40px",
+                                        margin: "5px",
+                                    }}
+                                >
+                                    <Icon
+                                        icon="mdi:emoticon-devil"
+                                        width="32"
+                                        height="32"
+                                        style={{
+                                            color: "#a50104",
+                                        }}
+                                    />
+                                    {element.difficulty}
+                                </div>
+                                <Dropdown
+                                    addTodo={() => handleAddTodo(element)}
+                                    onEdit={() => handleEditClick(element)}
+                                    onDelete={() => handleDelete(element._id)}
+                                    onUpdate={onUpdate}
+                                    refresh={handleFetchDetail}
+                                />
+                            </TaskMolecule>
+                        </div>
+                    );
+                });
                 setTasks(fetchedTasks);
             } else {
                 throw new Error(
@@ -143,12 +188,10 @@ const Tasks = () => {
     };
 
     return (
-        <BackgroundGrey width="60%">
+        <BackgroundGrey width="50%">
             <div className={styles.header}>
                 <div className={styles.flex}></div>
-                <h2 className={styles.title}>
-                    Tâches <span>?</span>
-                </h2>
+                <h2 className={styles.title}>Liste de tâches</h2>
 
                 <ButtonDiamond
                     icon="mingcute:cross-fill"
@@ -163,12 +206,14 @@ const Tasks = () => {
                 handleClose={handleClose}
                 task={selectedTask}
                 fetchTasks={fetchTasks}
+                onUpdate={onUpdate}
             />
             <TodoModal
                 open={openTodoModal}
                 handleClose={handleCloseTodoModal}
                 task={selectedTask}
                 fetchTasks={fetchTasks}
+                onUpdate={onUpdate}
             />
 
             {tasks.length > 0 ? tasks : <p>Aucune tâche n'est disponible.</p>}
