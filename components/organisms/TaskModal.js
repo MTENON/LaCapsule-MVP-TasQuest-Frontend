@@ -16,7 +16,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [description, setDescription] = useState("");
-    const [difficulty, setDifficulty] = useState(0);
+    const [difficulty, setDifficulty] = useState(1);
     const [checked, setChecked] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -39,9 +39,9 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
         setStartDate("");
         setEndDate("");
         setDescription("");
-        setDifficulty(0);
+        setDifficulty(1);
         setChecked(false);
-        setErrorMessage("");
+        setErrorMessage(null);
     };
 
     const handleSubmit = async () => {
@@ -131,12 +131,17 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
                         sx={{
                             width: "70%",
                             margin: "40px auto",
-                            height: "500px",
+                            height: "85%",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-evenly",
                         }}
                     >
+                        {errorMessage && (
+                            <Typography color="secondary.main">
+                                {errorMessage}
+                            </Typography>
+                        )}
                         <LabeledInput
                             label="Titre"
                             labelFor="titleInput"
@@ -203,11 +208,6 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
                                 margin: 0,
                             }}
                         >
-                            {errorMessage && (
-                                <Typography color="secondary.main">
-                                    {errorMessage}
-                                </Typography>
-                            )}
                             <Typography>Niveau de difficulté</Typography>
                             <DifficultyRating
                                 variant="secondary"

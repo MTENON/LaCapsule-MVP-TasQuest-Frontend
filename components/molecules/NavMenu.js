@@ -32,17 +32,25 @@ function NavMenu() {
             children: "Déconnexion",
             onClick: () => {
                 dispatch(resetUserState());
-                router.push('/');
-            }
+                router.push("/");
+            },
         },
     ];
 
     // Génération des éléments de navigation
     const items = tableContentRoute.map((element, i) => {
         return (
-            <span style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <span
+                key={i} // Correction: ajout du key prop ici
+                style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
                 <AtomLink
-                    key={i}
                     href={element.href}
                     nameIcon={element.nameIcon}
                     variant={element.variant}
@@ -53,10 +61,10 @@ function NavMenu() {
         );
     });
 
-    //Style pour le hover des notification
+    // Style pour le hover des notifications
     let style = { color: isHover ? "#F0EFEF" : "#fcd757" };
 
-    //Functions d'événement pour le hover
+    // Fonctions d'événement pour le hover
     const handleMouseEnter = () => {
         setIsHover(true);
     };
@@ -87,7 +95,7 @@ function NavMenu() {
         <>
             <nav className={styles.navbar}>
                 {/*------ Lien vers le profil ou la page d'accueil basé sur l'état de connexion -----*/}
-                <Link href="/profile">
+                <Link href="/habits">
                     <a>
                         <Image
                             src="/logoYellow.png"
@@ -98,9 +106,7 @@ function NavMenu() {
                     </a>
                 </Link>
 
-
                 <div className={styles.listItems}>
-
                     <button
                         className={styles.btn}
                         style={style}
@@ -108,7 +114,15 @@ function NavMenu() {
                         onMouseLeave={handleMouseLeave}
                         onClick={() => handleShowNotifications()}
                     >
-                        <span style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                        <span
+                            style={{
+                                cursor: "pointer",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
                             <Icon icon="mdi:bell" width="32" height="32" />
                             Notifications
                         </span>
@@ -122,8 +136,7 @@ function NavMenu() {
                         content={notifications}
                     />
                 </div>
-
-            </nav >
+            </nav>
         </>
     );
 }
