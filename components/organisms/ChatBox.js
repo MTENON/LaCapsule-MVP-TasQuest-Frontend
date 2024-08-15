@@ -19,7 +19,9 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
 
     const [socket, setSocket] = useState('');
     const [message, setMessage] = useState('');
-    const [loader, setLoader] = useState(false)
+    const [loader, setLoader] = useState(false);
+    const [otherUserIsWriting, setOtherUserIsWriting] = useState(false);
+    const [otherUser, setOtherUser] = useState("")
     const [messagerie, setMessagerie] = useState( //FAUSSE DATA POUR MESSAGERIE DEMODAY
         [
             {
@@ -82,6 +84,16 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
                 console.log("received", data)
                 setMessagerie((prevMessages) => [...prevMessages, { user: data.user, content: data.content }])
             });
+            socket.on('writing', (data) => {
+                if (data.user !== username) {
+                    setOtherUser(data.user)
+                    setOtherUserIsWriting(true);
+                    setTimeout(() => {
+                        setOtherUserIsWriting(false);
+                    }, 4000);
+                }
+
+            })
         }
 
         setRoomJoined(true);
@@ -92,9 +104,9 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
             socket.disconnect(); // Déconnecte le socket du serveur
         };
 
-        // --- ------ --- //
-        // --- SOKETS --- //
-        // --- ------ --- //
+        // --- ---------- --- //
+        // --- END SOKETS --- //
+        // --- ---------- --- //
 
     }, [loading])
 
@@ -162,6 +174,15 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
     //     }
     // }
 
+    function handleChange(e) {
+        setMessage(e.target.value);
+        setLoader(true);
+        socket.emit('writing', ({ room: roomId, user: username }))
+        setTimeout(() => {
+            setLoader(false)
+        }, 4000)
+    }
+
     return (
         <div className={styles.mainContainer}>
             <div className={styles.chatContainer}>
@@ -170,19 +191,14 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
                 </div>
 
 
-
+                {otherUserIsWriting && <p>{otherUser} is wrinting.</p>}
                 <div className={styles.inputCard}>
                     {loader && <div className={loading.loader}></div>}
                     <TextInputs
                         value={message}
                         type="text"
                         onChange={(e) => {
-                            setMessage(e.target.value);
-                            console.log('test')
-                            setLoader(true);
-                            setTimeout(() => {
-                                setLoader(false)
-                            }, 4000)
+                            handleChange(e);
                         }}
                         placeholder="placeholder"
                         width={480}
