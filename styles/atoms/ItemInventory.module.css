@@ -1,10 +1,12 @@
-.stuffScreen {
+.inventoryScreen {
     height: 100px;
     width: 100px;
-    border : 2px #000 solid;
+    border : 1.5px #000 solid;
+    border-radius: 15px;
     row-gap: 25px;
 }
 
-.stuffSize {
+.inventorySize {
     font-size: 100px;
 }
+

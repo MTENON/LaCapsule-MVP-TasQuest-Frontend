@@ -7,7 +7,6 @@ import ItemShop from "./molecules/ItemShop";
 //Importation de molécule
 import ItemInventory from "./atoms/ItemInventory";
 
-
 import { useState, useEffect } from "react";
 import {useSelector} from 'react-redux'
 
@@ -15,14 +14,19 @@ import {useSelector} from 'react-redux'
 
 //backend
 const link = process.env.backLink;
+const fakeData = require("../assets/shopItems.json")
 
 function Shop(){
 
-    const [item, setItem] = useState([]);//Un map ne marche que sur un tableau 
-    const token = useSelector((state) => {state.user.token})
+    const [item, setItem] = useState(fakeData); 
+    // console.log(item);
+    
+    // const [item, setItem] = useState([]);//Un map ne marche que sur un tableau 
+    const token = useSelector((state) => state.user.token)
+
 
     useEffect(() => {
-        fetch(`${link}/items`, {//On part rechercher dans la BDD ?
+        token && fetch(`${link}/items`, {
             method: "GET",
             headers:
                     {
@@ -32,33 +36,22 @@ function Shop(){
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
             setItem(data.data)
         });
 
-    // (async () => {
-    //     console.log(token)
-
-    //     const fetchData = await fetch(`${link}/items`, {
-    //         method: "GET",
-    //         headers: {
-    //             'Authorization': token,
-    //             'content-type': 'application/json'
-    //         }
-    //     });
-    //     console.log(fetchData.json())
-    //     const data = await fetchData.json()
-    // })()
-
-
-    }, [])
+    }, [token])//Re-éxecute useEffect à chaque changement de token
+    //par rapport au token que tu reçois, tu enverras toutes les infos du useEffect.
 
 
     //On va maper les items
-    // const itemShop = item.map((data, i) => {
-    //     return <ItemShop key={i} name={data.name} icon={data.icon} type={data.type} price={data.price} description={data.description}/>
-    // });
+    const itemShop = item.map((data, i) => {
+        return <ItemShop key={i} name={data.name} icon={data.icon} type={data.type} price={data.price} description={data.description}/>
+    });
 
+    //On va maper l'inventaire
+    const itemInventory = item.map((data, i) => {
+        return <ItemInventory key={i} name={data.name} icon={data.icon} type={data.type} price={data.price} description={data.description}/>
+    });
 
     return (
         <div className={styles.container}>                    {/* La page entière */}
@@ -68,33 +61,17 @@ function Shop(){
 
             <div className={styles.divBottom}>                 {/* Bas de la page */}
                 <div className={styles.divInventory}>               {/* Partie gauche du bas de la page*/}
-                    <Money />
+                    <Money pieces="120"/>
                     <button className={styles.inventoryButton}>Inventaire</button>
-                    <div className={styles.stuff}>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>
-                                <ItemInventory/>    
+                    <div className={styles.inventoryContain}>
+                        {itemInventory}                             {/* Mapage de l'inventaire*/}
                     </div>    
                 </div>
 
 
                 <div className={styles.itemSelectionShop}>     {/* Partie droite du bas de la page*/}
-                        {/* {itemShop} */}
-                        <ItemShop/>
-                        <ItemShop/>
-                        <ItemShop/>
-                        <ItemShop/>
-                        <ItemShop/>
-                        <ItemShop/>
+                        {itemShop}                             {/* Mapage de la boutique*/}
+                        
                 </div>
             </div>
         </div>

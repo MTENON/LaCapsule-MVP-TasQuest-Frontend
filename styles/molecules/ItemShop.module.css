@@ -1,11 +1,12 @@
 .itemImage{
     width: 225px;
     height: 300px;
-    border : 3px solid #1a99ad;
     margin-top : 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border : 2px solid #000;
+    border-radius: 15px;
 }
 
 .itemSize {
@@ -17,13 +18,15 @@
     flex-direction: column;
     justify-content: space-around;
     margin-top: 10%;
-    background-color: aqua;
+    border-top: 2px solid #000;
+    /* background-color: #000; */
     height: 119px;
-    width: 100%; /* on prend 100% de la largeur*/
+    width: 95%; /* on prend 100% de la largeur*/
 }
 
 .itemName {
-    border: #01a571;
+    /* border: #01a571; */
+    color: #A50104;
     text-align: center;
 }
 

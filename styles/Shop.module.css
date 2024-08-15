@@ -1,6 +1,6 @@
 
 .container {
-    border : 5px solid #642181;
+    /* border : 5px solid #642181; */
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -16,6 +16,9 @@
     width: 100%;
     max-width: 763px;
     height: 82px;
+    font-size: 36px;
+    color: #FCD757;
+    font-family: "Fondamento";
     background-color: #A50104;
     border-radius: 20px;
     border: 1.5px;
@@ -24,7 +27,7 @@
 
 .divBottom { 
     display: flex; /*pour aligner les enfants à l'horizontal*/
-    flex-direction: row; /*pour aligner divLeft et itemSelectionShop sur la même ligne*/
+    flex-direction: row; /*pour aligner divInventory et itemSelectionShop sur la même ligne*/
     width: 100%;
 }
 
@@ -34,6 +37,7 @@
     flex-wrap: wrap;
     width: 30%;
     margin-top: 30px;
+    gap: 15px;
 }
 
 .inventoryButton {
@@ -41,10 +45,13 @@
     height: 47px;
     border-radius: 20px;
     border: 1.5px;
+    font-size: 30px;
+    color: #FCD757;
+    font-family: "Fondamento";
     background-color: #A50104;
 }
 
-.stuff{
+.inventoryContain{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -58,7 +65,8 @@
     width: 742px;
     height: 625px;
     gap: 25px;
-    border : solid 3px #01a571;
+    /* border : solid 3px #01a571; */
     flex: 1; /*Prend tout l'espace dispo à droite*/
+    overflow-y: auto;
 }
 

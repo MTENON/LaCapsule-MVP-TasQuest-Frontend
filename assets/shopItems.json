@@ -1,0 +1,51 @@
+[
+    {
+        "name": "Épée du Guerrier",
+        "description": "Une épée robuste et fiable, parfaite pour les combattants expérimentés. Elle offre un bon équilibre entre puissance et maniabilité.",
+        "price": 50,
+        "type": "Épée",
+        "icon": "ph:sword"
+    },
+    {
+        "name": "Épée du Dragon",
+        "description": "Forgée dans le feu des dragons, cette épée possède une lame incandescente qui peut brûler ses ennemis.",
+        "price": 150,
+        "type": "Épée",
+        "icon": "ph:sword"
+    },
+    {
+        "name": "Épée de Lumière",
+        "description": "Une épée enchantée qui brille dans l'obscurité. Elle est particulièrement efficace contre les créatures des ténèbres.",
+        "price": 120,
+        "type": "Épée",
+        "icon": "ph:sword"
+    },
+    {
+        "name": "Hache de Feu",
+        "description": "Une hache enflammée capable d'infliger des dégâts de feu. Elle est redoutable en combat contre les ennemis vulnérables au feu.",
+        "price": 200,
+        "type": "Hache",
+        "icon": "ph:axe"
+    },
+    {
+        "name": "Arc du Chasseur",
+        "description": "Un arc léger et précis, parfait pour les chasseurs. Il permet des tirs rapides et une grande portée.",
+        "price": 40,
+        "type": "Arc",
+        "icon": "teenyicons:arrow-outline"
+    },
+    {
+        "name": "Potion de Feu",
+        "description": "Boire cette potion confère au buveur une résistance accrue au feu et peut même infliger des dégâts de feu aux ennemis proches.",
+        "price": 120,
+        "type": "Potion",
+        "icon": "hugeicons:potion"
+    },
+    {
+        "name": "Potion de Glace",
+        "description": "Une potion qui protège le buveur contre les dégâts de glace et réduit les effets de ralentissement causés par le froid.",
+        "price": 110,
+        "type": "Potion",
+        "icon": "hugeicons:potion"
+    }
+]
