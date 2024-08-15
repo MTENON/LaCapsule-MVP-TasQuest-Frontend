@@ -88,8 +88,10 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
                 if (data.user !== username) {
                     setOtherUser(data.user)
                     setOtherUserIsWriting(true);
+                    setLoader(true);
                     setTimeout(() => {
                         setOtherUserIsWriting(false);
+                        setLoader(false);
                     }, 4000);
                 }
 
@@ -191,7 +193,7 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
                 </div>
 
 
-                {otherUserIsWriting && <p>{otherUser} is wrinting.</p>}
+                {otherUserIsWriting && <p>{otherUser} est en train d'écrire.</p>}
                 <div className={styles.inputCard}>
                     {loader && <div className={loading.loader}></div>}
                     <TextInputs
