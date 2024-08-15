@@ -281,7 +281,7 @@ function SettingsPage() {
                     width={"50%"}
                     variant="primaryAll"
                 />
-                {usernameError && <p style={{ color: "#A50104" }}>Votre nom de compte ne doit pas comporter de symboles spéciaux ni d'espaces.</p>}
+                {usernameError && <p style={{ color: "#A50104" }}>Votre nom de compte ne doit pas comporter de symboles spéciaux ni d'espaces. Il doit comporter entre 4 et 10 caractères.</p>}
                 <h3>Mot de passe</h3>
                 <TextInputs
                     value={usernamePassword}
@@ -311,7 +311,7 @@ function SettingsPage() {
                     width={"50%"}
                     variant="primaryAll"
                 />
-                {characterNameError && <p style={{ color: "#A50104" }}>Votre nom de personnage ne doit pas comporter de symboles spéciaux ni d'espaces.</p>}
+                {characterNameError && <p style={{ color: "#A50104" }}>Votre nom de personnage ne doit pas comporter de symboles spéciaux ni d'espaces. Il doit comporter entre 4 et 10 caractères.</p>}
                 <h3>Mot de passe</h3>
                 <TextInputs
                     value={characterNamePassword}
