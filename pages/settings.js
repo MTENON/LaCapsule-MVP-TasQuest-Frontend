@@ -275,200 +275,209 @@ function SettingsPage() {
 
     return (
         <Layout>
-            <h1>Paramètres</h1>
-            <div className={styles.card}>
-                <h2>Changer le nom d'utilisateur</h2>
-                <p>Mon nom d'utilisateur: {username}</p>
-                <TextInputs
-                    value={usernameForm}
-                    type="text"
-                    onChange={(e) => setUsernameForm(e.target.value)}
-                    placeholder="new username"
-                    width={"50%"}
-                    variant="primaryAll"
-                />
-                {usernameError && <p style={{ color: "#A50104" }}>Votre nom de compte ne doit pas comporter de symboles spéciaux ni d'espaces. Il doit comporter entre 4 et 10 caractères.</p>}
-                <h3>Mot de passe</h3>
-                <TextInputs
-                    value={usernamePassword}
-                    type="password"
-                    onChange={(e) => setUsernamePassword(e.target.value)}
-                    placeholder="password"
-                    width={"50%"}
-                    variant="secondaryAll"
-                />
-                <div style={{ marginTop: "3%" }}>
-                    <ButtonLarge
-                        variant={"primary"}
-                        onClick={() => handleChangeUsername()}
-                    >Changer le nom d'utilisateur</ButtonLarge>
+            <div className={styles.allContainer}>
+                <div className={styles.cardsDisplay}>
+                    <h1>Paramètres</h1>
+                    <div className={styles.card}>
+                        <h2>Changer le nom d'utilisateur</h2>
+                        <TextInputs
+                            value={usernameForm}
+                            type="text"
+                            onChange={(e) => setUsernameForm(e.target.value)}
+                            placeholder="new username"
+                            width={"50%"}
+                            variant="primaryAll"
+                        />
+                        {usernameError && <p style={{ color: "#A50104" }}>Votre nom de compte ne doit pas comporter de symboles spéciaux ni d'espaces. Il doit comporter entre 4 et 10 caractères.</p>}
+                        <h3>Mot de passe</h3>
+                        <TextInputs
+                            value={usernamePassword}
+                            type="password"
+                            onChange={(e) => setUsernamePassword(e.target.value)}
+                            placeholder="password"
+                            width={"50%"}
+                            variant="secondaryAll"
+                        />
+                        <div style={{ marginTop: "3%" }}>
+                            <ButtonLarge
+                                variant={"primary"}
+                                onClick={() => handleChangeUsername()}
+                            >Changer le nom d'utilisateur</ButtonLarge>
+                        </div>
+
+                    </div>
+
+                    <div className={styles.card}>
+                        <h2>Changer le nom de votre personnage</h2>
+                        <TextInputs
+                            value={characterNameForm}
+                            type="text"
+                            onChange={(e) => setCharacterNameForm(e.target.value)}
+                            placeholder="character name"
+                            width={"50%"}
+                            variant="primaryAll"
+                        />
+                        {characterNameError && <p style={{ color: "#A50104" }}>Votre nom de personnage ne doit pas comporter de symboles spéciaux ni d'espaces. Il doit comporter entre 4 et 10 caractères.</p>}
+                        <h3>Mot de passe</h3>
+                        <TextInputs
+                            value={characterNamePassword}
+                            type="password"
+                            onChange={(e) => setCharacterNamePassword(e.target.value)}
+                            placeholder="password"
+                            width={"50%"}
+                            variant="secondaryAll"
+                        />
+                        <div style={{ marginTop: "3%" }}>
+                            <ButtonLarge
+                                variant={"primary"}
+                                onClick={() => handleChangeCharacterName()}
+                            >Changer le nom du personnage</ButtonLarge>
+                        </div>
+
+                    </div>
+
+                    <div className={styles.card}>
+                        <h2>Changer l'email</h2>
+                        <TextInputs
+                            value={emailForm}
+                            type="text"
+                            onChange={(e) => setEmailForm(e.target.value)}
+                            placeholder="email"
+                            width={"50%"}
+                            variant="primaryAll"
+                        />
+                        {emailError && <p style={{ color: "#A50104" }}>Votre email doit être correct.</p>}
+                        <h3>Mot de passe</h3>
+                        <TextInputs
+                            value={emailPassword}
+                            type="password"
+                            onChange={(e) => setEmailPassword(e.target.value)}
+                            placeholder="password"
+                            width={"50%"}
+                            variant="secondaryAll"
+                        />
+                        <div style={{ marginTop: "3%" }}>
+                            <ButtonLarge
+                                variant={"primary"}
+                                onClick={() => handleChangeEmail()}
+                            >Changer l'email</ButtonLarge>
+                        </div>
+
+                    </div>
+
+                    <div className={styles.card}>
+                        <h2>Changer votre mot de passe</h2>
+                        <h3>Mot de passe actuel</h3>
+                        <TextInputs
+                            value={oldPassword}
+                            type="password"
+                            onChange={(e) => setOldPassword(e.target.value)}
+                            placeholder="actual password"
+                            width={"50%"}
+                            variant="secondaryAll"
+                        />
+                        {passwordError && <p style={{ color: "#A50104" }}>Vos mots de passe doivent correspondre, être différents de l'ancien et comporter une majuscule, un chiffre et un symbole au minimum.</p>}
+                        <h3>Nouveau mot de passe</h3>
+                        <TextInputs
+                            value={passwordForm}
+                            type="password"
+                            onChange={(e) => setPasswordForm(e.target.value)}
+                            placeholder="new password"
+                            width={"50%"}
+                            variant="primaryAll"
+                        />
+                        <h3>Confirmer le nouveau mot de passe</h3>
+                        <TextInputs
+                            value={passwordConfirmForm}
+                            type="password"
+                            onChange={(e) => setPasswordConfirmForm(e.target.value)}
+                            placeholder="confirm new password"
+                            width={"50%"}
+                            variant="primaryAll"
+                        />
+                        <div style={{ marginTop: "3%" }}>
+                            <ButtonLarge
+                                variant={"primary"}
+                                onClick={() => handleChangePassword()}
+                            >Changer le mot de passe</ButtonLarge>
+                        </div>
+
+
+
+                    </div>
+
+                    {/* DESTRUCTION DU COMPTE */}
+                    <div className={styles.card}>
+                        <h2 style={{ color: "#A50104" }}>EFFACER LE COMPTE</h2>
+                        <h3>Mot de passe</h3>
+                        <TextInputs
+                            value={erasePassword}
+                            type="password"
+                            onChange={(e) => setErasePassword(e.target.value)}
+                            placeholder="password"
+                            width={"50%"}
+                            variant="primaryAll"
+                        />
+
+                        <div style={{ marginTop: "3%" }}>
+                            <ButtonLarge
+                                variant={"primary"}
+                                onClick={() => handleOpen()}
+                            >EFFACER VOTRE COMPTE</ButtonLarge>
+                        </div>
+
+                        {/* --- MODAL ACCOUNT DESTRUCTION --- */}
+
+                        <div>
+                            <Modal
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                                        <h2 style={{ color: "#A50104" }}>DESTRUCTION DE COMPTE</h2>
+                                    </Typography>
+                                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                        <h3>Confirmez votre mot de passe</h3>
+                                        <TextInputs
+                                            value={erasePasswordConfirm}
+                                            type="password"
+                                            onChange={(e) => setErasePasswordConfirm(e.target.value)}
+                                            placeholder="password confirmation"
+                                            width={"50%"}
+                                            variant="primaryAll"
+                                        />
+                                        <div style={{ marginTop: "3%" }}>
+                                            <ButtonLarge
+                                                variant={"primary"}
+                                                onClick={() => handleEraseAccount()}
+                                            >CONFIRMATION</ButtonLarge>
+                                        </div>
+                                        <div style={{ marginTop: "3%" }}>
+                                            <ButtonLarge
+                                                variant={"secondary"}
+                                                onClick={() => handleClose()}
+                                            >ANNULER</ButtonLarge>
+                                        </div>
+                                    </Typography>
+                                </Box>
+                            </Modal>
+                        </div>
+
+                        {/* --- END MODAL ACCOUNT DESTRUCTION --- */}
+
+                    </div>
                 </div>
-
-            </div>
-
-            <div className={styles.card}>
-                <h2>Changer le nom de votre personnage</h2>
-                <p>Mon nom de personnage: {characterName}</p>
-                <TextInputs
-                    value={characterNameForm}
-                    type="text"
-                    onChange={(e) => setCharacterNameForm(e.target.value)}
-                    placeholder="character name"
-                    width={"50%"}
-                    variant="primaryAll"
-                />
-                {characterNameError && <p style={{ color: "#A50104" }}>Votre nom de personnage ne doit pas comporter de symboles spéciaux ni d'espaces. Il doit comporter entre 4 et 10 caractères.</p>}
-                <h3>Mot de passe</h3>
-                <TextInputs
-                    value={characterNamePassword}
-                    type="password"
-                    onChange={(e) => setCharacterNamePassword(e.target.value)}
-                    placeholder="password"
-                    width={"50%"}
-                    variant="secondaryAll"
-                />
-                <div style={{ marginTop: "3%" }}>
-                    <ButtonLarge
-                        variant={"primary"}
-                        onClick={() => handleChangeCharacterName()}
-                    >Changer le nom du personnage</ButtonLarge>
+                <div className={styles.userDisplay}>
+                    <h4>Mon nom d'utilisateur</h4>
+                    <p>{username}</p>
+                    <h4>Mon nom de personnage</h4>
+                    <p>{characterName}</p>
+                    <h4>Mon email</h4>
+                    <p>{email}</p>
                 </div>
-
-            </div>
-
-            <div className={styles.card}>
-                <h2>Changer l'email</h2>
-                <p>Mon email: {email}</p>
-                <TextInputs
-                    value={emailForm}
-                    type="text"
-                    onChange={(e) => setEmailForm(e.target.value)}
-                    placeholder="email"
-                    width={"50%"}
-                    variant="primaryAll"
-                />
-                {emailError && <p style={{ color: "#A50104" }}>Votre email doit être correct.</p>}
-                <h3>Mot de passe</h3>
-                <TextInputs
-                    value={emailPassword}
-                    type="password"
-                    onChange={(e) => setEmailPassword(e.target.value)}
-                    placeholder="password"
-                    width={"50%"}
-                    variant="secondaryAll"
-                />
-                <div style={{ marginTop: "3%" }}>
-                    <ButtonLarge
-                        variant={"primary"}
-                        onClick={() => handleChangeEmail()}
-                    >Changer l'email</ButtonLarge>
-                </div>
-
-            </div>
-
-            <div className={styles.card}>
-                <h2>Changer votre mot de passe</h2>
-                <h3>Mot de passe actuel</h3>
-                <TextInputs
-                    value={oldPassword}
-                    type="password"
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    placeholder="actual password"
-                    width={"50%"}
-                    variant="secondaryAll"
-                />
-                {passwordError && <p style={{ color: "#A50104" }}>Vos mots de passe doivent correspondre, être différents de l'ancien et comporter une majuscule, un chiffre et un symbole au minimum.</p>}
-                <h3>Nouveau mot de passe</h3>
-                <TextInputs
-                    value={passwordForm}
-                    type="password"
-                    onChange={(e) => setPasswordForm(e.target.value)}
-                    placeholder="new password"
-                    width={"50%"}
-                    variant="primaryAll"
-                />
-                <h3>Confirmer le nouveau mot de passe</h3>
-                <TextInputs
-                    value={passwordConfirmForm}
-                    type="password"
-                    onChange={(e) => setPasswordConfirmForm(e.target.value)}
-                    placeholder="confirm new password"
-                    width={"50%"}
-                    variant="primaryAll"
-                />
-                <div style={{ marginTop: "3%" }}>
-                    <ButtonLarge
-                        variant={"primary"}
-                        onClick={() => handleChangePassword()}
-                    >Changer le mot de passe</ButtonLarge>
-                </div>
-
-
-
-            </div>
-
-            {/* DESTRUCTION DU COMPTE */}
-            <div className={styles.card}>
-                <h2 style={{ color: "#A50104" }}>EFFACER LE COMPTE</h2>
-                <h3>Mot de passe</h3>
-                <TextInputs
-                    value={erasePassword}
-                    type="password"
-                    onChange={(e) => setErasePassword(e.target.value)}
-                    placeholder="password"
-                    width={"50%"}
-                    variant="primaryAll"
-                />
-
-                <div style={{ marginTop: "3%" }}>
-                    <ButtonLarge
-                        variant={"primary"}
-                        onClick={() => handleOpen()}
-                    >EFFACER VOTRE COMPTE</ButtonLarge>
-                </div>
-
-                {/* --- MODAL ACCOUNT DESTRUCTION --- */}
-
-                <div>
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                <h2 style={{ color: "#A50104" }}>DESTRUCTION DE COMPTE</h2>
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                <h3>Confirmez votre mot de passe</h3>
-                                <TextInputs
-                                    value={erasePasswordConfirm}
-                                    type="password"
-                                    onChange={(e) => setErasePasswordConfirm(e.target.value)}
-                                    placeholder="password confirmation"
-                                    width={"50%"}
-                                    variant="primaryAll"
-                                />
-                                <div style={{ marginTop: "3%" }}>
-                                    <ButtonLarge
-                                        variant={"primary"}
-                                        onClick={() => handleEraseAccount()}
-                                    >CONFIRMATION</ButtonLarge>
-                                </div>
-                                <div style={{ marginTop: "3%" }}>
-                                    <ButtonLarge
-                                        variant={"secondary"}
-                                        onClick={() => handleClose()}
-                                    >ANNULER</ButtonLarge>
-                                </div>
-                            </Typography>
-                        </Box>
-                    </Modal>
-                </div>
-
-                {/* --- END MODAL ACCOUNT DESTRUCTION --- */}
-
             </div>
         </Layout>
     );
