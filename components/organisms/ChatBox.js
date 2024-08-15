@@ -84,19 +84,20 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
                 console.log("received", data)
                 setMessagerie((prevMessages) => [...prevMessages, { user: data.user, content: data.content }])
             });
-            socket.on('writing', (data) => {
-                if (data.user !== username) {
-                    setOtherUser(data.user)
-                    setOtherUserIsWriting(true);
-                    setLoader(true);
-                    setTimeout(() => {
-                        setOtherUserIsWriting(false);
-                        setLoader(false);
-                    }, 4000);
-                }
-
-            })
         }
+
+        socket.on('writing', (data) => {
+            if (data.user !== username) {
+                setOtherUser(data.user)
+                setOtherUserIsWriting(true);
+                setLoader(true);
+                setTimeout(() => {
+                    setOtherUserIsWriting(false);
+                    setLoader(false);
+                }, 4000);
+            }
+
+        })
 
         setRoomJoined(true);
         socket.emit('join room', (roomId));
