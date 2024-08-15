@@ -185,9 +185,10 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
                             }, 4000)
                         }}
                         placeholder="placeholder"
-                        width={800}
+                        width={480}
                         variant="secondaryAll"
                     />
+                    <div style={{ margin: "0 1%" }}></div>
                     <Button variant={"secondary"} icon={"iconamoon:player-end-fill"} func={handleSendToRoom} />
                 </div>
             </div>

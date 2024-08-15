@@ -338,7 +338,38 @@ function SettingsPage() {
                     >Changer le mot de passe</ButtonLarge>
                 </div>
 
-                {/* DESTRUCTION DU COMPTE */}
+
+
+            </div>
+
+            {/* DESTRUCTION DU COMPTE */}
+            <div className={styles.card}>
+                <h2>Changer </h2>
+                <p>Mon email: {email}</p>
+                <TextInputs
+                    value={emailForm}
+                    type="text"
+                    onChange={(e) => setEmailForm(e.target.value)}
+                    placeholder="email"
+                    width={"50%"}
+                    variant="primaryAll"
+                />
+                {emailError && <p style={{ color: "#A50104" }}>Votre email doit être correct.</p>}
+                <h3>Mot de passe</h3>
+                <TextInputs
+                    value={emailPassword}
+                    type="password"
+                    onChange={(e) => setEmailPassword(e.target.value)}
+                    placeholder="password"
+                    width={"50%"}
+                    variant="secondaryAll"
+                />
+                <div style={{ marginTop: "3%" }}>
+                    <ButtonLarge
+                        variant={"primary"}
+                        onClick={() => handleChangeEmail()}
+                    >Changer l'email</ButtonLarge>
+                </div>
 
             </div>
         </Layout>
