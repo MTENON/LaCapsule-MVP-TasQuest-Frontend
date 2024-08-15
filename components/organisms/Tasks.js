@@ -116,7 +116,7 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
 
             const data = await response.json();
             if (data.result) {
-                const fetchedTasks = data.data.map((element) => {
+                const fetchedTasks = data.data?.map((element) => {
                     const formattedEndDate = element.endDate
                         ? moment(element.endDate).format("DD/MM/YYYY")
                         : null;
@@ -216,7 +216,7 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
                 onUpdate={onUpdate}
             />
 
-            {tasks.length > 0 ? tasks : <p>Aucune tâche n'est disponible.</p>}
+            {tasks?.length > 0 ? tasks : <p>Aucune tâche n'est disponible.</p>}
         </BackgroundGrey>
     );
 };
