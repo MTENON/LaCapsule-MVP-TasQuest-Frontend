@@ -52,9 +52,6 @@ const DetailTask = ({
         <div className={styles.container}>
             <h2>{name}</h2>
             <p>
-                <b>Status :</b> {isDone ? "En cours" : "Terminée"}
-            </p>
-            <p>
                 <b>Description :</b> {description}
             </p>
             <p>

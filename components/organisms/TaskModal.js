@@ -22,7 +22,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
 
     useEffect(() => {
         if (task) {
-            console.log(task);
+            // console.log(task);
             setTitle(task.name || "");
             setStartDate(new Date(task.startDate));
             setEndDate(new Date(task.endDate));
@@ -50,7 +50,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
             ? `${link}/tasks/update/${task._id}`
             : `${link}/tasks/new`;
 
-        console.log("Request URL:", url);
+        // console.log("Request URL:", url);
 
         try {
             const response = await fetch(url, {

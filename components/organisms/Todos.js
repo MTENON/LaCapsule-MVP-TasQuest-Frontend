@@ -3,8 +3,7 @@ import moment from "moment";
 import BackgroundGrey from "../atoms/BackgroundGrey";
 import DetailTask from "../molecules/DetailTask";
 
-const Todos = ({ task, forceUpdate }) => {
-    // Logique avant le return
+const Todos = ({ task }) => {
     const [taskDetails, setTaskDetails] = useState(null);
 
     useEffect(() => {
@@ -26,7 +25,7 @@ const Todos = ({ task, forceUpdate }) => {
                 insideToDos: task.insideToDos,
             });
         }
-    }, [task, forceUpdate]);
+    }, [task]);
 
     // Gestion des erreurs ou des cas où la tâche n'est pas disponible
     const hasError = !task && task !== null; // Si `task` est null (non chargé) mais pas undefined (cas d'une erreur ou d'absence de données)

@@ -92,7 +92,6 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
         fetchTasks();
     }, [token]);
 
-    // Gestion du clic sur le bouton d'édition
     const handleEditClick = (task) => {
         setSelectedTask(task);
         handleOpen();
@@ -129,7 +128,6 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
                         <div
                             key={element._id}
                             onClick={() => handleFetchDetail(element._id)}
-                            onUpdate={onUpdate}
                         >
                             <TaskMolecule
                                 taskId={element._id}
