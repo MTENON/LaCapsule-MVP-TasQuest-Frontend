@@ -11,6 +11,7 @@ import ModifHabit from "../molecules/ModifHabit";
 import DelHabits from "../molecules/delHabits";
 import PauseHabits from "../molecules/PauseHabits";
 import PopoverCustom from "../molecules/PopoverCustom";
+import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 
 const link = process.env.backLink;
 
@@ -118,7 +119,17 @@ function HabitsBox({
               desc ? desc + " — Difficulté : " + level : "Difficulté : " + level
             }
           >
-            <p className={styles.text}>{text}</p>
+            {fav ? (
+              <p className={styles.text}>
+                <Icon
+                  style={{ color: "#a50104", marginLeft: "-8%", marginRight: "8%", fontSize: 35,  }}
+                  icon="fluent-emoji-high-contrast:glowing-star"
+                />
+                {text}
+              </p>
+            ) : (
+              <p className={styles.text}> {text}</p>
+            )}
           </PopoverCustom>
         </div>
         <div className={styles.rigthBox}>
