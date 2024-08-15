@@ -116,10 +116,16 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
 
             const data = await response.json();
             if (data.result) {
-                const fetchedTasks = data.data.map((element) => {
-                    const formattedEndDate = element.endDate
-                        ? moment(element.endDate).format("DD/MM/YYYY")
-                        : null;
+                console.log(data);
+
+                const fetchedTasks = data.data?.map((element) => {
+                    const formattedEndDate = element.endDate;
+                    if (formattedEndDate !== null) {
+                        moment(element.endDate).format("YYYY-MM-DD");
+                    }
+                    // ? moment(element.endDate).format("DD/MM/YYYY")
+                    // : null;
+                    // console.log("date: ", formattedEndDate);
                     const formattedStartDate = moment(element.startDate).format(
                         "DD/MM/YYYY"
                     );
@@ -141,8 +147,10 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
                                 </p>
                                 <div style={{ width: "160px" }}>
                                     <p>Début : {formattedStartDate}</p>
-                                    {formattedEndDate && (
+                                    {formattedEndDate !== null ? (
                                         <p>Fin : {formattedEndDate}</p>
+                                    ) : (
+                                        ""
                                     )}
                                 </div>
                                 <div
@@ -216,7 +224,7 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
                 onUpdate={onUpdate}
             />
 
-            {tasks.length > 0 ? tasks : <p>Aucune tâche n'est disponible.</p>}
+            {tasks?.length > 0 ? tasks : <p>Aucune tâche n'est disponible.</p>}
         </BackgroundGrey>
     );
 };

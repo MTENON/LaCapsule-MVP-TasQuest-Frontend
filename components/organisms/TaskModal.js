@@ -14,9 +14,9 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
     const token = useSelector((state) => state.user.token);
     const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(null);
     const [description, setDescription] = useState("");
-    const [difficulty, setDifficulty] = useState(0);
+    const [difficulty, setDifficulty] = useState(1);
     const [checked, setChecked] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -24,8 +24,8 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
         if (task) {
             // console.log(task);
             setTitle(task.name || "");
-            setStartDate(new Date(task.startDate));
-            setEndDate(new Date(task.endDate));
+            task.startDate && setStartDate(new Date(task.startDate));
+            task.endDate && setEndDate(new Date(task.endDate));
             setDescription(task.description || "");
             setDifficulty(task.difficulty);
             setChecked(task.isUrgent || false);
@@ -39,9 +39,9 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
         setStartDate("");
         setEndDate("");
         setDescription("");
-        setDifficulty(0);
+        setDifficulty(1);
         setChecked(false);
-        setErrorMessage("");
+        setErrorMessage(null);
     };
 
     const handleSubmit = async () => {
@@ -51,6 +51,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
             : `${link}/tasks/new`;
 
         // console.log("Request URL:", url);
+        console.log("update => ", endDate);
 
         try {
             const response = await fetch(url, {
@@ -131,12 +132,17 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
                         sx={{
                             width: "70%",
                             margin: "40px auto",
-                            height: "500px",
+                            height: "85%",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-evenly",
                         }}
                     >
+                        {errorMessage && (
+                            <Typography color="secondary.main">
+                                {errorMessage}
+                            </Typography>
+                        )}
                         <LabeledInput
                             label="Titre"
                             labelFor="titleInput"
@@ -203,11 +209,6 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
                                 margin: 0,
                             }}
                         >
-                            {errorMessage && (
-                                <Typography color="secondary.main">
-                                    {errorMessage}
-                                </Typography>
-                            )}
                             <Typography>Niveau de difficulté</Typography>
                             <DifficultyRating
                                 variant="secondary"
