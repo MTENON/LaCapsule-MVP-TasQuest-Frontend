@@ -28,6 +28,10 @@ export const userSlice = createSlice({
       state.username = action.payload;
     },
 
+    updateCharacterName: (state, action) => {
+      state.characterName = action.payload;
+    },
+
     updateToken: (state, action) => {
       state.token = action.payload;
     },
@@ -66,6 +70,7 @@ export const userSlice = createSlice({
 export const {
   resetUserState,
   updateUsername,
+  updateCharacterName,
   updateToken,
   updateAllReducer,
   updateQuestId,

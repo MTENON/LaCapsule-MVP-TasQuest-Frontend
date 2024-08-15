@@ -4,7 +4,7 @@ import styles from "../styles/pages/settings.module.css"
 
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUsername } from "../reducers/users";
+import { updateUsername, updateCharacterName } from "../reducers/users";
 
 //Import de composants
 import TextInputs from "../components/atoms/TextInputs"
@@ -82,23 +82,6 @@ function SettingsPage() {
     //useEffect pour gérer les pattern
     useEffect(() => {
 
-        //Récupération de l'email
-        (async () => {
-            const fetchData = await fetch(`${link}/parameters/userMail`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': token
-                },
-                body: JSON.stringify({ token })
-            });
-            const data = await fetchData.json()
-
-            if (data.result) {
-                setEmail(data.data)
-            }
-        })();
-
         if (!patternUsername.test(usernameForm)) {
             setUsernameError(true);
         } else {
@@ -123,6 +106,27 @@ function SettingsPage() {
             setPasswordError(false)
         }
     }, [usernameForm, characterNameForm, emailForm, passwordForm, passwordConfirmForm])
+
+    useEffect(() => {
+
+        //Récupération de l'email
+        (async () => {
+            const fetchData = await fetch(`${link}/parameters/userMail`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': token
+                },
+                body: JSON.stringify({ token })
+            });
+            const data = await fetchData.json()
+
+            if (data.result) {
+                setEmail(data.data)
+            }
+        })();
+
+    }, [])
 
     //reducer
     const token = useSelector((state) => state.user.token)
@@ -177,6 +181,7 @@ function SettingsPage() {
                 setCharacterNamePassword("");
             } else {
                 window.alert('Le nom de votre personnage à été changé.')
+                dispatch(updateCharacterName(characterNameForm))
                 setCharacterNameForm("");
                 setCharacterNamePassword("");
             }
@@ -205,6 +210,7 @@ function SettingsPage() {
                 setEmailPassword("");
             } else {
                 window.alert('Votre email est changé.')
+                setEmail(emailForm);
                 setEmailForm("");
                 setEmailPassword("");
             }
