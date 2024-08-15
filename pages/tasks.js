@@ -4,7 +4,13 @@ import Tasks from "../components/organisms/Tasks";
 import Todos from "../components/organisms/Todos";
 import styles from "../styles/pages/tasks.module.css";
 
+import { useSelector } from "react-redux";
+
 function TasksPage() {
+
+    const data = useSelector((state) => state.user)
+    console.log(data)
+
     return (
         <>
             <Layout>
