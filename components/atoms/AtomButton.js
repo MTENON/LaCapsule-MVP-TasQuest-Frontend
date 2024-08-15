@@ -1,41 +1,44 @@
 import styles from "../../styles/atoms/AtomButton.module.css";
 import { Icon } from "@iconify-icon/react";
 
-function AtomButton({ icon, variant, handleClick, children }) {
-    const buttonStyles = {
-        primary: {
-            backgroundColor: "#a50104",
-            color: "#fcd757",
-            padding: "15px 20px",
-            borderRadius: "10px",
-            cursor: 'pointer',
-        },
-        secondary: {
-            backgroundColor: "#fcd757",
-            color: "#a50104",
-            padding: "15px 20px",
-            borderRadius: "10px",
-            cursor: 'pointer',
-        },
-        tertiary: {
-            backgroundColor: "#F0EFEF",
-            color: "#A50104",
-            padding: "15px 20px",
-            borderRadius: "10px",
-            cursor: 'pointer',
-        },
-    };
+function AtomButton({ icon, variant, handleClick, children, marginBottom }) {
+  const buttonStyles = {
+    primary: {
+      backgroundColor: "#a50104",
+      color: "#fcd757",
+      padding: "15px 20px",
+      borderRadius: "10px",
+      cursor: "pointer",
+      marginBottom,
+    },
+    secondary: {
+      backgroundColor: "#fcd757",
+      color: "#a50104",
+      padding: "15px 20px",
+      borderRadius: "10px",
+      cursor: "pointer",
+      marginBottom,
+    },
+    tertiary: {
+      backgroundColor: "#F0EFEF",
+      color: "#A50104",
+      padding: "15px 20px",
+      borderRadius: "10px",
+      cursor: "pointer",
+      marginBottom,
+    },
+  };
 
-    return (
-        <button
-            onClick={handleClick}
-            className={styles.basiqueStyle}
-            style={buttonStyles[variant]}
-        >
-            <Icon className={styles.iconSize} icon={icon} />
-            {children}
-        </button>
-    );
+  return (
+    <button
+      onClick={handleClick}
+      className={styles.basiqueStyle}
+      style={buttonStyles[variant]}
+    >
+      <Icon className={styles.iconSize} icon={icon} />
+      {children}
+    </button>
+  );
 }
 
 export default AtomButton;

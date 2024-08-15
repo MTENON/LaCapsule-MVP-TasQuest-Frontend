@@ -1,6 +1,7 @@
 .taskContainer {
     background-color: #fcd757;
     height: 70px;
+    width: 85%;
     border-radius: 20px;
     border: #a50104 1.5px solid;
     box-shadow: 0px 4px 4px 0px #00000040;

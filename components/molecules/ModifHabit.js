@@ -20,8 +20,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "65%",
-  height: "85%",
+  width: "45%",
+  height: "75%",
   overflowY: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
@@ -65,12 +65,12 @@ function ModifHabit({
 
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDate, setErrorDate] = useState(false);
-  const [errorDateShort, setErrorDateShort] = useState(false);
+  // const [errorDateShort, setErrorDateShort] = useState(false);
   const errorTitleMsg = "Votre habitude a besoin d'un nom !";
   const errorDateMsg =
     "Votre habitude a besoin d'une date de début pour commencer !";
-  const errorDateShortMsg =
-    "Votre habitude ne peut pas commencer avant aujourd'hui !";
+  // const errorDateShortMsg =
+  //   "Votre habitude ne peut pas commencer avant aujourd'hui !";
 
   const handleErrTitle = () => {
     if (title === null) {
@@ -108,18 +108,18 @@ function ModifHabit({
     setFav(fav);
     setDate(start);
     setErrorDate(false);
-    setErrorDateShort(false);
+    // setErrorDateShort(false);
   }, [resetForm]);
 
   // <=======> Fonction pour envoyer les nouvelles infos de l'habitude a la DB <=======> \\
 
   const modifyHabits = async () => {
     try {
-      const now = moment().utc().format("YYYY-MM-DD");
-      if (endDate < now) {
-        setErrorDateShort(true);
-        return;
-      }
+      // const now = moment().utc().format("YYYY-MM-DD");
+      // if (endDate < now) {
+      //   setErrorDateShort(true);
+      //   return;
+      // }
       const response = await fetch(`${link}/habits/modify`, {
         method: "POST",
         headers: {
@@ -244,11 +244,11 @@ function ModifHabit({
               {errorDate && (
                 <Typography color="secondary.main">{errorDateMsg}</Typography>
               )}
-              {errorDateShort && (
+              {/* {errorDateShort && (
                 <Typography color="secondary.main">
                   {errorDateShortMsg}
                 </Typography>
-              )}
+              )} */}
               <Box
                 sx={{
                   width: "100%",
@@ -369,6 +369,7 @@ function ModifHabit({
                 <AtomButton
                   handleClick={() => handleClose()}
                   variant="tertiary"
+                  marginBottom="3%"
                 >
                   Fermer
                 </AtomButton>
@@ -379,6 +380,7 @@ function ModifHabit({
                     handleErrDate();
                   }}
                   variant="secondary"
+                  marginBottom="3%"
                 >
                   Modifier
                 </AtomButton>

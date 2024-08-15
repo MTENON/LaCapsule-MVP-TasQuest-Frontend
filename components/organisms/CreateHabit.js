@@ -18,8 +18,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "65%",
-  height: "95%",
+  width: "45%",
+  height: "75%",
   overflowY: "scroll",
   bgcolor: "#a50104",
   border: "2px solid #000",
@@ -323,7 +323,7 @@ function CreateHabit({ refreshHabits }) {
                   width: "100%",
                   gap: "2%",
                   margin: "auto",
-                  marginBottom: "2%",
+                  marginBottom: "150px",
                   display: "flex",
                   justifyContent: "space-evenly",
                 }}
@@ -331,6 +331,7 @@ function CreateHabit({ refreshHabits }) {
                 <AtomButton
                   handleClick={() => handleClose()}
                   variant="tertiary"
+                  marginBottom="3%"
                 >
                   Fermer
                 </AtomButton>
@@ -341,6 +342,7 @@ function CreateHabit({ refreshHabits }) {
                     handleErrDate();
                   }}
                   variant="secondary"
+                  marginBottom="3%"
                 >
                   Créer
                 </AtomButton>

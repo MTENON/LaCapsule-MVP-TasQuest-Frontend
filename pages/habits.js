@@ -151,7 +151,6 @@ function HabitsPage() {
     <Layout>
       <div className={styles.content}>
         <TitleAtoms title={"Habitudes"} />
-
         <CreateHabit refreshHabits={getHabits} />
         <div className={styles.container}>
           {favHabits}
