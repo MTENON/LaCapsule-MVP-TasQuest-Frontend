@@ -338,6 +338,8 @@ function SettingsPage() {
                     >Changer le mot de passe</ButtonLarge>
                 </div>
 
+                {/* DESTRUCTION DU COMPTE */}
+
             </div>
         </Layout>
     );

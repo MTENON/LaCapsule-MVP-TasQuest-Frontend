@@ -1,4 +1,5 @@
 import styles from '../../styles/organisms/ChatBox.module.css'
+import loading from '../../styles/atoms/loader.module.css'
 
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -18,6 +19,7 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
 
     const [socket, setSocket] = useState('');
     const [message, setMessage] = useState('');
+    const [loader, setLoader] = useState(false)
     const [messagerie, setMessagerie] = useState( //FAUSSE DATA POUR MESSAGERIE DEMODAY
         [
             {
@@ -94,7 +96,7 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
         // --- SOKETS --- //
         // --- ------ --- //
 
-    }, [])
+    }, [loading])
 
     let showMessage = [];
     if (messagerie.length > 0) {
@@ -166,11 +168,22 @@ function ChatBox({ }) { //roomId à placer en props pour récupérer l'id de la 
                 <div className={styles.chatCard}>
                     {showMessage}
                 </div>
+
+
+
                 <div className={styles.inputCard}>
+                    {loader && <div className={loading.loader}></div>}
                     <TextInputs
                         value={message}
                         type="text"
-                        onChange={(e) => setMessage(e.target.value)}
+                        onChange={(e) => {
+                            setMessage(e.target.value);
+                            console.log('test')
+                            setLoader(true);
+                            setTimeout(() => {
+                                setLoader(false)
+                            }, 4000)
+                        }}
                         placeholder="placeholder"
                         width={800}
                         variant="secondaryAll"
