@@ -47,5 +47,12 @@
         "price": 110,
         "type": "Potion",
         "icon": "/potions/potion_occulte.png"
+    },
+    {
+        "name": "Saint agur",
+        "description": "Un fromage saint, puissant, symbole du travail bien fait!",
+        "price": 5,
+        "type": "Fromage",
+        "icon": "/consommables/saint_agur.png"
     }
 ]

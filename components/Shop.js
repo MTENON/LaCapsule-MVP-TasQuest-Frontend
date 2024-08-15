@@ -1,6 +1,8 @@
 import styles from "../styles/Shop.module.css"
 
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { useState } from "react";
+import { updateMoney } from "../reducers/users";
 
 //Importation d'atomes
 import Money from "../components/atoms/Money"
@@ -11,11 +13,15 @@ import ItemInventory from "./atoms/ItemInventory";
 import TitleAtoms from "./atoms/TitleAtoms";
 
 //import fake data
-const inventory = require('../assets/inventory.json')
+const inventoryData = require('../assets/inventory.json')
 const shopItems = require('../assets/shopItems.json')
 
 
 function Shop() {
+
+    const dispatch = useDispatch();
+
+    const [inventory, setInventory] = useState(inventoryData)
 
     const money = useSelector((state) => state.user.money)
 
@@ -29,6 +35,17 @@ function Shop() {
         )
     })
 
+    function addSaintAgur() {
+        setInventory([...inventory, {
+            "name": "Saint agur",
+            "description": "Un fromage saint, puissant, symbole du travail bien fait!",
+            "price": 5,
+            "type": "Fromage",
+            "icon": "/consommables/saint_agur.png"
+        }])
+        dispatch(updateMoney(money - 5))
+    }
+
     const shop = shopItems.map((data, i) => {
 
         return (
@@ -37,7 +54,7 @@ function Shop() {
                 icon={data.icon.trim()}
                 price={data.price}
                 description={data.description}
-                handleClick={() => { }}
+                handleClick={() => { addSaintAgur() }}
             />
         )
     })

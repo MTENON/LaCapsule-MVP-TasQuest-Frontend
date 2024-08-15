@@ -12,7 +12,7 @@ import PopoverCustom from './PopoverCustom'
 function CharacterPanel() {
 
     //informations du reducer
-    const username = useSelector((state) => state.user.username)
+    const characterName = useSelector((state) => state.user.characterName)
     const HP = useSelector((state) => state.user.HP)
     const XP = useSelector((state) => state.user.XP)
     const level = useSelector((state) => state.user.level)
@@ -23,7 +23,7 @@ function CharacterPanel() {
     return (
         <div className={styles.characterContainer}>
             <div className={styles.intel}>
-                <h2 style={{ fontSize: '32px' }}>{username}</h2>
+                <h2 style={{ fontSize: '32px' }}>{characterName}</h2>
                 <img
                     src='/userpic1.png'
                     alt='image de profil'
@@ -41,7 +41,7 @@ function CharacterPanel() {
                 <PopoverCustom
                     message="Plus vous travaillerez plus vous accumulerez de l'expérience. Elle vous renforcera et vous fera gagner en compétences."
                 >
-                    <XPbar XPValue={XP} maxXPValue={10 + (level * 10)} />
+                    <XPbar XPValue={XP} maxXPValue={level * 10} />
                 </PopoverCustom>
                 <h3>Niveau: {level}</h3>
             </div>
