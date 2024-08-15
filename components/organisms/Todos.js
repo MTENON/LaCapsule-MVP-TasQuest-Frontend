@@ -3,12 +3,17 @@ import moment from "moment";
 import BackgroundGrey from "../atoms/BackgroundGrey";
 import DetailTask from "../molecules/DetailTask";
 
-const Todos = ({ task }) => {
-    const [taskDetails, setTaskDetails] = useState(null);
+// Le composant Todos affiche les détails d'une tâche sélectionnée.
+// Il reçoit un prop 'task', qui contient les informations de la tâche sélectionnée.
 
+const Todos = ({ task }) => {
+    console.log("Tâche reçue dans Todos :", task);
+    const [taskDetails, setTaskDetails] = useState(null); // État local pour stocker les détails de la tâche
+
+    // useEffect pour mettre à jour les détails de la tâche lorsque la tâche est modifiée
     useEffect(() => {
         if (task) {
-            setTaskDetails({
+            const updatedTaskDetails = {
                 _id: task._id,
                 name: task.name,
                 startDate: task.startDate
@@ -23,7 +28,9 @@ const Todos = ({ task }) => {
                 IsFavorite: task.IsFavorite || false,
                 IsUrgent: task.IsUrgent || false,
                 insideToDos: task.insideToDos,
-            });
+            };
+            console.log("Détails de la tâche mis à jour :", updatedTaskDetails);
+            setTaskDetails(updatedTaskDetails);
         }
     }, [task]);
 

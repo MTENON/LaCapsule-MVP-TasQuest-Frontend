@@ -7,15 +7,20 @@ import styles from "../../styles/molecules/TaskMolecule.module.css";
 
 const link = process.env.backLink;
 
-const TaskMolecule = ({ taskId, isDone, children }) => {
-    const [checked, setChecked] = useState(isDone);
-    const [todos, setTodos] = useState([]);
-    const token = useSelector((state) => state.user.token);
+// Le composant TaskMolecule est un composant qui gère l'affichage et l'état d'une tâche, y compris la gestion
+// des "ToDos" associés et l'état de la tâche (complétée ou non).
 
+const TaskMolecule = ({ taskId, isDone, children }) => {
+    const [checked, setChecked] = useState(isDone); // État pour gérer si la tâche est marquée comme complétée
+    const [todos, setTodos] = useState([]); // État pour stocker les "ToDos" associés à la tâche
+    const token = useSelector((state) => state.user.token); // Récupération du token utilisateur depuis le store Redux
+
+    // useEffect pour mettre à jour l'état 'checked' lorsque 'isDone' change
     useEffect(() => {
         setChecked(isDone);
     }, [isDone]);
 
+    // Fonction pour gérer le changement d'état de la tâche (complétée ou non)
     const handleCheck = async () => {
         try {
             const response = await fetch(`${link}/tasks/isdone/${taskId}`, {
@@ -24,19 +29,20 @@ const TaskMolecule = ({ taskId, isDone, children }) => {
                     "Content-Type": "application/json",
                     Authorization: token,
                 },
-                body: JSON.stringify({ isDone: !checked }), // Send the toggled state
+                body: JSON.stringify({ isDone: !checked }), // Envoi de l'état inversé
             });
 
             if (!response.ok) {
                 throw new Error("Erreur lors de la mise à jour de la tâche.");
             }
 
-            setChecked((prevChecked) => !prevChecked);
+            setChecked((prevChecked) => !prevChecked); // Mise à jour de l'état local après succès
         } catch (error) {
             console.error("Erreur :", error);
         }
     };
 
+    // useEffect pour récupérer les "ToDos" associés à la tâche lorsque 'taskId' ou 'token' change
     useEffect(() => {
         const fetchTodos = async () => {
             try {
@@ -48,8 +54,8 @@ const TaskMolecule = ({ taskId, isDone, children }) => {
 
                 const data = await response.json();
                 if (data.result) {
-                    console.table(data.todos);
-                    setTodos(data.todos);
+                    console.table(data.todos); // Affichage des "ToDos" dans la console pour debug
+                    setTodos(data.todos); // Mise à jour de l'état local avec les "ToDos" récupérés
                 } else {
                     console.error(
                         "Erreur lors de la récupération des todos:",
@@ -64,18 +70,20 @@ const TaskMolecule = ({ taskId, isDone, children }) => {
             }
         };
 
-        fetchTodos();
+        fetchTodos(); // Appel de la fonction pour récupérer les "ToDos"
     }, [taskId, token]);
 
     return (
         <TaskAtom taskId={taskId} key={taskId}>
+            {" "}
+            {/* Composant TaskAtom qui enveloppe le contenu */}
             <Checkboxes
                 name="isDone"
-                handleCheck={handleCheck}
-                variant={checked ? "primaryChecked" : "primary"}
-                value={checked}
+                handleCheck={handleCheck} // Gestion du clic sur la case à cocher
+                variant={checked ? "primaryChecked" : "primary"} // Choix du style selon l'état "checked"
+                value={checked} // Valeur de la case à cocher
             />
-            {children}
+            {children} {/* Contenu passé en tant qu'enfant est rendu ici */}
         </TaskAtom>
     );
 };

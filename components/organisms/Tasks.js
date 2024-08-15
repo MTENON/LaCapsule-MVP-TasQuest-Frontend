@@ -13,34 +13,35 @@ import { Icon } from "@iconify-icon/react";
 const link = process.env.backLink;
 
 // Le composant Tasks est le composant parent qui gère la liste des tâches et contrôle l'affichage de la
-// modale TaskModal.
+// modale TaskModal et TodoModal.
 // Le composant TaskModal est un enfant, et il reçoit les props : open, handleClose,
 // task, et fetchTasks pour faire le CRUD des taches
 
 const Tasks = ({ onSelectTask, onUpdate }) => {
-    const token = useSelector((state) => state.user.token);
+    const token = useSelector((state) => state.user.token); // Récupération du token utilisateur depuis le store Redux
 
-    // Etats du composant
+    // États du composant
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState(null);
     const [selectedTask, setSelectedTask] = useState(null);
     const [open, setOpen] = useState(false);
     const [openTodoModal, setOpenTodoModal] = useState(false);
 
-    // Ouverture et fermeture de la modal
+    // Ouverture et fermeture de la modal TaskModal
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setSelectedTask(null);
         setOpen(false);
     };
-    // Ouverture et fermeture de la modal pour les ToDos
+
+    // Ouverture et fermeture de la modal TodoModal
     const handleOpenTodoModal = () => setOpenTodoModal(true);
     const handleCloseTodoModal = () => {
         setSelectedTask(null);
         setOpenTodoModal(false);
     };
 
-    // handleFetchDetail(element._id)
+    // Fonction pour récupérer les détails d'une tâche spécifique
     const handleFetchDetail = async (taskId) => {
         try {
             const response = await fetch(`${link}/tasks/${taskId}`, {
@@ -63,6 +64,7 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
         }
     };
 
+    // Fonction pour supprimer une tâche
     const handleDelete = async (taskId) => {
         try {
             const response = await fetch(`${link}/tasks/delete/${taskId}`, {
@@ -76,7 +78,7 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
 
             const data = await response.json();
             if (data.result) {
-                fetchTasks();
+                fetchTasks(); // Rafraîchissement de la liste des tâches après suppression
             } else {
                 console.error(
                     data.error || "Erreur lors de la suppression de la tâche"
@@ -86,24 +88,28 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
             console.error("Erreur lors de la suppression de la tâche:", error);
         }
     };
+
     console.log(task);
 
+    // useEffect pour récupérer les tâches au montage du composant
     useEffect(() => {
         fetchTasks();
     }, [token]);
 
+    // Fonction pour gérer l'édition d'une tâche
     const handleEditClick = (task) => {
         setSelectedTask(task);
         handleOpen();
     };
 
+    // Fonction pour ajouter un ToDo à une tâche
     const handleAddTodo = (task) => {
         console.log("Tâche sélectionnée :", task);
         setSelectedTask(task);
         handleOpenTodoModal();
     };
 
-    // Fetch des tâches
+    // Fonction pour récupérer la liste des tâches
     const fetchTasks = async () => {
         try {
             const response = await fetch(`${link}/tasks`, {
@@ -119,13 +125,10 @@ const Tasks = ({ onSelectTask, onUpdate }) => {
                 console.log(data);
 
                 const fetchedTasks = data.data?.map((element) => {
-                    const formattedEndDate = element.endDate;
-                    if (formattedEndDate !== null) {
-                        moment(element.endDate).format("YYYY-MM-DD");
-                    }
-                    // ? moment(element.endDate).format("DD/MM/YYYY")
-                    // : null;
-                    // console.log("date: ", formattedEndDate);
+                    const formattedEndDate = element.endDate
+                        ? moment(element.endDate).format("DD/MM/YYYY")
+                        : null;
+
                     const formattedStartDate = moment(element.startDate).format(
                         "DD/MM/YYYY"
                     );

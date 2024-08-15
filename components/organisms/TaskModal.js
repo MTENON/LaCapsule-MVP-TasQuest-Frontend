@@ -8,10 +8,20 @@ import AtomButton from "../atoms/AtomButton";
 import Checkboxes from "../atoms/Checkboxes";
 import DifficultyRating from "../molecules/DifficultyRating";
 
+// Props:
+// open: Boolean - détermine si la modal est ouverte ou fermée
+// handleClose: Function - fonction pour fermer la modal
+// task: Object - tâche actuelle, si elle est fournie (pour l'édition)
+// fetchTasks: Function - fonction pour récupérer les tâches mises à jour
+// onUpdate: Function - fonction appelée après la création ou la mise à jour d'une tâche
+
 const link = process.env.backLink;
 
 const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
+    // Récupération du token utilisateur depuis le store Redux
     const token = useSelector((state) => state.user.token);
+
+    // États locaux pour gérer les valeurs du formulaire
     const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(null);
@@ -20,9 +30,10 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
     const [checked, setChecked] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    // useEffect pour remplir le formulaire si une tâche est fournie
     useEffect(() => {
         if (task) {
-            // console.log(task);
+            // Mise à jour des valeurs du formulaire avec les données de la tâche
             setTitle(task.name || "");
             task.startDate && setStartDate(new Date(task.startDate));
             task.endDate && setEndDate(new Date(task.endDate));
@@ -30,10 +41,11 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
             setDifficulty(task.difficulty);
             setChecked(task.isUrgent || false);
         } else {
-            resetForm();
+            resetForm(); // Réinitialiser le formulaire si aucune tâche n'est fournie
         }
     }, [task]);
 
+    // Fonction pour réinitialiser les valeurs du formulaire
     const resetForm = () => {
         setTitle("");
         setStartDate("");
@@ -44,14 +56,17 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
         setErrorMessage(null);
     };
 
+    // Fonction pour gérer la soumission du formulaire
     const handleSubmit = async () => {
         const method = task ? "POST" : "POST";
         const url = task
             ? `${link}/tasks/update/${task._id}`
             : `${link}/tasks/new`;
 
-        // console.log("Request URL:", url);
-        console.log("update => ", endDate);
+        const startDateISO = startDate
+            ? new Date(startDate).toISOString()
+            : null;
+        const endDateISO = endDate ? new Date(endDate).toISOString() : null;
 
         try {
             const response = await fetch(url, {
@@ -63,8 +78,8 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
                 body: JSON.stringify({
                     name: title,
                     difficulty,
-                    startDate,
-                    endDate,
+                    startDate: startDateISO,
+                    endDate: endDateISO,
                     isUrgent: checked,
                     description,
                     tags: [],
@@ -74,10 +89,10 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
 
             const data = await response.json();
             if (data.result) {
-                fetchTasks();
-                onUpdate();
-                resetForm();
-                handleClose();
+                fetchTasks(); // Rafraîchir la liste des tâches après la création/mise à jour
+                onUpdate(); // Appeler la fonction de mise à jour
+                resetForm(); // Réinitialiser le formulaire
+                handleClose(); // Fermer la modal
             } else {
                 setErrorMessage(
                     data.error ||
@@ -91,6 +106,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
         }
     };
 
+    // Style de la modal
     const style = {
         position: "absolute",
         top: "50%",

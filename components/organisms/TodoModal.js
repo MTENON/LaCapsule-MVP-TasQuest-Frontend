@@ -8,12 +8,17 @@ import AtomButton from "../atoms/AtomButton";
 
 const link = process.env.backLink;
 
-const TodoModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
-    const token = useSelector((state) => state.user.token);
+// Le composant TodoModal est une modal permettant d'ajouter une nouvelle tâche ("ToDo") à une tâche existante.
+// Il reçoit les props : open, handleClose, task, fetchTasks, et onUpdate.
 
+const TodoModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
+    const token = useSelector((state) => state.user.token); // Récupération du token utilisateur depuis le store Redux
+
+    // États locaux pour gérer les valeurs du formulaire
     const [toDo, setToDo] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    // Fonction pour gérer la soumission du formulaire
     const handleSubmit = async () => {
         if (!task || !task._id) {
             setErrorMessage("La tâche est introuvable ou non valide.");
@@ -21,6 +26,7 @@ const TodoModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
         }
 
         try {
+            // Envoi de la requête à l'API pour ajouter une nouvelle ToDo
             const response = await fetch(`${link}/tasks/todo/${task._id}/new`, {
                 method: "POST",
                 headers: {
@@ -32,10 +38,10 @@ const TodoModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
 
             const data = await response.json();
             if (data.result) {
-                fetchTasks();
-                onUpdate();
-                handleClose();
-                resetForm();
+                fetchTasks(); // Rafraîchir la liste des tâches après l'ajout de la ToDo
+                onUpdate(); // Appeler la fonction de mise à jour
+                handleClose(); // Fermer la modal
+                resetForm(); // Réinitialiser le formulaire
             } else {
                 setErrorMessage(
                     data.error || "Erreur lors de l'ajout de la ToDo."
@@ -47,11 +53,13 @@ const TodoModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
         }
     };
 
+    // Fonction pour réinitialiser les valeurs du formulaire
     const resetForm = () => {
         setToDo("");
         setErrorMessage("");
     };
 
+    // Style de la modal
     const style = {
         position: "absolute",
         top: "50%",
