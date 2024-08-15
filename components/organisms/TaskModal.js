@@ -14,7 +14,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
     const token = useSelector((state) => state.user.token);
     const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(null);
     const [description, setDescription] = useState("");
     const [difficulty, setDifficulty] = useState(1);
     const [checked, setChecked] = useState(false);
@@ -24,8 +24,8 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
         if (task) {
             // console.log(task);
             setTitle(task.name || "");
-            setStartDate(new Date(task.startDate));
-            setEndDate(new Date(task.endDate));
+            task.startDate && setStartDate(new Date(task.startDate));
+            task.endDate && setEndDate(new Date(task.endDate));
             setDescription(task.description || "");
             setDifficulty(task.difficulty);
             setChecked(task.isUrgent || false);
@@ -51,6 +51,7 @@ const TaskModal = ({ open, handleClose, task, fetchTasks, onUpdate }) => {
             : `${link}/tasks/new`;
 
         // console.log("Request URL:", url);
+        console.log("update => ", endDate);
 
         try {
             const response = await fetch(url, {
