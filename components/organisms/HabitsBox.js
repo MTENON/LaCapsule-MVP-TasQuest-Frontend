@@ -12,6 +12,7 @@ import DelHabits from "../molecules/delHabits";
 import PauseHabits from "../molecules/PauseHabits";
 import PopoverCustom from "../molecules/PopoverCustom";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { MenuItem } from "@mui/material";
 
 const link = process.env.backLink;
 
@@ -37,14 +38,6 @@ function HabitsBox({
   const dispatch = useDispatch();
 
   const [refreshDrop, setRefreshDrop] = useState(false);
-
-  // <=======> Gestion du statut de l'habitude <=======> \\
-
-  const [doneStatus, setDoneStatus] = useState(false);
-
-  useEffect(() => {
-    setDoneStatus(isDone);
-  }, []);
 
   // <=======> Gestion du menu deroulant <=======> \\
   const [anchorEl, setAnchorEl] = useState(null);
@@ -96,9 +89,35 @@ function HabitsBox({
         console.log(data.message);
         throw new Error("Erreur lors de la modification de l'habitude");
       }
-      setDoneStatus(!doneStatus);
+
+      refreshHabits();
       dispatch(updateMoney(data.money));
       dispatch(updateXP(data.XP));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleFav = async () => {
+    try {
+      const response = await fetch(`${link}/habits/like`, {
+        method: "POST",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          taskId: taskId,
+        }),
+      });
+      const data = await response.json();
+      if (!data.result) {
+        console.log(data.message);
+        throw new Error("Erreur lors de la modification de l'habitude");
+      }
+      refreshHabits();
+      handleClose();
+      console.log(data.message);
     } catch (error) {
       console.log(error.message);
     }
@@ -111,8 +130,8 @@ function HabitsBox({
           <Checkboxes
             name={name}
             handleCheck={handleDone}
-            variant={doneStatus ? "primaryChecked" : "primary"}
-            value={doneStatus}
+            variant={isDone ? "primaryChecked" : "primary"}
+            value={isDone}
           />
           <PopoverCustom
             message={
@@ -122,7 +141,12 @@ function HabitsBox({
             {fav ? (
               <p className={styles.text}>
                 <Icon
-                  style={{ color: "#a50104", marginLeft: "-8%", marginRight: "8%", fontSize: 35,  }}
+                  style={{
+                    color: "#a50104",
+                    marginLeft: "-8%",
+                    marginRight: "8%",
+                    fontSize: 35,
+                  }}
                   icon="fluent-emoji-high-contrast:glowing-star"
                 />
                 {text}
@@ -198,6 +222,7 @@ function HabitsBox({
               start={start}
               refreshHabits={refreshHabits}
               dropdown={handleDrop}
+              handleFav={handleFav}
             />
             {/* Gestion de la pause d'habitude */}
             <PauseHabits
@@ -205,7 +230,9 @@ function HabitsBox({
               pause={pause}
               refreshHabits={refreshHabits}
               dropdown={handleDrop} // handleDrop ?
-            />
+              />
+              {/* Gestion de la mise en favoris d'habitude */}
+            <MenuItem onClick={handleFav}>Favoris</MenuItem>
             {/* Gestion de la suppresion d'habitude */}
             <DelHabits
               taskId={taskId}

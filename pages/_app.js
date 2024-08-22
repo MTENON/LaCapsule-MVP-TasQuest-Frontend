@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/users";
 import inventory from "../reducers/inventory";
+import habits from "../reducers/habits";
 
 // --- Importation persistance redux --- //
 import { persistStore, persistReducer } from "redux-persist";
@@ -18,12 +19,12 @@ import theme from "../theme/index";
 
 // --- Store configuration --- //
 
-const reducers = combineReducers({ user, inventory });
+const reducers = combineReducers({ user, inventory, habits });
 
 const persistConfig = {
   key: "tasquest",
-  blacklist: ['inventory'],
-  storage
+  blacklist: ["inventory"],
+  storage,
 };
 
 const store = configureStore({

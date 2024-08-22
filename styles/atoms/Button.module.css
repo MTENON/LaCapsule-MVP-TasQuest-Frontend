@@ -1,50 +1,52 @@
-.iconSize{
-    font-size: 30px;
+.iconSize {
+  font-size: 30px;
 }
 
 .iconSizeM {
-    font-size: 55px;
+  font-size: 55px;
 }
 
 .basiqueStyle {
-    width: 44px;
-    height: 44px;
-    border-radius: 15px;
-    cursor: pointer;
-    margin: 2px;
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 2px;
 }
 
 .basiqueStyleEmpty {
-    height: 44px;
-    width: 44px;
-    border-radius: 15px;
-    cursor: pointer;
-    margin: 2px;
+  height: 44px;
+  width: 44px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 2px;
 }
 
 .circleMsize {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    cursor: pointer;
-    margin: 2px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  cursor: pointer;
+  margin: 2px;
 }
 
-.diamond{
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    transform: rotate(45deg);
-    cursor: pointer;
-    margin : 10px;
+.diamond {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  transform: rotate(45deg);
+  cursor: pointer;
+  margin: 10px;
+  z-index: 0;
+  position: relative;
 }
 
-.large{
-    width: 129px;
-    height: 57px;
-    padding: 14, 20;
-    border-radius: 15px;
-    gap: 10px;
-    cursor: pointer;
-    margin: 2px;
+.large {
+  width: 129px;
+  height: 57px;
+  padding: 14, 20;
+  border-radius: 15px;
+  gap: 10px;
+  cursor: pointer;
+  margin: 2px;
 }

@@ -1,4 +1,5 @@
 .notificationBoxContainer {
+    z-index: 1;
     height: 40px;
     width: 280px;
     margin: 0;

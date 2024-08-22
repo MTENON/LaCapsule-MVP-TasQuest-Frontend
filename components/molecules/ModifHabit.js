@@ -45,6 +45,7 @@ function ModifHabit({
   start,
   refreshHabits,
   dropdown,
+  handleFav,
 }) {
   const token = useSelector((state) => state.user.token);
 
@@ -53,24 +54,24 @@ function ModifHabit({
   // <=======> Gestion des information envoyer par les inputs <=======> \\
 
   const [favorite, setFav] = useState(fav);
-  const [title, setTitle] = useState(null);
-  const [label, setLabel] = useState(null);
+  const [title, setTitle] = useState("");
+  const [label, setLabel] = useState("");
   const [num, setNum] = useState(1);
   const [difficulty, setDifficulty] = useState(0);
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(start);
   const [resetForm, setResetForm] = useState(false);
 
   // <=======> Gestion des erreurs envoyer par les inputs <=======> \\
 
   const [errorTitle, setErrorTitle] = useState(false);
   const [errorDate, setErrorDate] = useState(false);
-  // const [errorDateShort, setErrorDateShort] = useState(false);
+  const [errorDateShort, setErrorDateShort] = useState(false);
   const errorTitleMsg = "Votre habitude a besoin d'un nom !";
   const errorDateMsg =
     "Votre habitude a besoin d'une date de début pour commencer !";
-  // const errorDateShortMsg =
-  //   "Votre habitude ne peut pas commencer avant aujourd'hui !";
+  const errorDateShortMsg =
+    "Votre habitude ne peut pas commencer avant aujourd'hui !";
 
   const handleErrTitle = () => {
     if (title === null) {
@@ -108,7 +109,7 @@ function ModifHabit({
     setFav(fav);
     setDate(moment(start).utc().format("YYYY-MM-DD"));
     setErrorDate(false);
-    // setErrorDateShort(false);
+    setErrorDateShort(false);
   }, [resetForm]);
 
   console.log(start);
@@ -117,11 +118,11 @@ function ModifHabit({
 
   const modifyHabits = async () => {
     try {
-      // const now = moment().utc().format("YYYY-MM-DD");
-      // if (endDate < now) {
-      //   setErrorDateShort(true);
-      //   return;
-      // }
+      const now = moment().utc().format("YYYY-MM-DD");
+      if (date < now) {
+        setErrorDateShort(true);
+        return;
+      }
       const response = await fetch(`${link}/habits/modify`, {
         method: "POST",
         headers: {
@@ -156,28 +157,9 @@ function ModifHabit({
 
   // <=======> Fonction pour gérer la mise en favoris de l'habitude <=======> \\
 
-  const handleFav = async () => {
-    try {
-      const response = await fetch(`${link}/habits/like`, {
-        method: "POST",
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          taskId: taskId,
-        }),
-      });
-      const data = await response.json();
-      if (!data.result) {
-        console.log(data.message);
-        throw new Error("Erreur lors de la modification de l'habitude");
-      }
-      setFav(!favorite);
-      console.log(data.message);
-    } catch (error) {
-      console.log(error.message);
-    }
+  const handleFavCheck = async () => {
+    handleFav();
+    setFav(!favorite);
   };
 
   return (
@@ -246,11 +228,11 @@ function ModifHabit({
               {errorDate && (
                 <Typography color="secondary.main">{errorDateMsg}</Typography>
               )}
-              {/* {errorDateShort && (
+              {errorDateShort && (
                 <Typography color="secondary.main">
                   {errorDateShortMsg}
                 </Typography>
-              )} */}
+              )}
               <Box
                 sx={{
                   width: "100%",
@@ -337,7 +319,7 @@ function ModifHabit({
                 <Typography>Favori</Typography>
                 <Checkboxes
                   name="isFavoris"
-                  handleCheck={handleFav}
+                  handleCheck={handleFavCheck}
                   value={favorite}
                   variant={favorite ? "secondaryChecked" : "secondary"}
                 />
