@@ -4,12 +4,12 @@ import { updateHabitData } from "../reducers/habits";
 import {
   unvalidHabits,
   validHabits,
-} from "../renov/functionsHabit/refreshHabits";
+} from "../components/functionsHabit/refreshHabits";
 import styles from "../styles/pages/habits.module.css";
 import Layout from "../components/layouts/Layout";
 import TitleAtoms from "../components/atoms/TitleAtoms";
 import CreateHabit from "../components/organisms/CreateHabit";
-import Habit from "../renov/Habit";
+import Habit from "../components/Habit";
 
 const link = process.env.backLink;
 

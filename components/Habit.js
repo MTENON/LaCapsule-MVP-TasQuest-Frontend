@@ -1,9 +1,7 @@
 import styles from "../styles/Habit.module.css";
 import { useSelector } from "react-redux";
-import HabitsBox from "../components/organisms/HabitsBox";
+import HabitsBox from "./organisms/HabitsBox";
 import { translate } from "./functionsHabit/translate";
-
-
 
 function Habit({ refreshHabits }) {
   const habitsData = useSelector((state) => state.habits.habitData);
