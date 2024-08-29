@@ -4,7 +4,7 @@ import { updateHabitData } from "../reducers/habits";
 import {
   unvalidHabits,
   validHabits,
-} from "../components/functionsHabit/refreshHabits";
+} from "../assets/functionsHabit/refreshHabits";
 import styles from "../styles/pages/habits.module.css";
 import Layout from "../components/layouts/Layout";
 import TitleAtoms from "../components/atoms/TitleAtoms";
